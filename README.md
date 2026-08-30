@@ -8,11 +8,11 @@ A redesign proposal for [omarchy.org](https://omarchy.org) — the homepage as a
 
 The page *is* an Omarchy desktop:
 
-- A waybar-style top bar — workspaces `1`–`3` anchor the sections, live clock, theme module.
-- Content tiled as windows with focus-follows-mouse borders, each titled by the command that would produce it (`❯ fastfetch`, `❯ ls community/`, `❯ cat SUPPORT.md`).
+- A waybar-style top bar — workspaces `1`–`4` anchor the sections, live clock, theme module.
+- Content tiled as windows with focus-follows-mouse borders, each titled by the command that would produce it (`❯ fastfetch`, `❯ ls community/`, `❯ cat 07-hotkeys.md`).
 - The ASCII wordmark rendered on canvas: it decrypts on load, scrambles under the cursor, and carries the original logo gradient — re-derived from the active theme's tokens.
-- `t` cycles through eight real Omarchy themes, palettes mapped 1:1 from `themes/*/colors.toml` in the [omarchy repo](https://github.com/omacom/omarchy) — including the light Rosé Pine Dawn. The choice persists.
-- Videos open in a floating mpv-style window (native `<dialog>`).
+- All 20 themes from the [omarchy repo](https://github.com/omacom/omarchy), palettes mapped 1:1 from `themes/*/colors.toml` — pick one in the gallery or cycle with `t`. The choice persists.
+- A feature bento built from the manual's own chapters, and videos in a floating mpv-style window (native `<dialog>`).
 
 One static file. No framework, no runtime dependencies — fonts, thumbnails, favicon and web manifest are inlined; the page works offline.
 
