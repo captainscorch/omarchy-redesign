@@ -256,12 +256,13 @@
     padding: 0 5px;
   }
   .bar__search-burger { display: none; }
+  .bar__search-burger svg { display: block; width: 16px; height: 16px; }
   .bar__clock { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
   @media (max-width: 640px) {
     .bar { padding-block: 10px; padding-top: calc(10px + env(safe-area-inset-top)); }
     .bar__title { display: none; }
     .bar__search-label, .bar__search kbd { display: none; }
-    .bar__search-burger { display: block; }
+    .bar__search-burger { display: flex; }
     /* the theme button shrinks to its color dot, targets grow to thumb size */
     #theme-name, .bar__theme kbd { display: none; }
     .bar__theme, .bar__search { min-height: 34px; min-width: 42px; justify-content: center; }
@@ -513,6 +514,8 @@
   .foot p { margin: 0; max-width: none; }
   .foot a { color: var(--fg); text-decoration: none; }
   .foot a:hover { color: var(--accent-2); }
+  /* only the bar gets air to the screen edge; windows stay near-borderless */
+  @media (max-width: 640px) { .bar { padding-inline: 14px; } }
   .foot svg { height: 1.05em; width: auto; fill: currentColor; vertical-align: -0.14em; }
   .foot .cf-mark svg { height: 1.2em; vertical-align: -0.28em; }
   .foot__legal { font-size: 0.6875rem; }
@@ -543,7 +546,7 @@
   <p class="bar__title"><strong>omarchy</strong> 4.0.1 — the brand</p>
   <div class="bar__right">
     <button class="bar__search" type="button" data-search-open aria-label="Search and navigate">
-      <span class="bar__search-burger" aria-hidden="true">☰</span><span class="bar__search-label">search</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
+      <span class="bar__search-burger" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3.5h14M1 8h14M1 12.5h14"/></svg></span><span class="bar__search-label">search</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
     </button>
     <button class="bar__theme" id="theme-btn" type="button" aria-label="Cycle theme">
       <span class="dot" aria-hidden="true"></span><span id="theme-name">tokyo-night</span><kbd aria-hidden="true">t</kbd>
