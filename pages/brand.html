@@ -1,0 +1,45 @@
+<!--css
+  .preview {
+    display: grid; place-items: center;
+    background: var(--desktop);
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 32px; margin-bottom: 16px;
+    transition: background 0.25s ease;
+  }
+  .preview img { max-width: 100%; height: auto; }
+  .preview--wordmark img { width: min(680px, 100%); }
+  .preview--logo img { width: 160px; }
+-->
+<div class="desktop">
+  <h1>The Omarchy Brand</h1>
+
+  <section class="win" aria-label="Wordmark">
+    <p class="win__title">open omarchy-wordmark.svg</p>
+    <div class="preview preview--wordmark">
+      <img src="omarchy-wordmark.svg" alt="OMARCHY wordmark" width="4131" height="950">
+    </div>
+    <div class="ls">
+      <a href="omarchy-wordmark.svg" download><span class="mode">-rw-r--r--</span><span class="name">omarchy-wordmark.svg</span><span class="hint">vector</span></a>
+      <a href="omarchy-wordmark.png" download><span class="mode">-rw-r--r--</span><span class="name">omarchy-wordmark.png</span><span class="hint">4096&thinsp;px</span></a>
+    </div>
+  </section>
+
+  <div class="row">
+    <section class="win" aria-label="Logo">
+      <p class="win__title">open omarchy-logo.svg</p>
+      <div class="preview preview--logo">
+        <img src="omarchy-logo.svg" alt="Omarchy logo" width="1200" height="1200">
+      </div>
+      <div class="ls">
+        <a href="omarchy-logo.svg" download><span class="mode">-rw-r--r--</span><span class="name">omarchy-logo.svg</span><span class="hint">vector</span></a>
+        <a href="omarchy-logo.png" download><span class="mode">-rw-r--r--</span><span class="name">omarchy-logo.png</span><span class="hint">4096&thinsp;px</span></a>
+      </div>
+    </section>
+
+    <section class="win" aria-label="Trademark">
+      <div class="win__head"><p class="win__title">cat TRADEMARK</p><a class="arrow" href="/">cd ~</a></div>
+      <p>Omarchy is a pending trademark. All rights reserved.</p>
+      <p>Write <a href="mailto:david@omarchy.org">david@omarchy.org</a> for partnerships.</p>
+    </section>
+  </div>
+</div>

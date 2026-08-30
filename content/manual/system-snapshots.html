@@ -1,0 +1,29 @@
+<p>We create snapshots automatically on every Omarchy update, but should you want to create your own, you can use <code>omarchy-snapshot create</code>.</p>
+
+<p>To boot and restore a snapshot, you select it from the Limine boot loader. (If you’re currently booting straight into the Omarchy decryption screen, you’ll need to select Limine as a boot option via the BIOS first).</p>
+
+<p>From that screen, choose the snapshot you’d like to boot into based on the date and version. The version of Omarchy at the time of the snapshot can be seen at the bottom left corner.</p>
+
+<p><img src="/assets/img/manual/snapshots-bootloader.webp" alt="snapshots-bootloader" /></p>
+
+<p>When you arrive inside, a notification will popup notifying you that you’re in a bootable snapshot and if you click it, will start the restoration process. Alternatively, you can utilize <code>omarchy-snapshot restore</code>.</p>
+
+<p><img src="/assets/img/manual/snapshots-restore.webp" alt="snapshots-restore" /></p>
+
+<p>This will restore your root filesystem, but not your <code>/home</code>. So it works for reverting a broken system update, but not for recovering lost personal files.</p>
+
+<p>This also means that your <code>~/.config</code> directory is kept as-is. So if you’re rolling back to an earlier version of a library or application that stores configuration files in a new format, you’ll have to sort that out manually.</p>
+
+<p><em>Note: This feature is only available on installations using the Limine boot loader, which has been the default since Omarchy 2.0. It’s not available if you’re on GRUB or systemd-boot.</em></p>
+
+<h3 id="skipping-the-boot-menu">Skipping the boot menu <a class="manual__heading-link" href="#skipping-the-boot-menu" aria-label="Link to this section">#</a></h3>
+
+<p>If you never touch the boot menu and just want the machine to go straight to the decryption screen, run <em>Setup &gt; Direct Boot</em> in the Omarchy menu. That adds an EFI entry pointing directly at Omarchy, so the firmware boots it without stopping at Limine.</p>
+
+<p>The trade-off is the one mentioned at the top: with direct boot on, getting to a snapshot means picking Limine from your BIOS boot menu first. Run <em>Setup &gt; Direct Boot</em> again to remove the entry and go back to booting through Limine. Some firmware doesn’t take kindly to custom EFI entries, so the setup refuses to run on American Megatrends and Apple firmware.</p>
+
+      <nav class="manual__pagination">
+        <a class="manual__pagination-previous" href="/manual/faq/" rel="prev">← FAQ</a>
+        <a class="manual__pagination-contents" href="/manual/toc/">Table of Contents</a>
+        <a class="manual__pagination-next" href="/manual/security/" rel="next">Security →</a>
+      </nav>

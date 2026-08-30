@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no">
+<title>Toggles, Idle &amp; the Screensaver — The Omarchy Manual</title>
+<meta name="author" content="Daniel Schmier — captainscor.ch">
+<meta name="description" content="The Omarchy manual: Toggles, Idle &amp; the Screensaver.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://omarchy.captainscor.ch/manual/toggles-idle-screensaver/">
+<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB5fY51AAAACXBIWXMAAAsTAAALEwEAmpwYAAABaWlDQ1BEaXNwbGF5IFAzAAB4nHWQvUvDUBTFT6tS0DqIDh0cMolD1NIKdnFoKxRFMFQFq1OafgltfCQpUnETVyn4H1jBWXCwiFRwcXAQRAcR3Zw6KbhoeN6XVNoi3sfl/Ticc7lcwBtQGSv2AijplpFMxKS11Lrke4OHnlOqZrKooiwK/v276/PR9d5PiFlNu3YQ2U9cl84ul3aeAlN//V3Vn8maGv3f1EGNGRbgkYmVbYsJ3iUeMWgp4qrgvMvHgtMunzuelWSc+JZY0gpqhrhJLKc79HwHl4plrbWD2N6f1VeXxRzqUcxhEyYYilBRgQQF4X/8044/ji1yV2BQLo8CLMpESRETssTz0KFhEjJxCEHqkLhz634PrfvJbW3vFZhtcM4v2tpCAzidoZPV29p4BBgaAG7qTDVUR+qh9uZywPsJMJgChu8os2HmwiF3e38M6Hvh/GMM8B0CdpXzryPO7RqFn4Er/QcXKWq8MSlPPgAABFBJREFUeAHt3cGNwkAQBdHxiogIiSMBcSQkUvKeNgCkXuEy76XgUalP39vzdd8XQMDPAogQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CAjMsadrs+tsVpTf8DwHs5t+n34sICMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBjfNN92vQmNHzS0d/z0Tf2XVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQcftN92tE3qzm36ff3bf88cGEBGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpBxWcOer/u+AP6BCwvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgIzxTffb9bGtQTbigT8uLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMi7ryzxf930BSS4sIEOwgAzBAjIEC8gQLCBDsIAMwQIyBAvIECwgQ7CADMECMgQLyBAsIEOwgAzBAjIEC8gQLCBDsIAMwQIyDr/pfrs+tsVhTG/i+768w4UFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWEDG+Kb79OY3vMP7OzcXFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGb//yi28Mbbd4QAAAABJRU5ErkJggg==">
+<meta name="theme-color" content="#13141c" id="theme-color">
+<meta property="og:site_name" content="Omarchy">
+<meta property="og:title" content="Toggles, Idle &amp; the Screensaver — The Omarchy Manual">
+<meta property="og:description" content="The Omarchy manual: Toggles, Idle &amp; the Screensaver.">
+<meta property="og:url" content="https://omarchy.captainscor.ch/manual/toggles-idle-screensaver/">
+<meta property="og:image" content="https://omarchy.captainscor.ch/assets/opengraph.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Light.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Regular.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Medium.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Bold.woff2) format('woff2')}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/JetBrainsMono-ExtraBold.woff2) format('woff2')}
+</style>
+<style>
+/* ================= Omarchy theme tokens ================= */
+  :root {
+    --desktop: #13141c;
+    --win: #1a1b26;
+    --surface: #24283b;
+    --border: rgba(65, 72, 104, 0.75);
+    --fg: #c0caf5;
+    --muted: #565f89;
+    --accent: #7aa2f7;
+    --accent-2: #7dcfff;
+    --hover: #b4f9f8;
+    --ok: #9ece6a;
+    --warn: #e0af68;
+    --err: #f7768e;
+    --mag: #bb9af7;
+
+    --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.9375rem;
+    --text-lg: 1.25rem;
+    --text-xl: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    --gap: clamp(8px, 1.2vw, 14px);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* All palettes below map 1:1 from themes/<name>/colors.toml in the Omarchy
+     repo: desktop=dark_background, win=background, surface=lighter_background,
+     border=muted, muted=dark_foreground (light_foreground where dark_ is
+     unreadable), accent=accent, accent-2=cyan, hover=bright_cyan.
+     tokyo-night keeps the website's own bright_foreground text and turquoise
+     hover from omarchy.org's root.css. */
+  html[data-theme="catppuccin"] {
+    --desktop: #161622; --win: #1e1e2e; --surface: #313244;
+    --border: rgba(88, 91, 112, 0.85);
+    --fg: #cdd6f4; --muted: #6c7086;
+    --accent: #89b4fa; --accent-2: #94e2d5; --hover: #94e2d5;
+    --ok: #a6e3a1; --warn: #f9e2af; --err: #f38ba8; --mag: #f5c2e7;
+  }
+  html[data-theme="gruvbox"] {
+    --desktop: #1e1e1e; --win: #282828; --surface: #3c3836;
+    --border: rgba(102, 92, 84, 0.9);
+    --fg: #d4be98; --muted: #7c6f64;
+    --accent: #7daea3; --accent-2: #89b482; --hover: #89b482;
+    --ok: #a9b665; --warn: #d8a657; --err: #ea6962; --mag: #d3869b;
+  }
+  html[data-theme="nord"] {
+    --desktop: #222730; --win: #2e3440; --surface: #3b4252;
+    --border: rgba(76, 86, 106, 0.9);
+    --fg: #d8dee9; --muted: #667080;
+    --accent: #81a1c1; --accent-2: #88c0d0; --hover: #8fbcbb;
+    --ok: #a3be8c; --warn: #ebcb8b; --err: #bf616a; --mag: #b48ead;
+  }
+  html[data-theme="everforest"] {
+    --desktop: #21272c; --win: #2d353b; --surface: #343f44;
+    --border: rgba(71, 82, 88, 0.9);
+    --fg: #d3c6aa; --muted: #9da9a0;
+    --accent: #7fbbb3; --accent-2: #83c092; --hover: #83c092;
+    --ok: #a7c080; --warn: #dbbc7f; --err: #e67e80; --mag: #d699b6;
+  }
+  /* Omarchy's rose-pine is the light Dawn variant */
+  html[data-theme="rose-pine"] {
+    --desktop: #ede7e1; --win: #faf4ed; --surface: #f2e9e1;
+    --border: rgba(206, 202, 205, 1);
+    --fg: #575279; --muted: #9893a5;
+    --accent: #56949f; --accent-2: #d7827e; --hover: #d7827e;
+    --ok: #286983; --warn: #ea9d34; --err: #b4637a; --mag: #907aa9;
+  }
+  html[data-theme="kanagawa"] {
+    --desktop: #17171e; --win: #1f1f28; --surface: #223249;
+    --border: rgba(84, 84, 109, 0.9);
+    --fg: #dcd7ba; --muted: #727169;
+    --accent: #dcd7ba; --accent-2: #7e9cd8; --hover: #7aa89f;
+    --ok: #98bb6c; --warn: #e6c384; --err: #c34043; --mag: #957fb8;
+  }
+  html[data-theme="matte-black"] {
+    --desktop: #0d0d0d; --win: #121212; --surface: #1e1e1e;
+    --border: rgba(51, 51, 51, 0.95);
+    --fg: #bebebe; --muted: #8a8a8d;
+    --accent: #e68e0d; --accent-2: #f59e0b; --hover: #eaeaea;
+    --ok: #ffc107; --warn: #ffc107; --err: #d35f5f; --mag: #d35f5f;
+  }
+  html[data-theme="catppuccin-latte"] {
+    --desktop: #e3e4e8; --win: #eff1f5; --surface: #dce0e8;
+    --border: rgba(172, 176, 190, 1);
+    --fg: #4c4f69; --muted: #9ca0b0;
+    --accent: #1e66f5; --accent-2: #179299; --hover: #179299;
+    --ok: #40a02b; --warn: #df8e1d; --err: #d20f39; --mag: #ea76cb;
+  }
+  html[data-theme="ethereal"] {
+    --desktop: #040816; --win: #060b1e; --surface: #131a3a;
+    --border: rgba(109, 125, 182, 0.45);
+    --fg: #ffcead; --muted: #6d7db6;
+    --accent: #7d82d9; --accent-2: #a3bfd1; --hover: #dfeaf0;
+    --ok: #c4cfc4; --warn: #f7dc9c; --err: #ed5b5a; --mag: #c89dc1;
+  }
+  html[data-theme="flexoki-light"] {
+    --desktop: #f2efe4; --win: #fffcf0; --surface: #e6e4d9;
+    --border: rgba(183, 181, 172, 1);
+    --fg: #100f0f; --muted: #878580;
+    --accent: #205ea6; --accent-2: #3aa99f; --hover: #3aa99f;
+    --ok: #879a39; --warn: #d0a215; --err: #d14d41; --mag: #ce5d97;
+  }
+  html[data-theme="hackerman"] {
+    --desktop: #080910; --win: #0b0c16; --surface: #151828;
+    --border: rgba(45, 52, 80, 0.95);
+    --fg: #ddf7ff; --muted: #6a6e95;
+    --accent: #82fb9c; --accent-2: #7cf8f7; --hover: #d1fffe;
+    --ok: #9cf7c2; --warn: #a4ffec; --err: #50f872; --mag: #86a7df;
+  }
+  html[data-theme="last-horizon"] {
+    --desktop: #090809; --win: #0c0b0c; --surface: #584e51;
+    --border: rgba(88, 78, 81, 0.9);
+    --fg: #fafcfb; --muted: #584e51;
+    --accent: #b59790; --accent-2: #a5a0b6; --hover: #a5a0b6;
+    --ok: #87a9b0; --warn: #6b5e73; --err: #c38b7b; --mag: #c4d8e2;
+  }
+  html[data-theme="lumon"] {
+    --desktop: #101b21; --win: #16242d; --surface: #1b2d40;
+    --border: rgba(48, 72, 96, 0.9);
+    --fg: #d6e2ee; --muted: #4d86b0;
+    --accent: #8bc9eb; --accent-2: #b4e4f6; --hover: #d1eef8;
+    --ok: #86b7d8; --warn: #9dcae5; --err: #4d86b0; --mag: #8bc9eb;
+  }
+  html[data-theme="lupine"] {
+    --desktop: #ececec; --win: #fafafa; --surface: #f5f5f5;
+    --border: rgba(158, 158, 158, 1);
+    --fg: #212121; --muted: #757575;
+    --accent: #3264eb; --accent-2: #0c67de; --hover: #3986ff;
+    --ok: #4a2fd0; --warn: #026fde; --err: #c900c4; --mag: #8a4ad7;
+  }
+  html[data-theme="miasma"] {
+    --desktop: #191919; --win: #222222; --surface: #2c2c2c;
+    --border: rgba(102, 102, 102, 0.6);
+    --fg: #c2c2b0; --muted: #8a8a7e;
+    --accent: #78824b; --accent-2: #c9a554; --hover: #c9a554;
+    --ok: #5f875f; --warn: #b36d43; --err: #685742; --mag: #bb7744;
+  }
+  html[data-theme="osaka-jade"] {
+    --desktop: #0c1512; --win: #111c18; --surface: #23372b;
+    --border: rgba(83, 104, 91, 0.9);
+    --fg: #c1c497; --muted: #81b8a8;
+    --accent: #509475; --accent-2: #2dd5b7; --hover: #8cd3cb;
+    --ok: #63b07a; --warn: #e5c736; --err: #ff5345; --mag: #d2689c;
+  }
+  html[data-theme="retro-82"] {
+    --desktop: #031222; --win: #05182e; --surface: #0a2540;
+    --border: rgba(42, 107, 120, 0.9);
+    --fg: #f6dcac; --muted: #3f8f8a;
+    --accent: #faa968; --accent-2: #8cbfb8; --hover: #8cbfb8;
+    --ok: #028391; --warn: #e97b3c; --err: #f85525; --mag: #3f8f8a;
+  }
+  html[data-theme="ristretto"] {
+    --desktop: #211b1b; --win: #2c2525; --surface: #3d2f2a;
+    --border: rgba(114, 105, 106, 0.9);
+    --fg: #e6d9db; --muted: #72696a;
+    --accent: #f38d70; --accent-2: #85dacc; --hover: #9bf1e1;
+    --ok: #c8e292; --warn: #fcd675; --err: #fd6883; --mag: #a8a9eb;
+  }
+  html[data-theme="solitude"] {
+    --desktop: #0c0e10; --win: #101315; --surface: #343d41;
+    --border: rgba(75, 78, 85, 0.9);
+    --fg: #cacccc; --muted: #4b4e55;
+    --accent: #798186; --accent-2: #707070; --hover: #c9c2b4;
+    --ok: #9fa5a9; --warn: #d9dbdc; --err: #565d60; --mag: #aeaeae;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--desktop); }
+  body {
+    margin: 0; min-height: 100vh;
+    background: var(--desktop); color: var(--fg);
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.9375rem; line-height: 1.55;
+    transition: background 0.25s ease;
+  }
+  ::selection { background: var(--accent); color: var(--win); }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; border-radius: 2px; }
+
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: 16px;
+    padding: 6px clamp(8px, 1.2vw, 14px);
+    padding-top: calc(6px + env(safe-area-inset-top));
+    background: color-mix(in oklab, var(--desktop) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8125rem;
+    transition: background 0.25s ease;
+  }
+  .bar__logo { display: flex; align-items: center; color: var(--accent); text-decoration: none; transition: color 0.15s; }
+  .bar__logo svg { width: 20px; height: 20px; fill: currentColor; }
+  .bar__logo:hover { color: var(--accent-2); }
+  .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .bar__title strong { color: var(--fg); font-weight: 500; }
+  .bar__right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .bar__theme, .bar__search {
+    display: flex; align-items: center; gap: 8px;
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--fg); font: inherit; font-size: 0.8125rem;
+    padding: 3px 10px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .bar__theme:hover, .bar__search:hover { border-color: var(--accent); background: var(--surface); }
+  .bar__theme .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .bar__theme kbd, .bar__search kbd {
+    font: inherit; font-size: 0.6875rem; color: var(--muted);
+    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px;
+    padding: 0 5px;
+  }
+  .bar__search-burger { display: none; }
+  .bar__clock { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
+  @media (max-width: 640px) {
+    .bar { padding-block: 10px; padding-top: calc(10px + env(safe-area-inset-top)); }
+    .bar__title { display: none; }
+    .bar__search-label, .bar__search kbd { display: none; }
+    .bar__search-burger { display: block; }
+    /* the theme button shrinks to its color dot, targets grow to thumb size */
+    #theme-name, .bar__theme kbd { display: none; }
+    .bar__theme, .bar__search { min-height: 34px; min-width: 42px; justify-content: center; }
+    .bar__logo svg { width: 24px; height: 24px; }
+  }
+  @media (pointer: coarse) { .bar__theme kbd { display: none; } }
+
+  .desktop {
+    max-width: 1200px; margin: 0 auto;
+    padding: clamp(8px, 1.2vw, 14px);
+    display: grid; gap: clamp(8px, 1.2vw, 14px);
+  }
+  h1 {
+    margin: 16px 4px 4px;
+    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+  }
+  .lede { margin: -4px 4px 4px; color: var(--muted); max-width: 68ch; }
+  .lede a { color: var(--fg); text-underline-offset: 3px; }
+  .lede a:hover { color: var(--accent-2); }
+  .row { display: grid; gap: clamp(8px, 1.2vw, 14px); grid-template-columns: 1fr 1fr; }
+  .row--3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 900px) { .row--3 { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+
+  .win {
+    background: var(--win);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: 24px;
+    transition: border-color 0.2s ease, background 0.25s ease;
+    min-width: 0;
+  }
+  .win:hover, .win:focus-within { border-color: var(--accent); }
+  .win__title {
+    display: flex; gap: 1ch; align-items: center;
+    font-size: 0.8125rem; color: var(--muted);
+    margin: 0 0 16px;
+    user-select: none;
+  }
+  .win__title::before { content: "❯"; color: var(--ok); font-weight: 700; }
+  /* window head: title left, one secondary action right */
+  .win__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 16px; margin: 0 0 16px; }
+  .win__head .win__title { margin: 0; }
+  .win__head > a { color: var(--muted); font-size: 0.75rem; text-decoration: none; transition: color 0.15s; flex-shrink: 0; }
+  .win__head > a:hover { color: var(--accent-2); }
+  .win__head > span { color: var(--muted); font-size: 0.75rem; flex-shrink: 0; }
+  /* link arrow, same glyph as the homepage listings */
+  a.arrow::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .win h2 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
+  .win p { margin: 0 0 12px; color: var(--fg); max-width: 68ch; }
+  .win p:last-child { margin-bottom: 0; }
+  .win p a, .win li a { color: var(--accent); text-underline-offset: 3px; }
+  .win p a:hover, .win li a:hover { color: var(--accent-2); }
+  .win .muted { color: var(--muted); }
+  .win ul { margin: 0 0 12px; padding-left: 3ch; }
+  .win li { margin-bottom: 6px; max-width: 64ch; }
+  .win li::marker { color: var(--muted); }
+  .win__foot {
+    margin: 16px 0 0; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8125rem; color: var(--muted);
+  }
+  .win__foot a { color: var(--fg); text-underline-offset: 3px; }
+  .win__foot a:hover { color: var(--accent-2); }
+
+  .ls { display: grid; gap: 2px; font-size: 0.8125rem; }
+  .ls a {
+    display: grid; grid-template-columns: 11ch 1fr; column-gap: 2ch; align-items: baseline;
+    padding: 6px 10px; margin: 0 -10px;
+    border-radius: 4px; text-decoration: none;
+    transition: background 0.12s;
+    break-inside: avoid;
+  }
+  .ls a:hover { background: var(--surface); }
+  .ls .mode { color: var(--muted); font-weight: 300; }
+  .ls .name { color: var(--accent); font-weight: 700; overflow-wrap: anywhere; }
+  .ls .desc { grid-column: 2; color: var(--muted); }
+  .ls .hint { color: var(--muted); text-align: right; }
+  @media (max-width: 480px) {
+    .ls a { grid-template-columns: 1fr; }
+    .ls .mode { display: none; }
+    .ls .desc { grid-column: 1; }
+  }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 1ch;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: 700; font-size: 0.8125rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--accent);
+    background: var(--accent); color: var(--win);
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--hover); border-color: var(--hover); }
+  .win p a.btn { color: var(--win); }
+  .win p a.btn:hover { color: var(--win); }
+
+  /* people rows: a paused-on-hover marquee for larger groups */
+  .people { overflow: hidden; display: flex;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  }
+  .people__track { display: flex; flex: 0 0 auto; animation: people-marquee 36s linear infinite; }
+  .people:hover .people__track { animation-play-state: paused; }
+  .people--static { display: flex; flex-wrap: wrap; mask-image: none; -webkit-mask-image: none; }
+  .person {
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    width: 132px; padding: 12px 8px; flex-shrink: 0;
+    text-decoration: none; text-align: center;
+    border-radius: 4px;
+    transition: background 0.12s;
+  }
+  .person:hover { background: var(--surface); }
+  .person img { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid var(--border); }
+  /* names reserve two lines so every card sits at the same height */
+  .person .name { font-size: 0.8125rem; font-weight: 700; color: var(--fg); min-height: 2.3em; display: flex; align-items: flex-end; justify-content: center; text-align: center; line-height: 1.15; }
+  .person .sub { font-size: 0.6875rem; color: var(--muted); }
+  @keyframes people-marquee { to { transform: translateX(-100%); } }
+  .people--static { mask-image: none; -webkit-mask-image: none; }
+  .people--static .people__track { animation: none; flex-wrap: wrap; }
+
+  /* long-form content pulled from the originals */
+  .prose { font-size: 0.875rem; }
+  .prose > *:first-child { margin-top: 0; }
+  .prose h2, .prose h3 { margin: 28px 0 10px; font-weight: 700; letter-spacing: -0.01em; }
+  .prose h2 { font-size: 1.0625rem; }
+  .prose h3 { font-size: 0.9375rem; }
+  .prose h2::before { content: "## "; color: var(--muted); font-weight: 300; }
+  .prose h3::before { content: "### "; color: var(--muted); font-weight: 300; }
+  .prose .manual__heading-link { color: var(--muted); text-decoration: none; font-weight: 300; margin-left: 1ch; opacity: 0; }
+  .prose h2:hover .manual__heading-link, .prose h3:hover .manual__heading-link { opacity: 1; }
+  .prose p { margin: 0 0 14px; max-width: 76ch; }
+  .prose ul, .prose ol { margin: 0 0 14px; padding-left: 3ch; }
+  .prose li { margin-bottom: 6px; max-width: 72ch; }
+  .prose li::marker { color: var(--muted); }
+  .prose a { color: var(--accent); text-underline-offset: 3px; }
+  .prose a:hover { color: var(--accent-2); }
+  .prose code, .prose kbd {
+    font-family: inherit; font-size: 0.8125rem;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 3px;
+    padding: 1px 5px;
+  }
+  .prose pre { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; overflow-x: auto; margin: 0 0 14px; }
+  .prose pre code { background: none; border: none; padding: 0; }
+  .prose img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); margin: 4px 0 14px; }
+  .prose blockquote { margin: 0 0 14px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); }
+  .prose table { border-collapse: collapse; margin: 0 0 16px; display: block; overflow-x: auto; font-size: 0.8125rem; }
+  .prose th, .prose td { border: 1px solid var(--border); padding: 6px 12px; text-align: left; }
+  .prose th { color: var(--accent); font-weight: 700; background: color-mix(in oklab, var(--surface) 60%, transparent); }
+  .prose td code, .prose td kbd { white-space: nowrap; }
+  .prose .news-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+  .prose .news-meta a { color: var(--muted); }
+
+  /* image lightbox */
+  .zoomable { cursor: zoom-in; }
+  .imgbox { background: var(--win); color: var(--fg); border: 1.5px solid var(--accent); border-radius: 6px; padding: 0; max-width: min(1140px, 94vw); }
+  .imgbox:focus { outline: none; }
+  .imgbox::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); }
+  .imgbox__inner { padding: 12px 14px 14px; }
+  .imgbox__bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 10px; }
+  .imgbox__bar .win__title { margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .imgbox__close {
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--muted); font: inherit; font-size: 0.8125rem;
+    padding: 2px 8px; cursor: pointer; flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .imgbox__close:hover { color: var(--err); border-color: var(--err); }
+  .imgbox__inner > img { display: block; max-width: 100%; max-height: 78vh; width: auto; height: auto; border-radius: 4px; }
+
+  /* manual: sticky chapter toc + content — sticky offset keeps the same
+     gap to the bar the layout has before scrolling */
+  .docs { display: grid; grid-template-columns: 280px 1fr; gap: clamp(8px, 1.2vw, 14px); align-items: start; }
+  .docs__toc { position: sticky; top: calc(var(--bar-h, 48px) + clamp(8px, 1.2vw, 14px)); max-height: calc(100vh - var(--bar-h, 48px) - 24px); overflow-y: auto; }
+  .docs__search {
+    display: flex; justify-content: space-between; align-items: center; gap: 1ch;
+    width: 100%; margin: 0 0 12px; padding: 6px 10px;
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--muted); font: inherit; font-size: 0.75rem;
+    cursor: pointer; transition: border-color 0.15s, color 0.15s;
+  }
+  .docs__search:hover { border-color: var(--accent); color: var(--fg); }
+  .docs__search kbd { font: inherit; font-size: 0.6875rem; border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; }
+  .docs__toc ol { margin: 0; padding: 0; list-style: none; counter-reset: ch; font-size: 0.75rem; }
+  .docs__toc a {
+    display: flex; gap: 1ch; padding: 3px 8px; margin: 0 -8px;
+    color: var(--muted); text-decoration: none; border-radius: 3px;
+    transition: background 0.12s, color 0.12s;
+  }
+  .docs__toc a::before { counter-increment: ch; content: counter(ch, decimal-leading-zero); font-weight: 300; opacity: 0.7; }
+  .docs__toc a:hover { color: var(--fg); background: var(--surface); }
+  .docs__toc a[aria-current="page"] { color: var(--accent); font-weight: 700; }
+  @media (max-width: 900px) {
+    .docs { grid-template-columns: 1fr; }
+    .docs__toc { position: static; max-height: none; }
+    .docs__toc ol { column-count: 2; }
+    /* the chapter list collapses into a dropdown on small screens */
+    .docs__toc .win__title { cursor: pointer; margin-bottom: 0; }
+    .docs__toc .win__title::after { content: "▼"; margin-left: auto; color: var(--fg); font-size: 0.75rem; transition: transform 0.15s; }
+    .docs__toc.open .win__title::after { transform: rotate(180deg); }
+    .docs__toc .docs__search { display: none; }
+    .docs__toc-body { display: none; }
+    .docs__toc.open .docs__toc-body { display: block; margin-top: 12px; }
+  }
+  @media (max-width: 560px) { .docs__toc ol { column-count: 1; } }
+
+  /* article page: content + context column */
+  .article-grid { display: grid; grid-template-columns: 1fr 320px; gap: clamp(8px, 1.2vw, 14px); align-items: start; }
+  .article-grid > aside { position: sticky; top: calc(var(--bar-h, 48px) + clamp(8px, 1.2vw, 14px)); }
+  @media (max-width: 900px) {
+    .article-grid { grid-template-columns: 1fr; }
+    .article-grid > aside { position: static; }
+  }
+  .index-list { display: grid; gap: 2px; font-size: 0.75rem; }
+  .index-list a {
+    display: block; padding: 5px 8px; margin: 0 -8px;
+    color: var(--fg); text-decoration: none; border-radius: 3px;
+    transition: background 0.12s, color 0.12s;
+  }
+  .index-list a:hover { background: var(--surface); }
+  .index-list a[aria-current="page"] { color: var(--accent); font-weight: 700; }
+  .index-list .date { display: block; font-size: 0.6875rem; color: var(--muted); }
+
+  /* prev/next pager */
+  .pager {
+    display: flex; justify-content: space-between; gap: 16px;
+    margin-top: 20px; padding-top: 16px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8125rem;
+  }
+  .pager a { color: var(--fg); text-decoration: none; max-width: 45%; }
+  .pager a:hover { color: var(--accent-2); }
+  .pager .dir { display: block; color: var(--muted); font-size: 0.6875rem; }
+  .pager .pager__next { text-align: right; margin-left: auto; }
+
+  .foot {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 12px;
+    padding: 24px clamp(8px, 1.2vw, 14px) calc(32px + env(safe-area-inset-bottom));
+    font-size: 0.8125rem; color: var(--muted); text-align: center;
+  }
+  .foot p { margin: 0; max-width: none; }
+  .foot a { color: var(--fg); text-decoration: none; }
+  .foot a:hover { color: var(--accent-2); }
+  .foot svg { height: 1.05em; width: auto; fill: currentColor; vertical-align: -0.14em; }
+  .foot .cf-mark svg { height: 1.2em; vertical-align: -0.28em; }
+  .foot__legal { font-size: 0.6875rem; }
+  .foot__legal a { color: var(--muted); }
+  @media (max-width: 640px) {
+    .foot__makers { display: block; margin-top: 4px; }
+  }
+
+</style>
+</head>
+<body>
+
+<nav class="bar" aria-label="Site">
+  <a class="bar__logo" href="/" aria-label="Back to the Omarchy homepage" title="Back to the desktop"><svg viewBox="0 0 1200 1200" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z"/></svg></a>
+  <p class="bar__title"><strong>omarchy</strong> 4.0.1 — the manual</p>
+  <div class="bar__right">
+    <button class="bar__search" type="button" data-search-open aria-label="Search and navigate">
+      <span class="bar__search-burger" aria-hidden="true">☰</span><span class="bar__search-label">search</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
+    </button>
+    <button class="bar__theme" id="theme-btn" type="button" aria-label="Cycle theme">
+      <span class="dot" aria-hidden="true"></span><span id="theme-name">tokyo-night</span><kbd aria-hidden="true">t</kbd>
+    </button>
+    <span class="bar__clock" id="clock">--:--</span>
+  </div>
+</nav>
+
+<div class="desktop">
+  <div class="docs">
+    <aside class="docs__toc win" aria-label="Chapters">
+      <p class="win__title">ls manual/</p>
+      <button class="docs__search" type="button" data-search-open>search the manual<kbd data-kbd-search>⌘K</kbd></button>
+      <div class="docs__toc-body">
+      <ol>
+        <li><a href="/manual/">Welcome to Omarchy!</a></li>
+        <li><a href="/manual/getting-started/">Getting Started</a></li>
+        <li><a href="/manual/coming-from-mac-or-windows/">Coming From Mac or Windows</a></li>
+        <li><a href="/manual/navigation/">Navigation</a></li>
+        <li><a href="/manual/the-top-bar/">The Top Bar</a></li>
+        <li><a href="/manual/themes/">Themes</a></li>
+        <li><a href="/manual/hotkeys/">Hotkeys</a></li>
+        <li><a href="/manual/unified-clipboard-history/">Unified Clipboard &amp; History</a></li>
+        <li><a href="/manual/reminders/">Reminders</a></li>
+        <li><a href="/manual/notices/">Notices</a></li>
+        <li><a href="/manual/text-extraction-dictation/">Text Extraction &amp; Dictation</a></li>
+        <li><a href="/manual/screenshots-recording/">Screenshots &amp; Recording</a></li>
+        <li><a href="/manual/toggles-idle-screensaver/" aria-current="page">Toggles, Idle &amp; the Screensaver</a></li>
+        <li><a href="/manual/omarchy-cli/">Omarchy CLI</a></li>
+        <li><a href="/manual/terminal/">Terminal</a></li>
+        <li><a href="/manual/neovim/">Neovim</a></li>
+        <li><a href="/manual/ai/">AI</a></li>
+        <li><a href="/manual/development-tools/">Development Tools</a></li>
+        <li><a href="/manual/shell-tools/">Shell Tools</a></li>
+        <li><a href="/manual/shell-functions/">Shell Functions</a></li>
+        <li><a href="/manual/tuis/">TUIs</a></li>
+        <li><a href="/manual/guis/">GUIs</a></li>
+        <li><a href="/manual/browsers/">Browsers</a></li>
+        <li><a href="/manual/commercial-apps-services/">Commercial apps/services</a></li>
+        <li><a href="/manual/web-apps/">Web Apps</a></li>
+        <li><a href="/manual/gaming/">Gaming</a></li>
+        <li><a href="/manual/filling-out-pdfs/">Filling out PDFs</a></li>
+        <li><a href="/manual/windows-vm/">Windows VM</a></li>
+        <li><a href="/manual/other-packages/">Other Packages</a></li>
+        <li><a href="/manual/updates/">Updates</a></li>
+        <li><a href="/manual/dotfiles/">Dotfiles</a></li>
+        <li><a href="/manual/shell-plugins/">Shell Plugins</a></li>
+        <li><a href="/manual/monitors/">Monitors</a></li>
+        <li><a href="/manual/keyboard-mouse-trackpad/">Keyboard, Mouse, Trackpad</a></li>
+        <li><a href="/manual/networking/">Networking</a></li>
+        <li><a href="/manual/system-sleep/">System sleep</a></li>
+        <li><a href="/manual/hardware-authentication/">Hardware authentication</a></li>
+        <li><a href="/manual/fonts/">Fonts</a></li>
+        <li><a href="/manual/backgrounds/">Backgrounds</a></li>
+        <li><a href="/manual/prompt/">Prompt</a></li>
+        <li><a href="/manual/branding/">Branding</a></li>
+        <li><a href="/manual/common-tweaks/">Common tweaks</a></li>
+        <li><a href="/manual/making-your-own-theme/">Making your own theme</a></li>
+        <li><a href="/manual/mac-support/">Mac support</a></li>
+        <li><a href="/manual/troubleshooting/">Troubleshooting</a></li>
+        <li><a href="/manual/faq/">FAQ</a></li>
+        <li><a href="/manual/system-snapshots/">System snapshots</a></li>
+        <li><a href="/manual/security/">Security</a></li>
+        <li><a href="/manual/omarchy-on/">Omarchy on...</a></li>
+        <li><a href="/manual/dual-boot-install/">Dual Boot Install</a></li>
+        <li><a href="/manual/unattended-installs/">Unattended Installs</a></li>
+      </ol>
+      </div>
+    </aside>
+    <section class="win" aria-label="Toggles, Idle &amp; the Screensaver">
+      <p class="win__title">cat manual/13-toggles-idle-screensaver.md</p>
+      <h1 style="margin: 0 0 16px">Toggles, Idle &amp; the Screensaver</h1>
+      <div class="prose">
+<p>A lot of what you change day to day isn’t really a setting. It’s a mode you flip on for an hour and off again: night light while you’re working late, do not disturb while you’re presenting, stay awake while you’re watching something. Omarchy calls those toggles, and they all work the same way — a hotkey, a menu entry, and a command, all hitting the same switch.</p>
+
+<h3 id="the-toggle-menu">The toggle menu <a class="manual__heading-link" href="#the-toggle-menu" aria-label="Link to this section">#</a></h3>
+
+<p><code>Super + Ctrl + O</code> opens <em>Trigger &gt; Toggle</em> directly, or you can walk there from the Omarchy menu (<code>Super + Space</code>). Everything in that list is a switch you can flip without thinking about where the state lives.</p>
+
+<p>From the terminal, the same switches are <code>omarchy toggle &lt;thing&gt;</code>. Run <code>omarchy toggle</code> on its own to see the whole group.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Toggle</th>
+      <th>Hotkey</th>
+      <th>Command</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Night light</td>
+      <td><code>Super + Ctrl + N</code></td>
+      <td><code>omarchy toggle nightlight</code></td>
+    </tr>
+    <tr>
+      <td>Silence notifications</td>
+      <td><code>Super + Ctrl + ,</code></td>
+      <td><code>omarchy toggle notification silencing</code></td>
+    </tr>
+    <tr>
+      <td>Stay awake (no idle lock)</td>
+      <td><code>Super + Ctrl + I</code></td>
+      <td><code>omarchy toggle idle</code></td>
+    </tr>
+    <tr>
+      <td>Crash capture</td>
+      <td>—</td>
+      <td><code>omarchy toggle crash-capture</code></td>
+    </tr>
+    <tr>
+      <td>Screensaver</td>
+      <td>—</td>
+      <td><code>omarchy toggle screensaver</code></td>
+    </tr>
+    <tr>
+      <td>Menu bar</td>
+      <td><code>Super + Shift + Space</code></td>
+      <td><code>omarchy toggle bar</code></td>
+    </tr>
+    <tr>
+      <td>Touchpad</td>
+      <td><code>XF86TouchpadToggle</code></td>
+      <td><code>omarchy toggle touchpad</code></td>
+    </tr>
+    <tr>
+      <td>Touchscreen</td>
+      <td>—</td>
+      <td><code>omarchy toggle touchscreen</code></td>
+    </tr>
+    <tr>
+      <td>Suspend</td>
+      <td>—</td>
+      <td><code>omarchy toggle suspend</code></td>
+    </tr>
+    <tr>
+      <td>Hybrid GPU</td>
+      <td>—</td>
+      <td><code>omarchy toggle hybrid gpu</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The touchpad, touchscreen, and hybrid GPU switches live under <em>Trigger &gt; Hardware</em> (<code>Super + Ctrl + H</code>) rather than under Toggle, since they only show up when you actually have that hardware. The touchpad and touchscreen ones survive a Hyprland reload — the disabled device’s name is saved to a small state file that Hyprland reads on startup to disable it again.</p>
+
+<p>The Toggle menu also carries a few things that aren’t <code>omarchy toggle</code> commands but behave the same: battery percentage in the bar, workspace layout (<code>Super + L</code>), window gaps (<code>Super + Shift + Backspace</code>), and the 1-window square aspect (<code>Super + Ctrl + Backspace</code>).</p>
+
+<p>Most of these are just a flag file under <code>~/.local/state/omarchy/toggles/</code>. If you want to branch on one in a script, <code>omarchy-toggle-enabled</code> gives you an exit code instead of making you go looking:</p>
+
+<pre><code class="language-bash">omarchy-toggle-enabled screensaver-off &amp;&amp; echo "screensaver is off"
+</code></pre>
+
+<p>The flags are named for the off state — <code>screensaver-off</code>, <code>suspend-off</code>, <code>bar-off</code> — so their presence means the feature is disabled.</p>
+
+<h3 id="indicators-in-the-bar">Indicators in the bar <a class="manual__heading-link" href="#indicators-in-the-bar" aria-label="Link to this section">#</a></h3>
+
+<p>When a mode is on, you get a small glyph in the middle of the top bar next to the clock. That’s the indicators widget, and it carries dictation, screen recording, pending reminders, night light, do not disturb, and stay awake.</p>
+
+<p>Inactive indicators are hidden. Hover the area around them and they fade in dimmed, so you can click one to turn it on without knowing its hotkey. Clicking an active one turns it back off. If you’d rather see all of them all the time, set <code>alwaysShow</code> to <code>true</code> on the <code>omarchy.indicators</code> entry in <code>~/.config/omarchy/shell.json</code> — see <a href="../the-top-bar/">the top bar</a> for how bar widgets are configured.</p>
+
+<h3 id="night-light">Night light <a class="manual__heading-link" href="#night-light" aria-label="Link to this section">#</a></h3>
+
+<p><code>Super + Ctrl + N</code> warms the screen to 4000K, and hitting it again puts it back to 6500K. It’s driven by hyprsunset, which the toggle starts for you if it isn’t already running.</p>
+
+<p>By default hyprsunset does nothing to your screen at all. <code>~/.config/hypr/hyprsunset.conf</code> ships with an identity profile precisely so the display stays untouched until you ask for warmth. If you’d rather have it switch by the clock, replace that with a time profile:</p>
+
+<pre><code>profile {
+    time = 20:00
+    temperature = 4000
+}
+</code></pre>
+
+<p>Then start hyprsunset at login by adding <code>o.launch_on_start("hyprsunset")</code> to <code>~/.config/hypr/autostart.lua</code>. The 4000K/6500K pair used by the toggle is fixed, so the config file is where you go if you want a different temperature.</p>
+
+<h3 id="do-not-disturb">Do not disturb <a class="manual__heading-link" href="#do-not-disturb" aria-label="Link to this section">#</a></h3>
+
+<p><code>Super + Ctrl + ,</code> silences notifications. No toasts pop up while it’s on, and the crossed-out bell indicator sits in the bar to remind you why the desktop has gone quiet.</p>
+
+<p>Nothing is lost, though. A silenced notification is written straight into your notification history, which is exactly the record you want when you come back and wonder what you missed. Open it with <code>Super + Shift + Alt + ,</code>. See <a href="../notices/">notices</a> for the rest of the notification story.</p>
+
+<p>Two kinds of message still get through: Omarchy’s own confirmation toasts for something you just did (“Theme changed”, “Screenshot saved”), and critical alerts sent from the command line. Chat apps that mark everything critical to force their way in front of you don’t qualify.</p>
+
+<h3 id="idle">Idle <a class="manual__heading-link" href="#idle" aria-label="Link to this section">#</a></h3>
+
+<p>The Omarchy shell owns idle behavior, and the timings are a top-level <code>idle</code> block in <code>~/.config/omarchy/shell.json</code>:</p>
+
+<pre><code class="language-json">{
+  "version": 1,
+  "idle": {
+    "screensaver": 150,
+    "lock": 300
+  }
+}
+</code></pre>
+
+<p>Both numbers are seconds counted from the moment you went idle — not from each other. So with the defaults, the screensaver comes up after two and a half minutes and the lock screen takes over at five minutes, whether or not the screensaver ran. Save the file and the shell picks up the new timings right away.</p>
+
+<p>If you dismiss the screensaver before the lock deadline, that counts as activity and the pending lock is cancelled. You don’t get locked out for glancing at your machine.</p>
+
+<p>To stop locking on idle entirely, <code>Super + Ctrl + I</code> — or <code>omarchy toggle idle</code> — flips stay awake on, and the coffee cup indicator appears in the bar. That’s the one to hit before a long presentation or a build you want to watch. Hit it again to go back to normal. <code>omarchy toggle idle status</code> prints the current state as JSON if you need it from a script.</p>
+
+<p>This is about locking and the screensaver, not power. Suspend and hibernation have their own setup in <a href="../system-sleep/">system sleep</a>.</p>
+
+<h3 id="the-screensaver">The screensaver <a class="manual__heading-link" href="#the-screensaver" aria-label="Link to this section">#</a></h3>
+
+<p>Omarchy’s screensaver is ASCII art running through random text effects, one instance per monitor. Any key or mouse movement exits it.</p>
+
+<p>You can start it on demand from <em>System &gt; Screensaver</em> (<code>Super + Esc</code>), which forces it up even if you’ve turned the idle screensaver off. There’s no hotkey bound to it by default.</p>
+
+<p><code>omarchy toggle screensaver</code> is what turns the idle one off, if you’d rather go straight from working to locked. It needs a terminal it knows how to configure — Alacritty, Foot, Ghostty, or Kitty — and will tell you so if your default terminal is something else.</p>
+
+<p>The logo it draws is yours to change, under <em>Style &gt; Screensaver</em>. Upload a png or svg and Omarchy converts it to ASCII. See <a href="../branding/">branding</a>.</p>
+
+<h3 id="the-lock-screen">The lock screen <a class="manual__heading-link" href="#the-lock-screen" aria-label="Link to this section">#</a></h3>
+
+<p><code>Super + Ctrl + L</code> locks the machine. That runs the lock screen from the Omarchy shell, blanks the display, resets your keyboard layout to the first one so you’re not typing your password in the wrong alphabet, and — if you have it running — locks 1Password on the way out.</p>
+
+<p>The lock screen takes a password, and it’ll take a fingerprint too once you’ve set one up. That, and the other ways to authenticate, are covered in <a href="../hardware-authentication/">hardware authentication</a>.</p>
+
+      <nav class="manual__pagination">
+        <a class="manual__pagination-previous" href="/manual/screenshots-recording/" rel="prev">← Screenshots &amp; Recording</a>
+        <a class="manual__pagination-contents" href="/manual/toc/">Table of Contents</a>
+        <a class="manual__pagination-next" href="/manual/omarchy-cli/" rel="next">Omarchy CLI →</a>
+      </nav>
+
+      </div>
+      <div class="pager"><a href="/manual/screenshots-recording/"><span class="dir">← previous</span>Screenshots &amp; Recording</a><a class="pager__next" href="/manual/omarchy-cli/"><span class="dir">next →</span>Omarchy CLI</a></div>
+    </section>
+  </div>
+</div>
+<footer class="foot">
+  <p>Looking to become a partner or patron of Omarchy? Write <a href="mailto:david@omarchy.org">david@omarchy.org</a></p>
+  <p>Incubated at
+    <a href="https://37signals.com" target="_blank" rel="noopener" aria-label="37signals"><svg viewBox="0 0 37 37" aria-hidden="true"><g fill="currentColor"><path d="m35.4812 22.164c2.0248-2.0239 2.0248-5.3007-.0003-7.3248-2.0198-2.0258-5.301-2.0258-7.319.0007-2.0281 2.0232-2.0292 5.3012 0 7.3241 2.017 2.0215 5.2989 2.0221 7.3193 0z"/><path d="m22.1611 8.84334c2.0249-2.02387 2.0249-5.30008-.0002-7.32415-2.0198-2.02571-5.301-2.025711-7.319.00075-2.0281 2.02309-2.0292 5.30112 0 7.32404 2.017 2.02152 5.2989 2.02152 7.3192-.00064z"/><path d="m14.8417 35.4878c-2.0004-1.9957-1.9608-5.2847 0-7.3054 1.6632-1.6643 1.6633-4.3568 0-6.0182-1.6514-1.6494-4.3462-1.6166-6.01902 0-2.01326 2.0137-5.29117 2.0138-7.30726 0-2.000628-1.9982-1.960613-5.3031.00011-7.3247 1.64664-1.6469 1.614-4.3531 0-6.02035-2.020627-2.01857-2.020787-5.2857 0-7.30443 2.01572-2.019741 5.29428-2.019741 7.30798.00069 2.00119 1.99779 1.96109 5.28187-.0009 7.30374-1.6608 1.66305-1.6608 4.35645.00061 6.02035 1.65198 1.6478 4.34698 1.6154 6.01848 0 2.0158-2.0162 5.3064-2.0167 7.3201 0 2.004 1.9963 1.9646 5.3019 0 7.3247-1.6606 1.661-1.6615 4.354 0 6.0188 2.0241 2.0154 2.0252 5.2892 0 7.3055-2.0128 2.0155-5.3039 2.0155-7.3201-.0007z"/></g></svg> <strong>37signals</strong></a>
+    <span class="foot__makers">(makers of
+    <a href="https://basecamp.com" target="_blank" rel="noopener" aria-label="Basecamp"><svg viewBox="0 0 25 21" aria-hidden="true"><path clip-rule="evenodd" d="m12.5005 0c6.351 0 11.4126 7.57865 12.4363 14.5294.0565.3833.0847.575.0439.9423-.025.2243-.1727.7339-.2715.9368-.1619.3322-.2503.4349-.4271.6404-2.4491 2.8469-7.0342 3.9472-11.7816 3.9472-4.74773 0-9.3327-1.1003-11.782334-3.947-.176904-.2056-.265361-.3084-.427278-.6406-.098883-.2029-.2465927-.7126-.2715448-.9369-.0408566-.3674-.01261377-.5591.0438578-.9425 1.023859-6.95069 6.085899-14.52909515 12.437299-14.5291zm3.2375 4.98947c-1.0986 0-4.1697 5.44163-5.5786 5.44163-1.40909 0-2.14161-2.47648-3.87412-2.46686-1.71536.0098-3.48364 3.82686-4.32163 5.91136-.23503.5846-.35255.8769-.23729 1.4219.11527.545.27645.7017.59881 1.0153 1.24246 1.2084 4.09474 2.966 10.17513 2.966 6.0897 0 8.9411-1.7629 10.1803-2.9715.319-.3112.4786-.4667.5902-1.021s-.0076-.8358-.2459-1.3989c-.538-1.2713-1.4909-3.2521-2.8065-4.95014-1.4862-1.91791-3.3811-3.94777-4.4804-3.94779z" fill="currentColor" fill-rule="evenodd"/></svg> <strong>Basecamp</strong></a>
+    and
+    <a href="https://hey.com" target="_blank" rel="noopener" aria-label="HEY"><svg viewBox="0 0 34 37" aria-hidden="true"><path d="m16.932 0c.3437 0 .6833.077929.9932.226673.7035.296051 1.3945.951807 2.0493 1.817257.6572.86854 1.2905 1.96397 1.878 3.16083 1.1336 2.30928 2.1007 5.01294 2.7395 7.23324 1.0701-1.0382 2.3879-1.7857 3.8286-2.1718.7276-.2165 1.5015-.2226 2.2322-.0165.7319.2064 1.3903.6171 1.8993 1.1837 1.2048 1.3434 1.6425 3.5733 1.3697 6.6229-.2733 3.0558-1.2628 6.9686-2.9544 11.7154-.1105.3062-.338.5571-.6321.6955-.294.1382-.6307.1533-.9361.0426-.1524-.0523-.2933-.1345-.4133-.2422-.1208-.1084-.2187-.2403-.2875-.3875s-.1075-.3073-.1133-.4698c-.0057-.1619.0216-.3233.0794-.4746l.3862-1.0714c1.8517-5.2407 2.4956-8.6952 2.5856-10.9559.096-2.4117-.4389-3.448-.7918-3.8515-.2199-.2304-.503-.3911-.8131-.4611-.3123-.0704-.6386-.046-.9371.0698l-.0106.0039c-1.4717.4409-2.7558 1.3591-3.6505 2.6106.6827 2.7926 1.2701 5.7829 1.4685 8.3985.1 1.3181.1017 2.5454-.0339 3.6064-.1348 1.0557-.4079 1.958-.8654 2.6223-.2176.3533-.5142.6514-.8663.8698-.352.2183-.7495.3521-1.1617.3895-.3382.031-.6791-.0237-.9912-.1579-.3121-.1343-.586-.3442-.7967-.6113-.5102-.5901-.82-1.5541-.9903-2.6958-.1717-1.1514-.2052-2.509-.1471-3.9048.1161-2.7913.601-5.757 1.1103-7.5732.1319-.4754.3227-.932.5653-1.361l-.2856-1.0879c-.8475-3.1437-1.9843-5.94736-3.0367-7.97904-.5264-1.01623-1.0302-1.83569-1.4636-2.40719-.2169-.28603-.4132-.50661-.5837-.65774-.1429-.12666-.2555-.19285-.3369-.21892-.0606.051-.1383.1402-.2246.27898-.1087.17474-.2253.42016-.332.74686-.2134.65338-.3867 1.62544-.3921 2.99227-.0106 2.73358.6513 7.03528 2.9932 13.50448.1122.2974.1025.6277-.0262.9183-.1287.2904-.3659.5188-.6611.6345l-.001-.001c-.2897.1172-.6132.1199-.9041.0059-.2915-.1144-.5277-.3371-.6612-.621l-.001-.0009c-4.3727-9.5619-6.6825-13.08439-7.71125-14.30853-.15337 1.14582-.04162 2.97439.6418 5.54573.74695 2.8106 2.17255 6.499 4.66495 11.1351.1519.2752.1918.5993.1093.9028-.0825.3036-.2803.5629-.5508.7226l-.0009-.0009c-.2673.1654-.5879.2209-.8945.152-.3077-.0691-.5761-.2567-.7473-.5221-1.3668-2.0522-2.94227-4.4323-4.36966-6.5096-1.28751-1.8736-2.45029-3.4922-3.22837-4.4046-.01272 1.9126.81768 6.371 5.37153 13.2565.1868.2666.2601.5962.2053.9174-.0551.3222-.2354.6092-.50147.7982-.26615.1889-.59626.2644-.91769.2092-.32157-.0553-.60842-.2366-.79668-.5037l-.00388-.0049c-1.47917-2.2974-3.39994-4.2737-5.64842-5.815.69763 2.8769 2.08586 5.5376 4.04441 7.7485l.41625.4543.00677.0068.21975.2548c1.11738 1.2542 2.52111 2.2204 4.09276 2.815 1.675.6336 3.4842.8233 5.2535.5512.157-.0319.319-.0316.4763-.001.1579.0307.3082.0922.4424.1812.1341.089.2498.2034.3397.3371.0676.1003.1195.2102.1549.3254l.03.1173.001.0029c.0576.3213-.0129.6528-.1955.9231-.1826.2702-.4633.4578-.7822.5231l-.0019.001c-.7181.1399-1.4476.2134-2.1791.2189h-.0106c-2.2492-.1401-4.435-.8055-6.38316-1.9422-1.94611-1.1355-3.60164-2.7108-4.83529-4.6003l-.42883-.618c-.98631-1.4741-1.86106-3.1559-2.425871-4.6943-.322667-.8789-.546038-1.7162-.6292158-2.444-.0826903-.7236-.02965046-1.3599.2236138-1.8211l.000968-.002c.15171-.2694.368604-.4965.630184-.6606.261481-.1639.559551-.2602.867351-.279h.01258l.35043.0232c.63782.0691 1.24876.2873 1.78891.6316-.90747-2.23-1.39102-4.1153-1.56627-5.6164-.18693-1.6015-.02883-2.7843.34849-3.4728.12895-.2793.33247-.5178.58856-.6877.2584-.1714.55961-.2669.86929-.2751l.17231-.0029c.17264.0027.34503.0256.5266.0842.24087.0778.49002.2164.77539.4427.48397.3839 1.08731 1.032 1.9496 2.1001-1.34261-4.85282-.83573-7.37691-.42786-8.39558l.08325-.1918c.12333-.30459.33446-.56531.60598-.74977.24434-.16597.52767-.26283.82089-.28188l.02129-.00388h.08616l.00968.00194c.15091.00512.3388.02742.5721.12593.2823.11926.62242.34489 1.04547.76526.7828.77794 1.8672 2.24233 3.421 4.99359-.2947-2.47746-.2074-4.43971.1423-5.92837.3846-1.63712 1.0895-2.715995 1.9631-3.262543l.0136-.007749c.3121-.1512954.6543-.23048232 1.0009-.230548zm6.8575 20.0247c-.2391 1.7701-.3581 3.5942-.3581 5.1312 0 .8912.0403 1.683.12 2.3103.0398.3137.0888.5844.1471.804.0382.1438.0804.2615.123.3545.0311-.0268.0595-.0561.0803-.0872.3149-.4708.5418-1.4261.5373-2.9729-.0041-1.3783-.1937-3.2064-.6496-5.5399z" fill="currentColor"/></svg> <strong>HEY</strong></a>)</span>
+  </p>
+  <p>Sponsored hosting by <a class="cf-mark" href="https://cloudflare.com" target="_blank" rel="noopener" aria-label="Cloudflare"><svg viewBox="0 0 213 32" aria-hidden="true"><path d="m36.9297 0c7.7446 0 14.2333 5.45664 15.8369 12.7568.0082.0581.0166.1167.0166.1748 0 .1079-.0163.2159-.0576.3155l-1.4219 3.7373c-1.1241 2.9401-4.3231 5.3573-7.2822 5.4902l-24.9365.3154c-.2479.0083-.4876.1989-.5704.4395-.0579.1578-.0327.3246.0499.4492.0826.1242.2227.1986.3876.207l24.7139.3164c1.306.0664 2.3807.5977 3.0254 1.503.7024.98.86 2.3255.4385 3.7705l-.3477 1.2207c-.0743.2573-.3055.432-.5615.4404h-.0166l-45.617186-.0088c-.239688 0-.44642-.1741-.479492-.415-.066124-.4983-.107422-.9968-.107422-1.5117.00009889-5.6558 4.48838-10.2655 10.084-10.4317-.20653-.8136-.28128-1.6687-.19045-2.5654.33885-3.4466 3.09145-6.22099 6.52145-6.56152 1.9341-.191 3.7277.37402 5.1329 1.42872 2.1737-6.43646 8.2406-11.07120758 15.3818-11.0713zm42.956 19.376c3.0582 0 5.4056 2.0103 5.9346 4.7011h-3.29c-.4133-1.0796-1.3967-1.8769-2.6778-1.8769-1.7026 0-2.8427 1.3957-2.8427 3.0234v.0332c.0002 1.6359 1.1735 3.0557 2.8759 3.0557 1.2233-.0001 2.1411-.7061 2.5791-1.6943v-.0078h3.2891c-.6117 2.591-2.9342 4.5263-5.9014 4.5263-3.4713 0-6.0417-2.5995-6.042-5.8467v-.0332c0-3.2473 2.6038-5.8808 6.0752-5.8808zm27.2843 0c3.471 0 6.042 2.6003 6.042 5.8476v.0332c0 3.2471-2.604 5.8799-6.075 5.8799-3.472-.0001-6.042-2.5996-6.042-5.8467v-.0332c0-3.2472 2.603-5.8808 6.075-5.8808zm13.026 6.5195c0 1.6278.818 2.4092 2.075 2.4092 1.256-.0002 2.074-.7401 2.074-2.3262v-6.3613h3.166v6.2705c0 3.6541-2.075 5.2489-5.274 5.249-3.198-.0166-5.207-1.6446-5.207-5.1826v-6.3457h3.166zm-65.1814-12.374c7.4555.0001 13.5059 6.0795 13.5059 13.5625 0 1.2788-.1743 2.5077-.5049 3.6787-.0662.2158-.2641.3652-.4873.3652h-18.8535c-.19-.0083-.3302-.2073-.2559-.3984l.3965-1.0381c1.1241-2.9401 4.3316-5.3491 7.2989-5.4902l5.4716-.3155c.2477-.0085.4876-.1989.5703-.4394.0496-.1578.0324-.3246-.0585-.4492-.0826-.1243-.2145-.1986-.3711-.2071l-5.2657-.3154c-1.3059-.0665-2.3807-.5986-3.0254-1.5039-.7023-.98-.859-2.3255-.4375-3.7705l.9747-3.3721c.033-.1244.1325-.2241.248-.2656.033-.0166.0663-.0244.1074-.0244.2314-.0083.4551-.0166.6865-.0166zm81.6124 6.0869c4.018 0 6.348 2.3258 6.348 5.5898v.0332c0 3.2639-2.364 5.6895-6.414 5.6895h-4.273v-11.3125zm58.082 0c1.719 0 2.909.4572 3.661 1.2295.662.6478 1 1.5199 1 2.6328v.0332c0 1.7275-.917 2.8737-2.314 3.4717l2.686 3.9453h-3.603l-2.265-3.4219h-1.372v3.4219h-3.116v-11.3125zm-102.3008 8.5635h5.4551v2.7402h-8.5713v-11.3037h3.1162zm64.1058-5.8223h-5.885v1.9268h5.323v2.5996h-5.323v4.0361h-3.124v-11.3037h9.009zm7.456 5.8223h5.447v2.7402h-8.563v-11.3037h3.116zm21.407 2.7402h-3.347l-.818-2.0176h-4.34l-.802 2.0176h-3.281l4.786-11.3867h3.008zm27.541-8.6377h-5.96v1.711h5.398v2.4667h-5.398v1.794h6.042v2.666h-9.133v-11.3037h9.051zm-105.781-.0742c-1.703.0001-2.844 1.3874-2.844 3.0234v.0332c0 1.6276 1.174 3.0557 2.877 3.0557 1.719 0 2.86-1.3865 2.86-3.0225v-.0332c0-1.6278-1.174-3.0566-2.893-3.0566zm28.267 5.9385h1.273c1.868 0 3.1-1.0303 3.1-2.8575v-.0332c0-1.8104-1.24-2.8574-3.1-2.8574h-1.273zm42.369-1.6866h2.529l-1.256-3.2138zm14.729-1.4121h2.058v-.0078c1.057 0 1.67-.5149 1.67-1.3369v-.0332c0-.8887-.645-1.3379-1.687-1.3379h-2.041z" fill="currentColor"/></svg></a></p>
+  <p class="foot__legal"><a href="/brand/">Omarchy is a pending trademark</a></p>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+
+  const css = document.createElement('style');
+  css.textContent = `
+  .cmdk { width: min(640px, 94vw); background: var(--win); color: var(--fg); border: 1.5px solid var(--accent); border-radius: 6px; padding: 0; }
+  .cmdk[open] { margin: 12vh auto auto; }
+  .cmdk:focus { outline: none; }
+  .cmdk::backdrop { background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(3px); }
+  .cmdk__field { display: flex; align-items: center; gap: 1ch; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .cmdk__field > span { color: var(--ok); font-weight: 700; }
+  .cmdk__field input { flex: 1; min-width: 0; background: none; border: none; outline: none; color: var(--fg); font: inherit; }
+  .cmdk__field input::placeholder { color: var(--muted); }
+  .cmdk__field kbd { font: inherit; font-size: 0.6875rem; color: var(--muted); border: 1px solid var(--border); border-radius: 3px; padding: 0 5px; }
+  .cmdk__results { max-height: 50vh; overflow-y: auto; padding: 8px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .cmdk__results a { min-width: 0; }
+  .cmdk__results a { display: flex; align-items: center; gap: 10px; padding: 7px 10px; border-radius: 4px; text-decoration: none; color: var(--fg); font-size: 0.8125rem; }
+  .cmdk__results a[aria-selected="true"], .cmdk__results a:hover { background: var(--surface); }
+  .cmdk__results .ico { display: flex; flex-shrink: 0; }
+  .cmdk__results .ico svg { width: 14px; height: 14px; fill: var(--muted); }
+  .cmdk__results a[aria-selected="true"] .ico svg { fill: var(--accent); }
+  .cmdk__results .t { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .cmdk__results .c { color: var(--muted); font-size: 0.6875rem; white-space: nowrap; }
+  .cmdk__empty { margin: 0; padding: 10px; color: var(--muted); font-size: 0.8125rem; }`;
+  document.head.appendChild(css);
+
+  const box = document.createElement('dialog');
+  box.className = 'cmdk';
+  box.tabIndex = -1;
+  box.setAttribute('aria-label', 'Search the site');
+  box.innerHTML = `
+    <div class="cmdk__field"><span aria-hidden="true">❯</span>
+      <input type="text" placeholder="search the site" autocomplete="off" autocapitalize="off" spellcheck="false">
+      <kbd>esc</kbd>
+    </div>
+    <div class="cmdk__results" role="listbox"></div>`;
+  document.body.appendChild(box);
+
+  const input = box.querySelector('input');
+  const list = box.querySelector('.cmdk__results');
+  let index = null, results = [], sel = 0;
+
+  async function load() {
+    if (index) return;
+    try { index = await (await fetch('/assets/search-index.json')).json(); }
+    catch (e) { index = []; }
+  }
+  const ICONS = {
+    manual: '<svg viewBox="0 0 32 32"><path d="m0 4.49992c0-.3978.158025-.77931.439312-1.0606s.662798-.43931 1.060598-.43931h8.50549c2.4538 0 4.6337 1.17992 5.9996 3.00181.6982-.9334 1.6047-1.69085 2.6474-2.212 1.0426-.52115 2.1926-.7916 3.3582-.78981h8.4895c.3978 0 .7793.15802 1.0606.43931s.4393.6628.4393 1.0606v20.99868c0 .3978-.158.7793-.4393 1.0606s-.6628.4393-1.0606.4393h-9.0134c-.591 0-1.1761.1164-1.722.3425-.546.2261-1.042.5576-1.4598.9754l-1.244 1.2419c-.2812.2809-.6624.4387-1.0599.4387s-.7787-.1578-1.0599-.4387l-1.244-1.2419c-.4178-.4178-.9138-.7493-1.4598-.9754-.5459-.2261-1.131-.3425-1.722-.3425h-9.01539c-.3978 0-.779311-.158-1.060598-.4393s-.439312-.6628-.439312-1.0606zm14.5011 20.64668.008-10.1453-.004-4.5058c-.0011-1.19267-.4756-2.33616-1.3194-3.17916-.8437-.84299-1.9876-1.31652-3.1803-1.31652h-7.00559v17.99888h7.51349c1.4108-.0001 2.793.3978 3.9878 1.1479zm3.0078-14.6471-.008 14.6431c1.1942-.7477 2.5748-1.1442 3.9838-1.1439h7.5135v-17.99888h-6.9896c-1.1934 0-2.3379.47408-3.1818 1.31794-.8438.84386-1.3179 1.98838-1.3179 3.18174z"/></svg>',
+    news: '<svg viewBox="0 0 32 32"><path d="M4 3h20v4h4v20H8v-4H4V3zm4 4v16h16V7H8zm3 3h10v3H11v-3zm0 6h10v2H11v-2zm0 4h7v2h-7v-2z"/></svg>',
+    page: '<svg viewBox="0 0 1200 1200"><path fill-rule="evenodd" clip-rule="evenodd" d="m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z"/></svg>',
+  };
+  function icon(c) {
+    if (c.startsWith('manual')) return ICONS.manual;
+    if (c.startsWith('news')) return ICONS.news;
+    return ICONS.page;
+  }
+  function renderList() {
+    list.innerHTML = results.map((r, i) =>
+      `<a href="${r.p}"${i === sel ? ' aria-selected="true"' : ''}><span class="ico" aria-hidden="true">${icon(r.c)}</span><span class="t">${r.t}</span><span class="c">${r.c}</span></a>`
+    ).join('') || '<p class="cmdk__empty">no matches</p>';
+  }
+  function search(q) {
+    const terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+    results = terms.length
+      ? index.filter(e => terms.every(t => e.k.includes(t))).slice(0, 12)
+      : index.slice(0, 10);
+    sel = 0;
+    renderList();
+  }
+  function openBox() {
+    box.showModal();
+    input.value = '';
+    load().then(() => search(''));
+    input.focus();
+  }
+  input.addEventListener('input', () => search(input.value));
+  input.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown') { sel = Math.min(sel + 1, results.length - 1); renderList(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { sel = Math.max(sel - 1, 0); renderList(); e.preventDefault(); }
+    else if (e.key === 'Enter' && results[sel]) location.href = results[sel].p;
+  });
+  box.addEventListener('click', e => { if (e.target === box) box.close(); });
+  addEventListener('keydown', e => {
+    const combo = (e.metaKey || e.ctrlKey) && e.key === 'k';
+    const slash = e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !document.querySelector('dialog[open]');
+    if (combo || slash) { e.preventDefault(); if (!box.open) openBox(); }
+  });
+  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', openBox));
+
+  /* show the platform's actual modifier */
+  const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || '');
+  document.querySelectorAll('[data-kbd-search]').forEach(k => { k.textContent = isMac ? '⌘K' : 'Ctrl K'; });
+})();
+</script>
+<script>
+  'use strict';
+
+  const THEMES = [
+    'catppuccin', 'catppuccin-latte', 'ethereal', 'everforest', 'flexoki-light',
+    'gruvbox', 'hackerman', 'kanagawa', 'last-horizon', 'lumon', 'lupine',
+    'matte-black', 'miasma', 'nord', 'osaka-jade', 'retro-82', 'ristretto',
+    'rose-pine', 'solitude', 'tokyo-night',
+  ];
+  const STORE_KEY = 'omarchy-redesign-theme-v1';
+  const root = document.documentElement;
+
+  function applyTheme(name) {
+    if (name === 'tokyo-night') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', name);
+    document.getElementById('theme-name').textContent = name;
+    const tc = document.getElementById('theme-color');
+    if (tc) tc.setAttribute('content', getComputedStyle(root).getPropertyValue('--desktop').trim());
+    try { localStorage.setItem(STORE_KEY, name); } catch (e) {}
+  }
+  function cycleTheme() {
+    const current = root.getAttribute('data-theme') || 'tokyo-night';
+    applyTheme(THEMES[(THEMES.indexOf(current) + 1) % THEMES.length]);
+  }
+  document.getElementById('theme-btn').addEventListener('click', cycleTheme);
+  addEventListener('keydown', e => {
+    if (document.querySelector('dialog[open]')) return;
+    if (!e.metaKey && !e.ctrlKey && !e.altKey && e.key === 't') cycleTheme();
+  });
+
+  /* image lightbox for long-form content and galleries */
+  (() => {
+    const imgs = document.querySelectorAll('.prose img, .shots img');
+    if (!imgs.length) return;
+    const box = document.createElement('dialog');
+    box.className = 'imgbox';
+    box.tabIndex = -1;
+    box.setAttribute('aria-label', 'Image viewer');
+    box.innerHTML = '<div class="imgbox__inner"><div class="imgbox__bar"><p class="win__title"></p><button class="imgbox__close" type="button">close [esc]</button></div><img alt=""></div>';
+    document.body.appendChild(box);
+    const big = box.querySelector('img');
+    const title = box.querySelector('.win__title');
+    imgs.forEach(img => {
+      img.classList.add('zoomable');
+      img.addEventListener('click', () => {
+        big.src = img.currentSrc || img.src;
+        big.alt = img.alt;
+        title.textContent = 'imv ' + decodeURIComponent(img.src.split('/').pop());
+        box.showModal();
+        box.focus();
+      });
+    });
+    box.querySelector('.imgbox__close').addEventListener('click', () => box.close());
+    box.addEventListener('click', e => { if (e.target === box) box.close(); });
+  })();
+
+  /* people marquees: duplicate the track content client-side so the markup
+     lists every person once; reduced motion falls back to a wrapped row */
+  (() => {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    document.querySelectorAll('.people:not(.people--static)').forEach(p => {
+      if (reduced) { p.classList.add('people--static'); return; }
+      const track = p.querySelector('.people__track');
+      track.innerHTML += track.innerHTML;
+      const clone = track.cloneNode(true);
+      clone.setAttribute('aria-hidden', 'true');
+      p.appendChild(clone);
+    });
+  })();
+
+  /* real bar height feeds the sticky offsets */
+  const bar = document.querySelector('.bar');
+  new ResizeObserver(() => {
+    root.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+  }).observe(bar);
+
+  /* chapter toc collapses into a dropdown on small screens; the whole card
+     is the tap target, links and the search button stay untouched */
+  document.querySelectorAll('.docs__toc').forEach(toc => {
+    toc.addEventListener('click', e => {
+      if (!matchMedia('(max-width: 900px)').matches) return;
+      if (e.target.closest('a, button')) return;
+      toc.classList.toggle('open');
+    });
+  });
+
+  const clock = document.getElementById('clock');
+  function tick() {
+    const d = new Date();
+    clock.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  tick(); setInterval(tick, 15000);
+
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    applyTheme(saved && THEMES.includes(saved) ? saved : 'tokyo-night');
+  } catch (e) { applyTheme('tokyo-night'); }
+</script>
+</body>
+</html>

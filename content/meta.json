@@ -1,0 +1,333 @@
+{
+ "chapters": [
+  {
+   "slug": "",
+   "file": "welcome",
+   "title": "Welcome to Omarchy!"
+  },
+  {
+   "slug": "getting-started",
+   "file": "getting-started",
+   "title": "Getting Started"
+  },
+  {
+   "slug": "coming-from-mac-or-windows",
+   "file": "coming-from-mac-or-windows",
+   "title": "Coming From Mac or Windows"
+  },
+  {
+   "slug": "navigation",
+   "file": "navigation",
+   "title": "Navigation"
+  },
+  {
+   "slug": "the-top-bar",
+   "file": "the-top-bar",
+   "title": "The Top Bar"
+  },
+  {
+   "slug": "themes",
+   "file": "themes",
+   "title": "Themes"
+  },
+  {
+   "slug": "hotkeys",
+   "file": "hotkeys",
+   "title": "Hotkeys"
+  },
+  {
+   "slug": "unified-clipboard-history",
+   "file": "unified-clipboard-history",
+   "title": "Unified Clipboard &amp; History"
+  },
+  {
+   "slug": "reminders",
+   "file": "reminders",
+   "title": "Reminders"
+  },
+  {
+   "slug": "notices",
+   "file": "notices",
+   "title": "Notices"
+  },
+  {
+   "slug": "text-extraction-dictation",
+   "file": "text-extraction-dictation",
+   "title": "Text Extraction &amp; Dictation"
+  },
+  {
+   "slug": "screenshots-recording",
+   "file": "screenshots-recording",
+   "title": "Screenshots &amp; Recording"
+  },
+  {
+   "slug": "toggles-idle-screensaver",
+   "file": "toggles-idle-screensaver",
+   "title": "Toggles, Idle &amp; the Screensaver"
+  },
+  {
+   "slug": "omarchy-cli",
+   "file": "omarchy-cli",
+   "title": "Omarchy CLI"
+  },
+  {
+   "slug": "terminal",
+   "file": "terminal",
+   "title": "Terminal"
+  },
+  {
+   "slug": "neovim",
+   "file": "neovim",
+   "title": "Neovim"
+  },
+  {
+   "slug": "ai",
+   "file": "ai",
+   "title": "AI"
+  },
+  {
+   "slug": "development-tools",
+   "file": "development-tools",
+   "title": "Development Tools"
+  },
+  {
+   "slug": "shell-tools",
+   "file": "shell-tools",
+   "title": "Shell Tools"
+  },
+  {
+   "slug": "shell-functions",
+   "file": "shell-functions",
+   "title": "Shell Functions"
+  },
+  {
+   "slug": "tuis",
+   "file": "tuis",
+   "title": "TUIs"
+  },
+  {
+   "slug": "guis",
+   "file": "guis",
+   "title": "GUIs"
+  },
+  {
+   "slug": "browsers",
+   "file": "browsers",
+   "title": "Browsers"
+  },
+  {
+   "slug": "commercial-apps-services",
+   "file": "commercial-apps-services",
+   "title": "Commercial apps/services"
+  },
+  {
+   "slug": "web-apps",
+   "file": "web-apps",
+   "title": "Web Apps"
+  },
+  {
+   "slug": "gaming",
+   "file": "gaming",
+   "title": "Gaming"
+  },
+  {
+   "slug": "filling-out-pdfs",
+   "file": "filling-out-pdfs",
+   "title": "Filling out PDFs"
+  },
+  {
+   "slug": "windows-vm",
+   "file": "windows-vm",
+   "title": "Windows VM"
+  },
+  {
+   "slug": "other-packages",
+   "file": "other-packages",
+   "title": "Other Packages"
+  },
+  {
+   "slug": "updates",
+   "file": "updates",
+   "title": "Updates"
+  },
+  {
+   "slug": "dotfiles",
+   "file": "dotfiles",
+   "title": "Dotfiles"
+  },
+  {
+   "slug": "shell-plugins",
+   "file": "shell-plugins",
+   "title": "Shell Plugins"
+  },
+  {
+   "slug": "monitors",
+   "file": "monitors",
+   "title": "Monitors"
+  },
+  {
+   "slug": "keyboard-mouse-trackpad",
+   "file": "keyboard-mouse-trackpad",
+   "title": "Keyboard, Mouse, Trackpad"
+  },
+  {
+   "slug": "networking",
+   "file": "networking",
+   "title": "Networking"
+  },
+  {
+   "slug": "system-sleep",
+   "file": "system-sleep",
+   "title": "System sleep"
+  },
+  {
+   "slug": "hardware-authentication",
+   "file": "hardware-authentication",
+   "title": "Hardware authentication"
+  },
+  {
+   "slug": "fonts",
+   "file": "fonts",
+   "title": "Fonts"
+  },
+  {
+   "slug": "backgrounds",
+   "file": "backgrounds",
+   "title": "Backgrounds"
+  },
+  {
+   "slug": "prompt",
+   "file": "prompt",
+   "title": "Prompt"
+  },
+  {
+   "slug": "branding",
+   "file": "branding",
+   "title": "Branding"
+  },
+  {
+   "slug": "common-tweaks",
+   "file": "common-tweaks",
+   "title": "Common tweaks"
+  },
+  {
+   "slug": "making-your-own-theme",
+   "file": "making-your-own-theme",
+   "title": "Making your own theme"
+  },
+  {
+   "slug": "mac-support",
+   "file": "mac-support",
+   "title": "Mac support"
+  },
+  {
+   "slug": "troubleshooting",
+   "file": "troubleshooting",
+   "title": "Troubleshooting"
+  },
+  {
+   "slug": "faq",
+   "file": "faq",
+   "title": "FAQ"
+  },
+  {
+   "slug": "system-snapshots",
+   "file": "system-snapshots",
+   "title": "System snapshots"
+  },
+  {
+   "slug": "security",
+   "file": "security",
+   "title": "Security"
+  },
+  {
+   "slug": "omarchy-on",
+   "file": "omarchy-on",
+   "title": "Omarchy on..."
+  },
+  {
+   "slug": "dual-boot-install",
+   "file": "dual-boot-install",
+   "title": "Dual Boot Install"
+  },
+  {
+   "slug": "unattended-installs",
+   "file": "unattended-installs",
+   "title": "Unattended Installs"
+  }
+ ],
+ "news": [
+  {
+   "path": "2026/08/the-first-plugin-competition-winners",
+   "file": "2026-08-the-first-plugin-competition-winners",
+   "title": "The first plugin competition winners",
+   "date": ""
+  },
+  {
+   "path": "2026/08/introducing-omarchy-air",
+   "file": "2026-08-introducing-omarchy-air",
+   "title": "Introducing Omarchy AIR",
+   "date": ""
+  },
+  {
+   "path": "2026/08/100000-downloads-in-a-week",
+   "file": "2026-08-100000-downloads-in-a-week",
+   "title": "Omarchy tops 100,000 downloads in a week",
+   "date": ""
+  },
+  {
+   "path": "2026/08/introducing-the-omarchy-rangers",
+   "file": "2026-08-introducing-the-omarchy-rangers",
+   "title": "Introducing Omarchy Rangers",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omacom-foundation-to-be-premier-mise-sponsor",
+   "file": "2026-08-omacom-foundation-to-be-premier-mise-sponsor",
+   "title": "Omacom Foundation to be premier mise sponsor",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omarchy-meetups-around-the-world",
+   "file": "2026-08-omarchy-meetups-around-the-world",
+   "title": "Omarchy meetups around the world",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omacom-foundation-to-be-premier-quickshell-sponsor",
+   "file": "2026-08-omacom-foundation-to-be-premier-quickshell-sponsor",
+   "title": "Omacom Foundation to be premier Quickshell sponsor",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omacom-foundation-funding-hits-10m",
+   "file": "2026-08-omacom-foundation-funding-hits-10m",
+   "title": "Omacom Foundation funding hits $10m",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omacom-foundation-to-be-exclusive-hyprland-sponsor",
+   "file": "2026-08-omacom-foundation-to-be-exclusive-hyprland-sponsor",
+   "title": "Omacom Foundation to be exclusive Hyprland sponsor",
+   "date": ""
+  },
+  {
+   "path": "2026/08/omacom-foundation-launches-with-8-million",
+   "file": "2026-08-omacom-foundation-launches-with-8-million",
+   "title": "Omacom Foundation launches with $8 million",
+   "date": ""
+  },
+  {
+   "path": "2026/09/the-omarchy-core-team",
+   "file": "2026-09-the-omarchy-core-team",
+   "title": "The Omarchy Core Team",
+   "date": ""
+  },
+  {
+   "path": "2026/08/the-first-plugin-competition",
+   "file": "2026-08-the-first-plugin-competition",
+   "title": "The first plugin competition",
+   "date": ""
+  }
+ ]
+}

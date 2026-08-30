@@ -1,0 +1,91 @@
+<p>Omarchy isn’t just for <em>pRoDUcTiVItY</em>, it’s also for having fun, and what’s more fun than gaming? Omarchy ships with a whole suite of gaming options — Steam and RetroArch for native and retro play, Battle.net, Lutris, and Heroic for non-Steam stores, Moonlight for PC streaming, Xbox Cloud Gaming + NVIDIA GeForce NOW for cloud, plus the evergreen Minecraft.</p>
+
+<p>Thanks to Valve’s incredible work on <a href="https://en.wikipedia.org/wiki/Proton_(software)">the proton compatibility layer</a>, there are now tens of thousands of playable modern games on Linux. Oh, and did you know that the <a href="https://store.steampowered.com/steamdeck/">Steam Deck</a> actually runs Arch!</p>
+
+<p>All gaming installers live under <em>Install &gt; Gaming</em> in the Omarchy menu (<code>Super + Space</code>). If you ever want to undo one, use <em>Remove &gt; Gaming</em>.</p>
+
+<h2 id="steam">Steam <a class="manual__heading-link" href="#steam" aria-label="Link to this section">#</a></h2>
+
+<p>Install <a href="https://store.steampowered.com/">Steam</a> by selecting <em>Install &gt; Gaming &gt; Steam</em> from the Omarchy menu (<code>Super + Space</code>).</p>
+
+<p>After you’ve installed it, you’ll be able to launch Steam with <code>Super + Space</code>.</p>
+
+<p>Note that Steam can take 10-20 seconds to start up, and it’s not going to provide any visual feedback that it’s loading.</p>
+
+<p><img src="/assets/img/manual/gaming-steam.webp" alt="gaming-steam" /></p>
+
+<h2 id="retroarch">RetroArch <a class="manual__heading-link" href="#retroarch" aria-label="Link to this section">#</a></h2>
+
+<p>Install <a href="https://www.retroarch.com/">RetroArch</a> by selecting <em>Install &gt; Gaming &gt; RetroArch</em> from the Omarchy menu (<code>Super + Space</code>). It comes with the full set of libretro cores, so all the classic systems are covered.</p>
+
+<p>RetroArch is fully preconfigured with the beautiful CRT Royale shader for that perfect retro look.</p>
+
+<p>To get going:</p>
+
+<ol>
+  <li>Drop your BIOS files into <code>~/Games/bios</code> and your ROMs into <code>~/Games/roms</code>.</li>
+  <li>Launch RetroArch with <code>Super + Space</code> and typing <code>retro</code>.</li>
+  <li>Scan the <code>~/Games/roms</code> directory and you’re ready to play.</li>
+</ol>
+
+<p>You can also give a favorite game its own entry in the app launcher with <em>Install &gt; Gaming &gt; RetroArch Game Launcher</em>, which lets you pick a core and a ROM, and jump straight into the game from <code>Super + Space</code>.</p>
+
+<p><img src="/assets/img/manual/gaming-retroarch.webp" alt="gaming-retroarch" /></p>
+
+<h2 id="xbox-cloud-gaming">Xbox Cloud Gaming <a class="manual__heading-link" href="#xbox-cloud-gaming" aria-label="Link to this section">#</a></h2>
+
+<p>Install the Xbox Cloud Gaming web app by selecting <em>Install &gt; Gaming &gt; Xbox Cloud Gaming</em> from the Omarchy menu (<code>Super + Space</code>). It’s “just” a web app for the service, but it’s quick to start and runs great at 1080p.</p>
+
+<p>If you already have Xbox Game Pass, this is a solid way to play Fortnite and other titles you can’t run natively on Linux.</p>
+
+<p><img src="/assets/img/manual/gaming-xbox-cloud.webp" alt="gaming-xbox-cloud" /></p>
+
+<h2 id="nvidia-geforce-now">NVIDIA GeForce Now <a class="manual__heading-link" href="#nvidia-geforce-now" aria-label="Link to this section">#</a></h2>
+
+<p>Install the cloud-gaming service <a href="https://www.nvidia.com/en-us/geforce-now/">NVIDIA GeForce NOW</a> by selecting <em>Install &gt; Gaming &gt; NVIDIA GeForce NOW</em> from the Omarchy menu (<code>Super + Space</code>). Another great way to play titles that aren’t available natively on Linux.</p>
+
+<p><img src="/assets/img/manual/gaming-geforce-now.webp" alt="gaming-geforce-now" /></p>
+
+<h2 id="minecraft">Minecraft <a class="manual__heading-link" href="#minecraft" aria-label="Link to this section">#</a></h2>
+
+<p>Install Minecraft by selecting <em>Install &gt; Gaming &gt; Minecraft</em> from the Omarchy menu (<code>Super + Space</code>).</p>
+
+<p>Like Steam, note that it can take a while after logging in or starting up for the next screen to appear, and you’re not going to get any feedback while you’re waiting.</p>
+
+<p><img src="/assets/img/manual/gaming-minecraft.webp" alt="gaming-minecraft" /></p>
+
+<h2 id="xbox-controllers">Xbox Controllers <a class="manual__heading-link" href="#xbox-controllers" aria-label="Link to this section">#</a></h2>
+
+<p>Install support for Bluetooth Xbox controllers by selecting <em>Install &gt; Gaming &gt; Xbox Controllers</em> from the Omarchy menu (<code>Super + Space</code>). Pair the controllers via Bluetooth (<code>Super + Ctrl + B</code>) and they’ll work in all your games. You don’t need this if you’re just hardwiring your controller with a USB-C cable.</p>
+
+<h2 id="moonlight-game-streaming-from-a-pc">Moonlight (Game streaming from a PC) <a class="manual__heading-link" href="#moonlight-game-streaming-from-a-pc" aria-label="Link to this section">#</a></h2>
+
+<p>The <a href="https://github.com/moonlight-stream/moonlight-qt">Moonlight client</a> comes preinstalled with Omarchy, so you can stream games from a Windows PC running <a href="https://app.lizardbyte.dev/Sunshine/">Sunshine</a> right away. Launch Moonlight via <code>Super + Space</code>.</p>
+
+<p>If both your Omarchy machine and the remote gaming PC are hardwired, the experience is indistinguishable from playing locally. Crank the resolution up to native, set the refresh to 120Hz, and max the bitrate — this is the best way to play competitive shooters like Fortnite on Linux.</p>
+
+<p>You can also turn an Omarchy machine into the host by running <code>omarchy install service sunshine</code>, which installs Sunshine and opens the Moonlight streaming ports for your LAN and Tailscale.</p>
+
+<h2 id="battlenet">Battle.net <a class="manual__heading-link" href="#battlenet" aria-label="Link to this section">#</a></h2>
+
+<p>Install <a href="https://eu.shop.battle.net/en-us">Battle.net</a> by selecting <em>Install &gt; Gaming &gt; Battle.net</em> from the Omarchy menu (<code>Super + Space</code>). This gives you titles like Diablo, Starcraft, and World of Warcraft as a standalone install running under GE-Proton — no Steam, Lutris, or Heroic needed.</p>
+
+<p><img src="/assets/img/manual/gaming-starcraft.webp" alt="gaming-starcraft" /></p>
+
+<h2 id="lutris-windows-games">Lutris (Windows games) <a class="manual__heading-link" href="#lutris-windows-games" aria-label="Link to this section">#</a></h2>
+
+<p>Install <a href="https://lutris.net/">Lutris</a> by selecting <em>Install &gt; Gaming &gt; Lutris</em> from the Omarchy menu (<code>Super + Space</code>). Lutris is the way to play Windows games from stores like EA and Ubisoft Connect that don’t have their own installer above.</p>
+
+<p>Installation is a little janky and looks like nothing is happening at times — just be patient, it’s working in the background.</p>
+
+<h2 id="heroic-launcher-epic-games">Heroic Launcher (Epic Games) <a class="manual__heading-link" href="#heroic-launcher-epic-games" aria-label="Link to this section">#</a></h2>
+
+<p>Install the <a href="https://heroicgameslauncher.com/">Heroic Launcher</a> by selecting <em>Install &gt; Gaming &gt; Heroic (Epic Games)</em> from the Omarchy menu (<code>Super + Space</code>). Heroic lets you run Epic Games titles, like OddSparks, that don’t rely on anti-cheat — plus games from GOG and Amazon Prime Gaming. Sadly, that means no Fortnite and no Rocket League — until Tim Sweeney comes to Linux, this is as close as it gets.</p>
+
+<p>Like Lutris, it can feel slow and janky while installing games. Give it time.</p>
+
+      <nav class="manual__pagination">
+        <a class="manual__pagination-previous" href="/manual/web-apps/" rel="prev">← Web Apps</a>
+        <a class="manual__pagination-contents" href="/manual/toc/">Table of Contents</a>
+        <a class="manual__pagination-next" href="/manual/filling-out-pdfs/" rel="next">Filling out PDFs →</a>
+      </nav>

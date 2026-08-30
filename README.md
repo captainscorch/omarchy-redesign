@@ -18,16 +18,25 @@ One static file. No framework, no runtime dependencies — fonts, thumbnails, fa
 
 ## Files
 
-- `index.src.html` — the source of truth (markup, styles, scripts)
+- `index.src.html` — the homepage source (markup, styles, scripts)
+- `pages/` — one fragment per subpage: security, teams, patrons, sponsorships, air, meetups, workstations, brand
+- `partials/` — the shared shell every subpage is wrapped in: head with bar and base styles, footer, base script
+- `content/` — snapshots of the 51 manual chapters and 12 news articles from omarchy.org; `build.sh` turns them into pages with chapter toc, sidebars and prev/next
 - `404.src.html` — error page source, same design language, no embedded fonts
-- `build.sh` — inlines the assets and emits `public/index.html` and `public/404.html`
+- `build.sh` — inlines the assets, wraps fragments and content, emits `public/`
 - `public/` — what gets deployed
-- `assets/` — favicon, OG image and video thumbnails from omarchy.org, JetBrains Mono woff2 in `fonts/`
+- `assets/` — favicon, OG image, thumbnails, brand files and page images from omarchy.org, JetBrains Mono woff2 in `fonts/`
 - `wrangler.jsonc` — Cloudflare Workers static-assets config (custom domain, 404 handling)
 
 ## Develop
 
-Edit `index.src.html`, run `sh build.sh`, open `public/index.html`.
+Edit a source file, run `sh build.sh`, then serve `public/` locally — the site uses absolute paths, so use a server rather than opening files directly:
+
+```sh
+python3 -m http.server 8000 -d public
+```
+
+Then visit http://localhost:8000.
 
 ---
 
