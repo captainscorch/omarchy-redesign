@@ -91,8 +91,10 @@
     if (f === 'pages') return !e.c.startsWith('manual') && !e.c.startsWith('news');
     return true;
   }
+  const PLACEHOLDERS = { all: 'search the site', pages: 'search pages', manual: 'search the manual', news: 'search the news' };
   function setPills(f) {
     pills.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === f)));
+    input.placeholder = PLACEHOLDERS[f] || PLACEHOLDERS.all;
   }
 
   function updateFades() {
@@ -135,8 +137,8 @@
     sel = 0;
     renderList();
   }
-  function openBox() {
-    filter = 'all';
+  function openBox(f) {
+    filter = ['manual', 'news', 'pages'].includes(f) ? f : 'all';
     box.showModal();
     input.value = '';
     load().then(() => search(''));
@@ -161,7 +163,8 @@
     const slash = e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !document.querySelector('dialog[open]');
     if (combo || slash) { e.preventDefault(); if (!box.open) openBox(); }
   });
-  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', openBox));
+  document.querySelectorAll('[data-search-open]').forEach(b =>
+    b.addEventListener('click', () => openBox(b.getAttribute('data-search-open'))));
 
   /* show the platform's actual modifier */
   const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || '');

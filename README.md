@@ -40,7 +40,7 @@ Then visit http://localhost:8000.
 
 ## Attribution
 
-This is an unsolicited design proposal for [omarchy.org](https://omarchy.org). All Omarchy content, imagery and branding — the wordmark, logo, manual, news, photos — belongs to the Omarchy project and the Omacom Foundation; Omarchy is a pending trademark. JetBrains Mono ships under the SIL Open Font License (`fonts/OFL.txt`).
+This is an independent design proposal for [omarchy.org](https://omarchy.org). All Omarchy content, imagery and branding — the wordmark, logo, manual, news, photos — belongs to the Omarchy project and the Omacom Foundation; Omarchy is a pending trademark. JetBrains Mono ships under the SIL Open Font License (`fonts/OFL.txt`).
 
 ---
 

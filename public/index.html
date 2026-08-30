@@ -257,8 +257,14 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     transition: background 0.25s ease;
   }
   .bar__logo { display: flex; align-items: center; color: var(--accent); text-decoration: none; transition: color 0.15s; }
-  .bar__logo svg { width: 20px; height: 20px; fill: currentColor; }
+  .bar__logo svg { width: 20px; height: 20px; stroke-dasharray: 1; }
   .bar__logo:hover { color: var(--accent-2); }
+  /* hovering redraws the mark stroke by stroke, outer frame first */
+  .bar__logo:hover svg path { animation: logo-draw 0.45s ease both; }
+  .bar__logo:hover svg path:nth-child(2) { animation-delay: 0.3s; }
+  .bar__logo:hover svg path:nth-child(3) { animation-delay: 0.55s; }
+  .bar__logo:hover svg path:nth-child(4) { animation-delay: 0.62s; }
+  @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   .bar__ws { display: flex; gap: 2px; }
   .bar__ws a {
     display: grid; place-items: center;
@@ -271,7 +277,11 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .bar__ws a[aria-current="true"] { color: var(--win); background: var(--accent); font-weight: 700; }
   .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .bar__title strong { color: var(--fg); font-weight: 500; }
-  .bar__right { display: flex; align-items: center; gap: var(--space-sm); margin-left: auto; }
+  .bar__left { display: flex; align-items: center; gap: var(--space-md); }
+  .bar__right { display: flex; align-items: center; gap: var(--space-sm); margin-left: auto; justify-content: flex-end; }
+  /* both groups reserve the widest theme-name state so the title stays put */
+  @media (min-width: 640px) { .bar__right { min-width: 27.5em; } }
+  @media (min-width: 1000px) { .bar__left { min-width: 27.5em; } }
   .bar__theme, .bar__search {
     display: flex; align-items: center; gap: 8px;
     background: none; border: 1px solid var(--border); border-radius: 4px;
@@ -340,6 +350,28 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .win__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 6px 16px; margin: 0 0 16px; }
   .win__head .win__title { margin: 0; }
   .win__head > span { color: var(--muted); font-size: 0.75rem; flex-shrink: 0; }
+  .win__more { color: var(--muted); font-size: 0.75rem; text-decoration: none; flex-shrink: 0; transition: color 0.15s; }
+  .win__more::after { content: " →"; color: var(--accent-2); font-weight: 700; }
+  .win__more:hover { color: var(--fg); }
+
+  /* ================= news slider ================= */
+  .newsrow {
+    display: grid; grid-auto-flow: column; grid-auto-columns: min(320px, 78vw);
+    gap: var(--space-sm); overflow-x: auto; scroll-snap-type: x proximity;
+    padding-bottom: 6px; scrollbar-width: thin;
+  }
+  .newsrow__card {
+    scroll-snap-align: start;
+    display: flex; flex-direction: column; gap: 8px;
+    border: 1.5px solid var(--border); border-radius: 6px;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .newsrow__card:hover { border-color: var(--accent); background: var(--surface); }
+  .newsrow__card time { color: var(--muted); font-size: 0.6875rem; }
+  .newsrow__title { color: var(--fg); font-weight: 700; line-height: 1.35; }
+  .newsrow__card p { margin: 0; color: var(--muted); font-size: 0.8125rem; line-height: 1.5; }
 
   @keyframes spawn {
     from { opacity: 0; transform: scale(0.97) translateY(6px); }
@@ -631,12 +663,14 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
 
 <!-- waybar -->
 <nav class="bar" aria-label="Site">
-  <a class="bar__logo" href="#ws1" aria-label="Omarchy home"><svg viewBox="0 0 1200 1200" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z"/></svg></a>
-  <div class="bar__ws" id="ws-buttons">
-    <a href="#ws1" aria-current="true">1</a>
-    <a href="#ws2">2</a>
-    <a href="#ws3">3</a>
-    <a href="#ws4">4</a>
+  <div class="bar__left">
+    <a class="bar__logo" href="#ws1" aria-label="Omarchy home"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg></a>
+    <div class="bar__ws" id="ws-buttons">
+      <a href="#ws1" aria-current="true">1</a>
+      <a href="#ws2">2</a>
+      <a href="#ws3">3</a>
+      <a href="#ws4">4</a>
+    </div>
   </div>
   <p class="bar__title"><strong>omarchy</strong> 4.0.1 — the malleable OS</p>
   <div class="bar__right">
@@ -655,27 +689,27 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <a class="news" href="/news/2026/08/omacom-foundation-launches-with-8-million/" aria-label="News: Omacom Foundation launches with 10 million dollars">
    <div class="news__viewport" aria-hidden="true">
     <div class="news__track">
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
     </div>
     <div class="news__track">
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
     </div>
    </div>
   </a>
 
   <!-- ws1 · hero -->
   <section id="ws1" class="win hero" style="--i: 0">
-    <div class="hero__logo" id="logo-box" role="img" aria-label="OMARCHY">
+    <div class="hero__logo" id="logo-box" role="img" aria-label="OMARCHY" data-brand-menu>
       <pre id="logo-fallback" aria-hidden="true">
                  ▄▄▄
  ▄█████▄    ▄███████████▄    ▄███████   ▄███████   ▄███████   ▄█   █▄    ▄█   █▄
@@ -826,8 +860,18 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     </section>
   </div>
 
-  <!-- ws4 · project / community / support -->
-  <div class="row row--links" id="ws4">
+  <!-- ws4 · news + project / community / support -->
+  <section id="ws4" class="win" aria-label="Latest news">
+    <div class="win__head"><p class="win__title">tail -f news.log</p><a class="win__more" href="/news/">all news</a></div>
+    <div class="newsrow"><a class="newsrow__card" href="/news/2026/08/the-first-plugin-competition-winners/"><time>August 28, 2026</time><span class="newsrow__title">The first plugin competition winners</span><p>Radio Atlas, Omagotchi, and AirPods take the podium in the first Omarchy plugin competition.</p></a>
+<a class="newsrow__card" href="/news/2026/08/introducing-omarchy-air/"><time>August 28, 2026</time><span class="newsrow__title">Introducing Omarchy AIR</span><p>A six-month, funded residency for the artists who make Omarchy beautiful. The first two are HANCORE and OldJobobo.</p></a>
+<a class="newsrow__card" href="/news/2026/08/100000-downloads-in-a-week/"><time>August 28, 2026</time><span class="newsrow__title">Omarchy tops 100,000 downloads in a week</span><p>A hundred thousand people installed Omarchy in seven days, and we moved nearly a petabyte doing it.</p></a>
+<a class="newsrow__card" href="/news/2026/08/introducing-the-omarchy-rangers/"><time>August 27, 2026</time><span class="newsrow__title">Introducing Omarchy Rangers</span><p>The first Omarchy Rangers are here to help people find their way, and applications are open.</p></a>
+<a class="newsrow__card" href="/news/2026/08/omacom-foundation-to-be-premier-mise-sponsor/"><time>August 25, 2026</time><span class="newsrow__title">Omacom Foundation to be premier mise sponsor</span><p>Third sponsorship out the door! The Omacom Foundation is becoming a premier sponsor of mise, and thereby of jdx.</p></a>
+<a class="newsrow__card" href="/news/2026/08/omarchy-meetups-around-the-world/"><time>August 24, 2026</time><span class="newsrow__title">Omarchy meetups around the world</span><p>Find an Omarchy meetup near you or start one yourself and add it to the global calendar.</p></a></div>
+  </section>
+
+  <div class="row row--links">
     <section class="win" style="--i: 4" aria-label="Project">
       <p class="win__title">ls project/</p>
       <div class="ls">
@@ -859,7 +903,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     </section>
   </div>
 
-  <div class="foot-logo" id="logo-foot" role="img" aria-label="OMARCHY"></div>
+  <div class="foot-logo" id="logo-foot" role="img" aria-label="OMARCHY" data-brand-menu></div>
 
 </div>
 
@@ -1277,8 +1321,10 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     if (f === 'pages') return !e.c.startsWith('manual') && !e.c.startsWith('news');
     return true;
   }
+  const PLACEHOLDERS = { all: 'search the site', pages: 'search pages', manual: 'search the manual', news: 'search the news' };
   function setPills(f) {
     pills.forEach(b => b.setAttribute('aria-pressed', String(b.dataset.f === f)));
+    input.placeholder = PLACEHOLDERS[f] || PLACEHOLDERS.all;
   }
 
   function updateFades() {
@@ -1321,8 +1367,8 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     sel = 0;
     renderList();
   }
-  function openBox() {
-    filter = 'all';
+  function openBox(f) {
+    filter = ['manual', 'news', 'pages'].includes(f) ? f : 'all';
     box.showModal();
     input.value = '';
     load().then(() => search(''));
@@ -1347,12 +1393,68 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     const slash = e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey && !document.querySelector('dialog[open]');
     if (combo || slash) { e.preventDefault(); if (!box.open) openBox(); }
   });
-  document.querySelectorAll('[data-search-open]').forEach(b => b.addEventListener('click', openBox));
+  document.querySelectorAll('[data-search-open]').forEach(b =>
+    b.addEventListener('click', () => openBox(b.getAttribute('data-search-open'))));
 
   /* show the platform's actual modifier */
   const isMac = /Mac|iPhone|iPad|iPod/.test(navigator.platform || '');
   document.querySelectorAll('[data-kbd-search]').forEach(k => { k.textContent = isMac ? '⌘K' : 'Ctrl K'; });
 })();
+</script>
+<script>
+  'use strict';
+  /* right-clicking the bar logo opens a small brand menu */
+  (() => {
+    const triggers = document.querySelectorAll('.bar__logo, [data-brand-menu]');
+    if (!triggers.length) return;
+    const style = document.createElement('style');
+    style.textContent = [
+      '.logomenu { position: fixed; z-index: 40; min-width: 220px; padding: 6px; background: var(--win); border: 1.5px solid var(--border); border-radius: 6px; box-shadow: 0 12px 32px rgb(0 0 0 / 0.35); display: flex; flex-direction: column; }',
+      '.logomenu[hidden] { display: none; }',
+      '.logomenu button, .logomenu a { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; font: inherit; font-size: 0.8125rem; text-align: left; background: none; border: 0; color: var(--fg); padding: 7px 10px; border-radius: 4px; cursor: pointer; text-decoration: none; transition: background 0.12s; }',
+      '.logomenu button:hover, .logomenu a:hover { background: var(--surface); }',
+      '.logomenu span { color: var(--muted); font-size: 0.6875rem; }',
+      '.logomenu hr { border: 0; border-top: 1px solid var(--border); margin: 6px 0; }',
+      '.logomenu i { color: var(--accent-2); font-style: normal; font-weight: 700; }',
+    ].join('\n');
+    document.head.appendChild(style);
+
+    const menu = document.createElement('div');
+    menu.className = 'logomenu';
+    menu.hidden = true;
+    menu.setAttribute('aria-label', 'Brand menu');
+    menu.innerHTML =
+      '<button type="button" data-copy="/brand/omarchy-logo.svg">copy logo<span>svg</span></button>' +
+      '<button type="button" data-copy="/brand/omarchy-wordmark.svg">copy wordmark<span>svg</span></button>' +
+      '<hr><a href="/brand/">brand/ <i>→</i></a>';
+    document.body.appendChild(menu);
+
+    const close = () => { menu.hidden = true; };
+    for (const el of triggers) el.addEventListener('contextmenu', e => {
+      e.preventDefault();
+      menu.hidden = false;
+      const r = menu.getBoundingClientRect();
+      menu.style.left = Math.min(e.clientX, innerWidth - r.width - 8) + 'px';
+      menu.style.top = Math.min(e.clientY, innerHeight - r.height - 8) + 'px';
+    });
+    addEventListener('pointerdown', e => { if (!menu.contains(e.target)) close(); }, true);
+    addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    addEventListener('scroll', close, { passive: true });
+
+    for (const btn of menu.querySelectorAll('[data-copy]')) {
+      const label = btn.innerHTML;
+      btn.addEventListener('click', async () => {
+        try {
+          const svg = await (await fetch(btn.dataset.copy)).text();
+          await navigator.clipboard.writeText(svg);
+          btn.innerHTML = 'copied <i>✓</i>';
+        } catch (err) {
+          btn.innerHTML = 'copy failed';
+        }
+        setTimeout(() => { btn.innerHTML = label; close(); }, 800);
+      });
+    }
+  })();
 </script>
 </body>
 </html>

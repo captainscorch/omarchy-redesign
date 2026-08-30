@@ -52,11 +52,21 @@ __THEME_TOKENS__
     transition: background 0.25s ease;
   }
   .bar__logo { display: flex; align-items: center; color: var(--accent); text-decoration: none; transition: color 0.15s; }
-  .bar__logo svg { width: 20px; height: 20px; fill: currentColor; }
+  .bar__logo svg { width: 20px; height: 20px; stroke-dasharray: 1; }
   .bar__logo:hover { color: var(--accent-2); }
+  /* hovering redraws the mark stroke by stroke, outer frame first */
+  .bar__logo:hover svg path { animation: logo-draw 0.45s ease both; }
+  .bar__logo:hover svg path:nth-child(2) { animation-delay: 0.3s; }
+  .bar__logo:hover svg path:nth-child(3) { animation-delay: 0.55s; }
+  .bar__logo:hover svg path:nth-child(4) { animation-delay: 0.62s; }
+  @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
   .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .bar__title strong { color: var(--fg); font-weight: 500; }
-  .bar__right { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+  .bar__left { display: flex; align-items: center; gap: 16px; }
+  .bar__right { display: flex; align-items: center; gap: 12px; margin-left: auto; justify-content: flex-end; }
+  /* both groups reserve the widest theme-name state so the title stays put */
+  @media (min-width: 640px) { .bar__right { min-width: 27.5em; } }
+  @media (min-width: 1000px) { .bar__left { min-width: 27.5em; } }
   .bar__theme, .bar__search {
     display: flex; align-items: center; gap: 8px;
     background: none; border: 1px solid var(--border); border-radius: 4px;
@@ -126,6 +136,7 @@ __THEME_TOKENS__
   .win__head > span { color: var(--muted); font-size: 0.75rem; flex-shrink: 0; }
   /* link arrow, same glyph as the homepage listings */
   a.arrow::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .win__more::after { content: " →"; color: var(--accent-2); font-weight: 700; }
   .win h2 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
   .win p { margin: 0 0 12px; color: var(--fg); max-width: 68ch; }
   .win p:last-child { margin-bottom: 0; }
@@ -145,7 +156,7 @@ __THEME_TOKENS__
 
   .ls { display: grid; gap: 2px; font-size: 0.8125rem; }
   .ls a {
-    display: grid; grid-template-columns: 11ch 1fr; column-gap: 2ch; align-items: baseline;
+    display: grid; grid-template-columns: 11ch 1fr auto; column-gap: 2ch; align-items: baseline;
     padding: 6px 10px; margin: 0 -10px;
     border-radius: 4px; text-decoration: none;
     transition: background 0.12s;
@@ -225,12 +236,16 @@ __THEME_TOKENS__
   .prose pre { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; overflow-x: auto; margin: 0 0 14px; }
   .prose pre code { background: none; border: none; padding: 0; }
   .prose img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); margin: 4px 0 14px; }
+  /* transparent avatar rows need no frame */
+  .prose img.graphic { border: none; border-radius: 0; }
   .prose blockquote { margin: 0 0 14px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); }
   .prose table { border-collapse: collapse; margin: 0 0 16px; display: block; overflow-x: auto; font-size: 0.8125rem; }
   .prose th, .prose td { border: 1px solid var(--border); padding: 6px 12px; text-align: left; }
   .prose th { color: var(--accent); font-weight: 700; background: color-mix(in oklab, var(--surface) 60%, transparent); }
   .prose td code, .prose td kbd { white-space: nowrap; }
-  .prose .news-meta { font-size: 0.75rem; color: var(--muted); margin-bottom: 16px; }
+  /* spacing on the header — the win p:last-child reset eats it on the byline */
+  .prose .news-post__header { margin-bottom: 28px; }
+  .prose .news-meta { font-size: 0.75rem; color: var(--muted); }
   .prose .news-meta a { color: var(--muted); }
 
   /* image lightbox */
@@ -337,7 +352,9 @@ __PAGE_CSS__
 <body>
 
 <nav class="bar" aria-label="Site">
-  <a class="bar__logo" href="/" aria-label="Back to the Omarchy homepage" title="Back to the desktop"><svg viewBox="0 0 1200 1200" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z"/></svg></a>
+  <div class="bar__left">
+    <a class="bar__logo" href="/" aria-label="Back to the Omarchy homepage" title="Back to the desktop"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg></a>
+  </div>
   <p class="bar__title"><strong>omarchy</strong> 4.0.1 — __BAR_TITLE__</p>
   <div class="bar__right">
     <button class="bar__search" type="button" data-search-open aria-label="Search and navigate">

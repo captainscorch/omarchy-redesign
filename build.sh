@@ -25,6 +25,42 @@ src = src.replace("__CHUCK_B64__", b64("assets/video-networkchuck.webp"))
 favicon = b64("assets/favicon.png")
 src = src.replace("__FAVICON_B64__", favicon)
 
+# --- news: one list drives the /news/ pages and the homepage ticker ---
+NEWS = [
+    ("2026/08/the-first-plugin-competition-winners", "The first plugin competition winners", "August 28, 2026",
+     "Radio Atlas, Omagotchi, and AirPods take the podium in the first Omarchy plugin competition."),
+    ("2026/08/introducing-omarchy-air", "Introducing Omarchy AIR", "August 28, 2026",
+     "A six-month, funded residency for the artists who make Omarchy beautiful. The first two are HANCORE and OldJobobo."),
+    ("2026/08/100000-downloads-in-a-week", "Omarchy tops 100,000 downloads in a week", "August 28, 2026",
+     "A hundred thousand people installed Omarchy in seven days, and we moved nearly a petabyte doing it."),
+    ("2026/08/introducing-the-omarchy-rangers", "Introducing Omarchy Rangers", "August 27, 2026",
+     "The first Omarchy Rangers are here to help people find their way, and applications are open."),
+    ("2026/08/omacom-foundation-to-be-premier-mise-sponsor", "Omacom Foundation to be premier mise sponsor", "August 25, 2026",
+     "Third sponsorship out the door! The Omacom Foundation is becoming a premier sponsor of mise, and thereby of jdx."),
+    ("2026/08/omarchy-meetups-around-the-world", "Omarchy meetups around the world", "August 24, 2026",
+     "Find an Omarchy meetup near you or start one yourself and add it to the global calendar."),
+    ("2026/08/omacom-foundation-to-be-premier-quickshell-sponsor", "Omacom Foundation to be premier Quickshell sponsor", "August 24, 2026",
+     "More money in, more money out! Our second major sponsorship from the Omacom Foundation is going to outfoxxed for his superb work on Quickshell."),
+    ("2026/08/omacom-foundation-funding-hits-10m", "Omacom Foundation funding hits $10m", "August 24, 2026",
+     "Drew Houston and Peter Steinberger join the Omacom Foundation as Founding Patrons, taking total funding to $10 million."),
+    ("2026/08/omacom-foundation-to-be-exclusive-hyprland-sponsor", "Omacom Foundation to be exclusive Hyprland sponsor", "August 21, 2026",
+     "What better way to start spending some of the treasure we just raised for the Omacom Foundation than on the most cracked Linux kid in Poland: Vaxry!"),
+    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $10 million", "August 21, 2026",
+     "It's time to dream big. Omarchy Quattro has given people a chance to experience what the malleable computer of the future looks like."),
+    ("2026/09/the-omarchy-core-team", "The Omarchy Core Team", "August 19, 2026",
+     "Omarchy's explosive growth demands structured teams in response, starting with The Omarchy Core Team."),
+    ("2026/08/the-first-plugin-competition", "The first plugin competition", "August 19, 2026",
+     "The Omarchy Plugin Marketplace is already home to over 500 plugins and growing very fast."),
+]
+
+# homepage news slider: the latest headlines as snap-scrolling cards
+news_cards = "\n".join(
+    '<a class="newsrow__card" href="/news/%s/"><time>%s</time><span class="newsrow__title">%s</span><p>%s</p></a>'
+    % (path, date, title, teaser)
+    for path, title, date, teaser in NEWS[:6]
+)
+src = src.replace("<!--NEWS_CARDS-->", news_cards)
+
 # no start_url: a data-URI manifest has an opaque origin, the browser falls
 # back to the document URL anyway and skips the console warning
 manifest = json.dumps({
@@ -74,7 +110,8 @@ doc = (
     + '<!doctype html>\n<html lang="en">\n<head>\n'
     '<meta charset="utf-8">\n'
     '<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no">\n'
-    + head + "\n</head>\n<body>" + body + "\n" + open("partials/search.js").read() + "</body>\n</html>\n"
+    + head + "\n</head>\n<body>" + body + "\n" + open("partials/search.js").read()
+    + open("partials/logo-menu.js").read() + "</body>\n</html>\n"
 )
 open("public/index.html", "w").write(doc)
 
@@ -93,7 +130,7 @@ open("public/404.html", "w").write(p404)
 head = open("partials/head.html").read()
 foot = open("partials/foot.html").read()
 search_js = open("partials/search.js").read()
-base_js = search_js + open("partials/base.js").read()
+base_js = search_js + open("partials/logo-menu.js").read() + open("partials/base.js").read()
 sindex = []
 PARTNER_LINE = '  <p>Looking to become a partner or patron of Omarchy? Write <a href="mailto:david@omarchy.org">david@omarchy.org</a></p>\n'
 
@@ -171,7 +208,7 @@ for i, ch in enumerate(chapters):
   <div class="docs">
     <aside class="docs__toc win" aria-label="Chapters">
       <p class="win__title">ls manual/</p>
-      <button class="docs__search" type="button" data-search-open>search the manual<kbd data-kbd-search>⌘K</kbd></button>
+      <button class="docs__search" type="button" data-search-open="manual">search the manual<kbd data-kbd-search>⌘K</kbd></button>
       <div class="docs__toc-body">
       <ol>
 {toc}
@@ -192,40 +229,15 @@ for i, ch in enumerate(chapters):
            f"The Omarchy manual: {ch['title']}.", "the manual", body)
 
 # --- news: index list plus one page per article with an index sidebar ---
-NEWS = [
-    ("2026/08/the-first-plugin-competition-winners", "The first plugin competition winners", "August 28, 2026",
-     "Radio Atlas, Omagotchi, and AirPods take the podium in the first Omarchy plugin competition."),
-    ("2026/08/introducing-omarchy-air", "Introducing Omarchy AIR", "August 28, 2026",
-     "A six-month, funded residency for the artists who make Omarchy beautiful. The first two are HANCORE and OldJobobo."),
-    ("2026/08/100000-downloads-in-a-week", "Omarchy tops 100,000 downloads in a week", "August 28, 2026",
-     "A hundred thousand people installed Omarchy in seven days, and we moved nearly a petabyte doing it."),
-    ("2026/08/introducing-the-omarchy-rangers", "Introducing Omarchy Rangers", "August 27, 2026",
-     "The first Omarchy Rangers are here to help people find their way, and applications are open."),
-    ("2026/08/omacom-foundation-to-be-premier-mise-sponsor", "Omacom Foundation to be premier mise sponsor", "August 25, 2026",
-     "Third sponsorship out the door! The Omacom Foundation is becoming a premier sponsor of mise, and thereby of jdx."),
-    ("2026/08/omarchy-meetups-around-the-world", "Omarchy meetups around the world", "August 24, 2026",
-     "Find an Omarchy meetup near you or start one yourself and add it to the global calendar."),
-    ("2026/08/omacom-foundation-to-be-premier-quickshell-sponsor", "Omacom Foundation to be premier Quickshell sponsor", "August 24, 2026",
-     "More money in, more money out! Our second major sponsorship from the Omacom Foundation is going to outfoxxed for his superb work on Quickshell."),
-    ("2026/08/omacom-foundation-funding-hits-10m", "Omacom Foundation funding hits $10m", "August 24, 2026",
-     "Drew Houston and Peter Steinberger join the Omacom Foundation as Founding Patrons, taking total funding to $10 million."),
-    ("2026/08/omacom-foundation-to-be-exclusive-hyprland-sponsor", "Omacom Foundation to be exclusive Hyprland sponsor", "August 21, 2026",
-     "What better way to start spending some of the treasure we just raised for the Omacom Foundation than on the most cracked Linux kid in Poland: Vaxry!"),
-    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $8 million", "August 21, 2026",
-     "It's time to dream big. Omarchy Quattro has given people a chance to experience what the malleable computer of the future looks like."),
-    ("2026/09/the-omarchy-core-team", "The Omarchy Core Team", "August 19, 2026",
-     "Omarchy's explosive growth demands structured teams in response, starting with The Omarchy Core Team."),
-    ("2026/08/the-first-plugin-competition", "The first plugin competition", "August 19, 2026",
-     "The Omarchy Plugin Marketplace is already home to over 500 plugins and growing very fast."),
-]
+# (NEWS itself is defined up top, next to the homepage ticker it also feeds)
 
 news_index_items = "\n".join(
     f"""      <a class="news-card" href="/news/{path}/">
-        <p class="news-meta">DHH on {date}</p>
+        <p class="news-meta"><span class="no">{i:02d}</span> DHH on {date}</p>
         <h2>{title}</h2>
         <p class="teaser">{teaser}</p>
       </a>"""
-    for path, title, date, teaser in NEWS
+    for i, (path, title, date, teaser) in enumerate(NEWS, 1)
 )
 news_css = """
   .news-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -238,6 +250,7 @@ news_css = """
   }
   .news-card:hover { border-color: var(--accent); background: var(--surface); }
   .news-meta { margin: 0 0 6px; font-size: 0.6875rem; color: var(--muted); }
+  .news-meta .no { color: var(--warn); font-weight: 700; margin-right: 0.5ch; }
   .news-card h2 { margin: 0 0 6px; font-size: 0.9375rem; letter-spacing: -0.01em; }
   .news-card h2::after { content: " ↗"; color: var(--accent-2); opacity: 0; transition: opacity 0.12s; }
   .news-card:hover h2::after { opacity: 1; }
@@ -272,7 +285,7 @@ for i, (path, title, date, teaser) in enumerate(NEWS):
     body = f"""<div class="desktop">
   <div class="article-grid">
     <section class="win" aria-label="{title}">
-      <p class="win__title">cat news/{path.split('/')[-1]}.md</p>
+      <div class="win__head"><p class="win__title">cat news/{path.split('/')[-1]}.md</p><a class="win__more" href="/news/">all news</a></div>
       <h1 style="margin: 0 0 12px">{title}</h1>
       <div class="prose">
 {content}
