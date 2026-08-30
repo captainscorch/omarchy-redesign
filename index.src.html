@@ -185,7 +185,8 @@
     padding: var(--gap);
     display: grid; gap: var(--gap);
   }
-  #ws1, #ws2, #ws3 { scroll-margin-top: 68px; }
+  /* --bar-h follows the real bar height (safe-area insets make it taller on phones) */
+  #ws1, #ws2, #ws3 { scroll-margin-top: calc(var(--bar-h, 40px) + 28px); }
   .row { display: grid; gap: var(--gap); }
   .row--split { grid-template-columns: 2fr 3fr; }
   .row--videos { grid-template-columns: 1fr 1fr; }
@@ -644,6 +645,12 @@
   }
   document.getElementById('theme-btn').addEventListener('click', cycleTheme);
 
+  /* ---------- bar height → anchor offset ---------- */
+  const bar = document.querySelector('.bar');
+  new ResizeObserver(() => {
+    root.style.setProperty('--bar-h', bar.offsetHeight + 'px');
+  }).observe(bar);
+
   /* ---------- clock ---------- */
   const clock = document.getElementById('clock');
   function tick() {
@@ -725,14 +732,14 @@
     const ROWS = ART.length;
     const COLS = Math.max(...ART.map(l => l.length));
     const POOL = '░▒▓█▄▀▐▌';
-    const SCRAMBLE_MS = 260, RADIUS = 48;
+    const SCRAMBLE_MS = 260;
 
     /* mainVar colors resolved glyphs, altVar the scramble; the footer inverts the pair */
     function decryptLogo(box, opts) {
       const canvas = document.createElement('canvas');
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      let cells = [], cw = 0, ch = 0, asc = 0, fs = 0, raf = 0, start = 0, started = false;
+      let cells = [], cw = 0, ch = 0, asc = 0, fs = 0, raf = 0, start = 0, started = false, radius = 48;
       let colMain = '#888888', colAlt = '#555555', rowColors = null;
       const pointer = { x: -1e4, y: -1e4 };
 
@@ -764,6 +771,8 @@
         asc = Math.ceil(m.actualBoundingBoxAscent);
         /* floored row height: 1px overlap is invisible, a 1px gap bands the wordmark */
         ch = Math.floor(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+        /* scramble reach in cells, not pixels, so it feels the same at every size */
+        radius = cw * 5.5;
         const width = COLS * cw, height = ROWS * ch;
         canvas.width = Math.round(width * dpr);
         canvas.height = Math.round(height * dpr);
@@ -797,7 +806,7 @@
           const cell = cells[i];
           if (!reduced && pointer.x > -1e3) {
             const dx = cell.x + cw / 2 - pointer.x, dy = cell.y + ch / 2 - pointer.y;
-            if (dx * dx + dy * dy < RADIUS * RADIUS) cell.scrambleUntil = now + SCRAMBLE_MS;
+            if (dx * dx + dy * dy < radius * radius) cell.scrambleUntil = now + SCRAMBLE_MS;
           }
           const scrambled = t < cell.resolveAt || now < cell.scrambleUntil;
           if (scrambled) {
@@ -830,7 +839,11 @@
         pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
         wake();
       });
-      box.addEventListener('pointerleave', () => { pointer.x = pointer.y = -1e4; });
+      /* touch never fires pointerleave — without the up/cancel resets the
+         last touch point keeps scrambling forever */
+      for (const ev of ['pointerleave', 'pointerup', 'pointercancel']) {
+        box.addEventListener(ev, () => { pointer.x = pointer.y = -1e4; });
+      }
       new ResizeObserver(() => { layout(); wake(); }).observe(box);
       logos.push({ recolor() { readColors(); wake(); } });
     }
