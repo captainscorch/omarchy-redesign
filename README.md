@@ -1,0 +1,32 @@
+# Omarchy homepage redesign
+
+A redesign proposal for [omarchy.org](https://omarchy.org) — the homepage as a tiled Hyprland workspace.
+
+![The redesigned homepage in Tokyo Night](assets/preview.png)
+
+## Concept
+
+The page *is* an Omarchy desktop:
+
+- A waybar-style top bar — workspaces `1`–`3` anchor the sections, live clock, theme module.
+- Content tiled as windows with focus-follows-mouse borders, each titled by the command that would produce it (`❯ fastfetch`, `❯ ls community/`, `❯ cat SUPPORT.md`).
+- The ASCII wordmark rendered on canvas: it decrypts on load, scrambles under the cursor, and carries the original logo gradient — re-derived from the active theme's tokens.
+- `t` cycles through eight real Omarchy themes, palettes mapped 1:1 from `themes/*/colors.toml` in the [omarchy repo](https://github.com/omacom/omarchy) — including the light Rosé Pine Dawn. The choice persists.
+- Videos open in a floating mpv-style window (native `<dialog>`).
+
+One static file. No framework, no runtime dependencies — fonts, thumbnails, favicon and web manifest are inlined; the page works offline.
+
+## Files
+
+- `index.src.html` — the source of truth (markup, styles, scripts)
+- `build.sh` — inlines the assets and emits `index.html` (the standalone page) and `404.html`
+- `404.src.html` — error page source, same design language, no embedded fonts
+- `assets/` — favicon, OG image and video thumbnails from omarchy.org, JetBrains Mono woff2 in `fonts/`
+
+## Develop
+
+Edit `index.src.html`, run `sh build.sh`, open `index.html`.
+
+---
+
+Designed & developed by Daniel Schmier — [captainscor.ch](https://captainscor.ch)

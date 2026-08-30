@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no">
+<meta name="robots" content="noindex">
+<title>404 — Omarchy</title>
+<style>
+/* ================= Omarchy theme tokens ================= */
+  :root {
+    --desktop: #13141c;
+    --win: #1a1b26;
+    --surface: #24283b;
+    --border: rgba(65, 72, 104, 0.75);
+    --fg: #c0caf5;
+    --muted: #565f89;
+    --accent: #7aa2f7;
+    --accent-2: #7dcfff;
+    --hover: #b4f9f8;
+    --ok: #9ece6a;
+    --warn: #e0af68;
+    --err: #f7768e;
+    --mag: #bb9af7;
+
+    --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.9375rem;
+    --text-lg: 1.25rem;
+    --text-xl: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    --gap: clamp(8px, 1.2vw, 14px);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* All palettes below map 1:1 from themes/<name>/colors.toml in the Omarchy
+     repo: desktop=dark_background, win=background, surface=lighter_background,
+     border=muted, muted=dark_foreground (light_foreground where dark_ is
+     unreadable), accent=accent, accent-2=cyan, hover=bright_cyan.
+     tokyo-night keeps the website's own bright_foreground text and turquoise
+     hover from omarchy.org's root.css. */
+  html[data-theme="catppuccin"] {
+    --desktop: #161622; --win: #1e1e2e; --surface: #313244;
+    --border: rgba(88, 91, 112, 0.85);
+    --fg: #cdd6f4; --muted: #6c7086;
+    --accent: #89b4fa; --accent-2: #94e2d5; --hover: #94e2d5;
+    --ok: #a6e3a1; --warn: #f9e2af; --err: #f38ba8; --mag: #f5c2e7;
+  }
+  html[data-theme="gruvbox"] {
+    --desktop: #1e1e1e; --win: #282828; --surface: #3c3836;
+    --border: rgba(102, 92, 84, 0.9);
+    --fg: #d4be98; --muted: #7c6f64;
+    --accent: #7daea3; --accent-2: #89b482; --hover: #89b482;
+    --ok: #a9b665; --warn: #d8a657; --err: #ea6962; --mag: #d3869b;
+  }
+  html[data-theme="nord"] {
+    --desktop: #222730; --win: #2e3440; --surface: #3b4252;
+    --border: rgba(76, 86, 106, 0.9);
+    --fg: #d8dee9; --muted: #667080;
+    --accent: #81a1c1; --accent-2: #88c0d0; --hover: #8fbcbb;
+    --ok: #a3be8c; --warn: #ebcb8b; --err: #bf616a; --mag: #b48ead;
+  }
+  html[data-theme="everforest"] {
+    --desktop: #21272c; --win: #2d353b; --surface: #343f44;
+    --border: rgba(71, 82, 88, 0.9);
+    --fg: #d3c6aa; --muted: #9da9a0;
+    --accent: #7fbbb3; --accent-2: #83c092; --hover: #83c092;
+    --ok: #a7c080; --warn: #dbbc7f; --err: #e67e80; --mag: #d699b6;
+  }
+  /* Omarchy's rose-pine is the light Dawn variant */
+  html[data-theme="rose-pine"] {
+    --desktop: #ede7e1; --win: #faf4ed; --surface: #f2e9e1;
+    --border: rgba(206, 202, 205, 1);
+    --fg: #575279; --muted: #9893a5;
+    --accent: #56949f; --accent-2: #d7827e; --hover: #d7827e;
+    --ok: #286983; --warn: #ea9d34; --err: #b4637a; --mag: #907aa9;
+  }
+  html[data-theme="kanagawa"] {
+    --desktop: #17171e; --win: #1f1f28; --surface: #223249;
+    --border: rgba(84, 84, 109, 0.9);
+    --fg: #dcd7ba; --muted: #727169;
+    --accent: #dcd7ba; --accent-2: #7e9cd8; --hover: #7aa89f;
+    --ok: #98bb6c; --warn: #e6c384; --err: #c34043; --mag: #957fb8;
+  }
+  html[data-theme="matte-black"] {
+    --desktop: #0d0d0d; --win: #121212; --surface: #1e1e1e;
+    --border: rgba(51, 51, 51, 0.95);
+    --fg: #bebebe; --muted: #8a8a8d;
+    --accent: #e68e0d; --accent-2: #f59e0b; --hover: #eaeaea;
+    --ok: #ffc107; --warn: #ffc107; --err: #d35f5f; --mag: #d35f5f;
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--desktop); }
+  body {
+    margin: 0; min-height: 100vh;
+    display: grid; place-items: center;
+    background: var(--desktop); color: var(--fg);
+    /* no embedded fonts here — an error page loads instantly or not at all */
+    font-family: ui-monospace, 'JetBrains Mono', SFMono-Regular, Menlo, monospace;
+    font-size: 0.9375rem; line-height: 1.55;
+    padding: 16px;
+  }
+  .win {
+    width: min(560px, 94vw);
+    background: var(--win);
+    border: 1.5px solid var(--border); border-radius: 6px;
+    padding: 24px;
+    transition: border-color 0.2s ease;
+  }
+  .win:hover { border-color: var(--accent); }
+  .title { display: flex; gap: 1ch; align-items: center; color: var(--muted); font-size: 0.8125rem; margin: 0 0 16px; }
+  .title::before { content: "❯"; color: var(--ok); font-weight: 700; }
+  /* the full path lives in the output line; the title stays on one line */
+  .title span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .out { margin: 0 0 6px; overflow-wrap: anywhere; }
+  .out b { color: var(--err); }
+  .hint { margin: 0 0 24px; color: var(--muted); }
+  .btn {
+    display: inline-block; padding: 10px 18px;
+    border: 1.5px solid var(--accent); border-radius: 5px;
+    background: var(--accent); color: var(--win);
+    font-weight: 700; font-size: 0.8125rem;
+    letter-spacing: 0.04em; text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .btn:hover { background: var(--hover); border-color: var(--hover); }
+  @media (max-width: 480px) {
+    .btn { display: block; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<main class="win">
+  <p class="title">open <span data-path>/404</span></p>
+  <p class="out">open: <span data-path>/404</span>: No such file or directory <b>(404)</b></p>
+  <p class="hint">This window isn't on any workspace.</p>
+  <a class="btn" href="/">Back to the desktop</a>
+</main>
+<script>
+  'use strict';
+  try {
+    const t = localStorage.getItem('omarchy-redesign-theme-v1');
+    if (t && t !== 'tokyo-night') document.documentElement.setAttribute('data-theme', t);
+  } catch (e) {}
+  for (const el of document.querySelectorAll('[data-path]')) el.textContent = location.pathname;
+</script>
+</body>
+</html>

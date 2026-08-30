@@ -1,0 +1,859 @@
+<title>Omarchy — Beautiful, Fun &amp; Opinionated Linux by DHH</title>
+<meta name="author" content="Daniel Schmier — captainscor.ch">
+<meta name="description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://omarchy.captainscor.ch/">
+<link rel="manifest" href="data:application/manifest+json;base64,__MANIFEST_B64__">
+<link rel="icon" type="image/png" href="data:image/png;base64,__FAVICON_B64__">
+<link rel="apple-touch-icon" href="data:image/png;base64,__FAVICON_B64__">
+<meta name="apple-mobile-web-app-title" content="Omarchy">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#13141c" id="theme-color">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Omarchy">
+<meta property="og:title" content="Omarchy">
+<meta property="og:description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta property="og:url" content="https://omarchy.captainscor.ch/">
+<meta property="og:image" content="https://omarchy.org/assets/images/opengraph.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:image:alt" content="Omarchy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Omarchy">
+<meta name="twitter:description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta name="twitter:image" content="https://omarchy.org/assets/images/opengraph.png">
+<meta name="twitter:image:alt" content="Omarchy">
+<style>__FONT_FACES__</style>
+<style>
+  /* ================= Omarchy theme tokens ================= */
+  :root {
+    --desktop: #13141c;
+    --win: #1a1b26;
+    --surface: #24283b;
+    --border: rgba(65, 72, 104, 0.75);
+    --fg: #c0caf5;
+    --muted: #565f89;
+    --accent: #7aa2f7;
+    --accent-2: #7dcfff;
+    --hover: #b4f9f8;
+    --ok: #9ece6a;
+    --warn: #e0af68;
+    --err: #f7768e;
+    --mag: #bb9af7;
+
+    --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --text-xs: 0.6875rem;
+    --text-sm: 0.8125rem;
+    --text-base: 0.9375rem;
+    --text-lg: 1.25rem;
+    --text-xl: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+
+    --space-2xs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    --gap: clamp(8px, 1.2vw, 14px);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* All palettes below map 1:1 from themes/<name>/colors.toml in the Omarchy
+     repo: desktop=dark_background, win=background, surface=lighter_background,
+     border=muted, muted=dark_foreground (light_foreground where dark_ is
+     unreadable), accent=accent, accent-2=cyan, hover=bright_cyan.
+     tokyo-night keeps the website's own bright_foreground text and turquoise
+     hover from omarchy.org's root.css. */
+  html[data-theme="catppuccin"] {
+    --desktop: #161622; --win: #1e1e2e; --surface: #313244;
+    --border: rgba(88, 91, 112, 0.85);
+    --fg: #cdd6f4; --muted: #6c7086;
+    --accent: #89b4fa; --accent-2: #94e2d5; --hover: #94e2d5;
+    --ok: #a6e3a1; --warn: #f9e2af; --err: #f38ba8; --mag: #f5c2e7;
+  }
+  html[data-theme="gruvbox"] {
+    --desktop: #1e1e1e; --win: #282828; --surface: #3c3836;
+    --border: rgba(102, 92, 84, 0.9);
+    --fg: #d4be98; --muted: #7c6f64;
+    --accent: #7daea3; --accent-2: #89b482; --hover: #89b482;
+    --ok: #a9b665; --warn: #d8a657; --err: #ea6962; --mag: #d3869b;
+  }
+  html[data-theme="nord"] {
+    --desktop: #222730; --win: #2e3440; --surface: #3b4252;
+    --border: rgba(76, 86, 106, 0.9);
+    --fg: #d8dee9; --muted: #667080;
+    --accent: #81a1c1; --accent-2: #88c0d0; --hover: #8fbcbb;
+    --ok: #a3be8c; --warn: #ebcb8b; --err: #bf616a; --mag: #b48ead;
+  }
+  html[data-theme="everforest"] {
+    --desktop: #21272c; --win: #2d353b; --surface: #343f44;
+    --border: rgba(71, 82, 88, 0.9);
+    --fg: #d3c6aa; --muted: #9da9a0;
+    --accent: #7fbbb3; --accent-2: #83c092; --hover: #83c092;
+    --ok: #a7c080; --warn: #dbbc7f; --err: #e67e80; --mag: #d699b6;
+  }
+  /* Omarchy's rose-pine is the light Dawn variant */
+  html[data-theme="rose-pine"] {
+    --desktop: #ede7e1; --win: #faf4ed; --surface: #f2e9e1;
+    --border: rgba(206, 202, 205, 1);
+    --fg: #575279; --muted: #9893a5;
+    --accent: #56949f; --accent-2: #d7827e; --hover: #d7827e;
+    --ok: #286983; --warn: #ea9d34; --err: #b4637a; --mag: #907aa9;
+  }
+  html[data-theme="kanagawa"] {
+    --desktop: #17171e; --win: #1f1f28; --surface: #223249;
+    --border: rgba(84, 84, 109, 0.9);
+    --fg: #dcd7ba; --muted: #727169;
+    --accent: #dcd7ba; --accent-2: #7e9cd8; --hover: #7aa89f;
+    --ok: #98bb6c; --warn: #e6c384; --err: #c34043; --mag: #957fb8;
+  }
+  html[data-theme="matte-black"] {
+    --desktop: #0d0d0d; --win: #121212; --surface: #1e1e1e;
+    --border: rgba(51, 51, 51, 0.95);
+    --fg: #bebebe; --muted: #8a8a8d;
+    --accent: #e68e0d; --accent-2: #f59e0b; --hover: #eaeaea;
+    --ok: #ffc107; --warn: #ffc107; --err: #d35f5f; --mag: #d35f5f;
+  }
+
+  * { box-sizing: border-box; }
+  /* the root colour is what Safari paints behind its own chrome and into the
+     overscroll rubber band — body alone leaves those on the UA default */
+  html { scroll-behavior: smooth; background: var(--desktop); }
+  body {
+    margin: 0;
+    background: var(--desktop);
+    color: var(--fg);
+    font-family: var(--font);
+    font-size: var(--text-base);
+    line-height: 1.55;
+    transition: background 0.25s ease;
+  }
+  ::selection { background: var(--accent); color: var(--win); }
+  a { color: inherit; }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 2px; border-radius: 2px; }
+
+  /* ================= waybar ================= */
+  .bar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; gap: var(--space-md);
+    padding: 6px var(--gap);
+    padding-top: calc(6px + env(safe-area-inset-top));
+    background: color-mix(in oklab, var(--desktop) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-sm);
+    transition: background 0.25s ease;
+  }
+  .bar__logo { color: var(--accent); font-weight: 800; text-decoration: none; font-size: var(--text-base); }
+  .bar__ws { display: flex; gap: 2px; }
+  .bar__ws a {
+    display: grid; place-items: center;
+    width: 26px; height: 26px;
+    text-decoration: none; color: var(--muted); font-weight: 500;
+    border-radius: 4px;
+    transition: color 0.15s, background 0.15s;
+  }
+  .bar__ws a:hover { color: var(--fg); background: var(--surface); }
+  .bar__ws a[aria-current="true"] { color: var(--win); background: var(--accent); font-weight: 700; }
+  .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .bar__title strong { color: var(--fg); font-weight: 500; }
+  .bar__right { display: flex; align-items: center; gap: var(--space-sm); margin-left: auto; }
+  .bar__theme {
+    display: flex; align-items: center; gap: 8px;
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--fg); font: inherit; font-size: var(--text-sm);
+    padding: 3px 10px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .bar__theme:hover { border-color: var(--accent); background: var(--surface); }
+  .bar__theme .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
+  .bar__theme kbd {
+    font: inherit; font-size: 0.8em; color: var(--muted);
+    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px;
+    padding: 0 5px;
+  }
+  .bar__clock { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
+  @media (max-width: 640px) { .bar__title { display: none; } }
+
+  /* ================= desktop / tiling ================= */
+  .desktop {
+    max-width: 1200px; margin: 0 auto;
+    padding: var(--gap);
+    display: grid; gap: var(--gap);
+  }
+  #ws1, #ws2, #ws3 { scroll-margin-top: 68px; }
+  .row { display: grid; gap: var(--gap); }
+  .row--split { grid-template-columns: 2fr 3fr; }
+  .row--videos { grid-template-columns: 1fr 1fr; }
+  .row--links { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 900px) {
+    .row--split, .row--links { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 700px) {
+    .row--videos { grid-template-columns: 1fr; }
+  }
+
+  .win {
+    background: var(--win);
+    border: 1.5px solid var(--border);
+    border-radius: 6px;
+    padding: var(--space-lg);
+    transition: border-color 0.2s ease, background 0.25s ease;
+    min-width: 0;
+  }
+  .win:hover, .win:focus-within { border-color: var(--accent); }
+  .win__title {
+    display: flex; gap: 1ch; align-items: center;
+    font-size: var(--text-sm); color: var(--muted);
+    margin: 0 0 var(--space-md);
+    user-select: none;
+  }
+  .win__title::before { content: "❯"; color: var(--ok); font-weight: 700; }
+
+  @keyframes spawn {
+    from { opacity: 0; transform: scale(0.97) translateY(6px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .win { animation: spawn 0.45s var(--ease-out) both; animation-delay: calc(var(--i, 0) * 90ms); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .win { animation: none; }
+  }
+
+  /* ================= news marquee ================= */
+  .news {
+    display: block; overflow: hidden;
+    background: var(--win);
+    border: 1.5px solid var(--border); border-radius: 6px;
+    padding-block: 7px;
+    font-size: var(--text-sm); color: var(--muted);
+    text-decoration: none; white-space: nowrap;
+    transition: border-color 0.2s ease, color 0.15s, background 0.25s ease;
+  }
+  .news:hover { border-color: var(--accent); color: var(--fg); }
+  .news__viewport {
+    display: flex; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 40px, #000 calc(100% - 40px), transparent);
+  }
+  .news__track { display: flex; flex: 0 0 auto; animation: news-marquee 32s linear infinite; }
+  .news:hover .news__track { animation-play-state: paused; }
+  .news__item { display: inline-flex; gap: 1ch; align-items: baseline; padding-right: 3ch; }
+  .news__item b { color: var(--warn); font-weight: 700; }
+  .news__item i { font-style: normal; color: var(--accent-2); }
+  @keyframes news-marquee { to { transform: translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .news__track { animation: none; }
+    .news__track + .news__track { display: none; }
+  }
+
+  /* ================= hero ================= */
+  /* top padding compensates the art's nearly-empty first row (the M's tip) */
+  .hero { padding: var(--space-md) var(--space-lg) var(--space-lg); }
+  .hero__logo { position: relative; margin: 0 auto var(--space-xl); }
+  .hero__logo canvas { display: block; width: 100%; }
+  .hero__logo pre {
+    margin: 0; overflow: hidden;
+    color: var(--accent);
+    font-size: clamp(4px, 1.05vw, 12px); line-height: 1.15;
+    text-align: center;
+  }
+  .hero h1 {
+    margin: 0;
+    text-align: center;
+    font-size: var(--text-xl); font-weight: 800;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  .hero h1 a { color: var(--accent-2); text-decoration-color: var(--muted); text-underline-offset: 4px; }
+  .hero__sub {
+    max-width: 58ch; margin: var(--space-md) auto 0;
+    text-align: center; color: var(--muted);
+    font-size: var(--text-base); text-wrap: pretty;
+  }
+  .hero__sub a { color: var(--fg); text-underline-offset: 3px; white-space: nowrap; }
+  .hero__sub a:hover { color: var(--accent-2); }
+  .hero__actions {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm);
+    margin-top: var(--space-xl);
+  }
+  @media (max-width: 480px) {
+    .hero__actions { display: grid; grid-template-columns: 1fr 1fr; }
+    .hero__actions .btn { justify-content: center; }
+    .hero__actions .btn--primary { grid-column: 1 / -1; }
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 1ch;
+    padding: 10px 18px;
+    border-radius: 5px;
+    font-weight: 700; font-size: var(--text-sm);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    text-decoration: none;
+    border: 1.5px solid var(--accent);
+    color: var(--accent);
+    transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: none; }
+  .btn svg { width: 1.35em; height: 1.35em; fill: currentColor; overflow: visible; flex-shrink: 0; }
+  .btn--primary { background: var(--accent); color: var(--win); }
+  .btn--primary:hover { background: var(--hover); border-color: var(--hover); }
+  .btn--ghost:hover { background: var(--hover); border-color: var(--hover); color: var(--win); }
+  .btn small { font-weight: 400; letter-spacing: 0; text-transform: none; opacity: 0.75; }
+  .hero__hint {
+    margin: var(--space-xl) 0 0; text-align: center;
+    font-size: var(--text-xs); color: var(--muted);
+  }
+  .hero__hint kbd {
+    font: inherit; padding: 1px 6px;
+    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px;
+    color: var(--fg);
+  }
+  /* keyboard hints mean nothing on touch */
+  @media (pointer: coarse) {
+    .hero__hint, .bar__theme kbd { display: none; }
+  }
+
+  /* ================= fastfetch ================= */
+  .fetch { display: flex; gap: var(--space-xl); align-items: flex-start; }
+  .fetch__glyph {
+    color: var(--accent);
+    font-size: 88px; line-height: 1;
+    user-select: none;
+  }
+  .fetch dl {
+    margin: 0; flex: 1;
+    display: grid; grid-template-columns: max-content 1fr;
+    column-gap: 2ch; row-gap: 3px;
+    font-size: var(--text-sm);
+  }
+  .fetch dt { color: var(--accent); font-weight: 700; }
+  .fetch dt::after { content: ":"; color: var(--muted); }
+  .fetch dd { margin: 0; color: var(--fg); overflow-wrap: anywhere; }
+  .fetch dd a { text-decoration-color: var(--muted); text-underline-offset: 3px; }
+  .fetch dd a:hover { color: var(--accent-2); }
+  .fetch__chips { grid-column: 1 / -1; display: flex; gap: 4px; margin-top: var(--space-sm); }
+  .fetch__chips span { width: 22px; height: 12px; border-radius: 2px; }
+  @media (max-width: 480px) { .fetch__glyph { display: none; } }
+
+  /* ================= video windows ================= */
+  .video { padding: var(--space-md); }
+  .video a { display: block; position: relative; border-radius: 4px; overflow: hidden; }
+  .video img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; filter: saturate(0.92); transition: filter 0.2s, transform 0.3s var(--ease-out); }
+  .video a:hover img { filter: none; transform: scale(1.015); }
+  .video__play {
+    position: absolute; inset: auto auto 10px 10px;
+    display: inline-flex; align-items: center; gap: 1ch;
+    padding: 4px 10px; border-radius: 4px;
+    background: color-mix(in oklab, var(--win) 82%, transparent);
+    color: var(--fg); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em;
+  }
+  .video__play::before { content: "▶"; color: var(--accent); }
+  .video figcaption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--muted); }
+  .video figure { margin: 0; }
+
+  /* ================= ls listings ================= */
+  .ls { display: grid; gap: 2px; font-size: var(--text-sm); }
+  .ls a {
+    display: grid; grid-template-columns: 11ch 1fr; column-gap: 2ch; align-items: baseline;
+    padding: 6px 10px; margin: 0 -10px;
+    border-radius: 4px; text-decoration: none;
+    transition: background 0.12s;
+  }
+  .ls a:hover { background: var(--surface); }
+  .ls .mode { color: var(--muted); font-weight: 300; }
+  .ls .name { color: var(--accent); font-weight: 700; }
+  .ls .name::after { content: " ↗"; color: var(--accent-2); font-weight: 700; font-size: 1.15em; line-height: 0; vertical-align: -0.15em; opacity: 0; transition: opacity 0.12s; }
+  .ls a:hover .name::after { opacity: 1; }
+  .ls .desc { grid-column: 2; color: var(--muted); }
+  @media (max-width: 480px) {
+    .ls a { grid-template-columns: 1fr; }
+    .ls .mode { display: none; }
+    .ls .desc { grid-column: 1; }
+  }
+  .win__foot {
+    margin: var(--space-md) 0 0; padding-top: var(--space-md);
+    border-top: 1px solid var(--border);
+    font-size: var(--text-sm); color: var(--muted);
+  }
+  .win__foot a { color: var(--fg); text-underline-offset: 3px; }
+  .win__foot a:hover { color: var(--accent-2); }
+
+  /* ================= video lightbox ================= */
+  .lightbox {
+    width: min(960px, 94vw);
+    background: var(--win); color: var(--fg);
+    border: 1.5px solid var(--accent); border-radius: 6px;
+    padding: 0;
+  }
+  .lightbox::backdrop { background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px); }
+  .lightbox__inner { padding: var(--space-md); }
+  .lightbox__bar {
+    display: flex; justify-content: space-between; align-items: center;
+    gap: var(--space-md); margin-bottom: var(--space-sm);
+  }
+  .lightbox__bar .win__title { margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+  .lightbox__actions { display: flex; align-items: center; gap: var(--space-md); flex-shrink: 0; font-size: var(--text-sm); }
+  .lightbox__actions a { color: var(--muted); text-decoration: none; }
+  .lightbox__actions a:hover { color: var(--accent-2); }
+  .lightbox__close {
+    background: none; border: 1px solid var(--border); border-radius: 4px;
+    color: var(--muted); font: inherit; font-size: var(--text-sm);
+    padding: 2px 8px; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .lightbox__close:hover { color: var(--err); border-color: var(--err); }
+  .lightbox__frame { aspect-ratio: 16 / 9; background: #000; border-radius: 4px; overflow: hidden; }
+  .lightbox__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+  /* ================= footer bar ================= */
+  .foot-logo { padding: var(--space-2xl) var(--space-2xs) var(--space-xs); }
+  .foot-logo canvas { display: block; max-width: 100%; }
+  .foot {
+    display: flex; flex-direction: column; align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--gap) calc(var(--space-xl) + env(safe-area-inset-bottom));
+    font-size: var(--text-sm); color: var(--muted); text-align: center;
+  }
+  .foot p { margin: 0; }
+  .foot a { color: var(--fg); text-decoration: none; }
+  .foot a:hover { color: var(--accent-2); }
+  .foot svg { height: 1.05em; width: auto; fill: currentColor; vertical-align: -0.14em; }
+  @media (max-width: 640px) {
+    .foot__makers { display: block; margin-top: var(--space-2xs); }
+  }
+  .foot .cf-mark svg { height: 1.2em; vertical-align: -0.28em; }
+</style>
+
+<!-- waybar -->
+<nav class="bar" aria-label="Site">
+  <a class="bar__logo" href="#ws1" aria-label="Omarchy home">❖</a>
+  <div class="bar__ws" id="ws-buttons">
+    <a href="#ws1" aria-current="true">1</a>
+    <a href="#ws2">2</a>
+    <a href="#ws3">3</a>
+  </div>
+  <p class="bar__title"><strong>omarchy</strong> 4.0.1 — the malleable OS</p>
+  <div class="bar__right">
+    <button class="bar__theme" id="theme-btn" type="button" aria-label="Cycle theme">
+      <span class="dot" aria-hidden="true"></span><span id="theme-name">tokyo-night</span><kbd aria-hidden="true">t</kbd>
+    </button>
+    <span class="bar__clock" id="clock">--:--</span>
+  </div>
+</nav>
+
+<div class="desktop">
+
+  <a class="news" href="https://omarchy.org/news/2026/08/omacom-foundation-launches-with-8-million" aria-label="News: Omacom Foundation launches with 10 million dollars">
+   <div class="news__viewport" aria-hidden="true">
+    <div class="news__track">
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+    </div>
+    <div class="news__track">
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+      <span class="news__item"><b>news</b> Omacom Foundation launches with <s>$8</s> $10 million <i>→</i></span>
+    </div>
+   </div>
+  </a>
+
+  <!-- ws1 · hero -->
+  <section id="ws1" class="win hero" style="--i: 0">
+    <div class="hero__logo" id="logo-box" role="img" aria-label="OMARCHY">
+      <pre id="logo-fallback" aria-hidden="true">
+                 ▄▄▄
+ ▄█████▄    ▄███████████▄    ▄███████   ▄███████   ▄███████   ▄█   █▄    ▄█   █▄
+███   ███  ███   ███   ███  ███   ███  ███   ███  ███   ███  ███   ███  ███   ███
+███   ███  ███   ███   ███  ███   ███  ███   ███  ███   █▀   ███   ███  ███   ███
+███   ███  ███   ███   ███ ▄███▄▄▄███ ▄███▄▄▄██▀  ███       ▄███▄▄▄███▄ ███▄▄▄███
+███   ███  ███   ███   ███ ▀███▀▀▀███ ▀███▀▀▀▀    ███      ▀▀███▀▀▀███  ▀▀▀▀▀▀███
+███   ███  ███   ███   ███  ███   ███ ██████████  ███   █▄   ███   ███  ▄██   ███
+███   ███  ███   ███   ███  ███   ███  ███   ███  ███   ███  ███   ███  ███   ███
+ ▀█████▀    ▀█   ███   █▀   ███   █▀   ███   ███  ███████▀   ███   █▀    ▀█████▀
+                                       ███   █▀</pre>
+    </div>
+    <h1>Beautiful, Fun &amp; Opinionated Linux by <a href="https://dhh.dk" target="_blank" rel="noopener">DHH</a></h1>
+    <p class="hero__sub">The malleable OS for the age of agents. Where you can vibe your way through every alteration, tweak, and desire. <a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="https://iso.omarchy.org/omarchy-4.0.1.iso">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9.47363 4.01687c.77167.00015 1.39727.62585 1.39747 1.39747 0 .7718-.6257 1.39829-1.39747 1.39843h-4.625c-.66518.00006-1.17367.17068-1.52539.5127-.34225.34225-.51364.86071-.51367 1.55469v14.24194c0 .694.17139 1.2124.51367 1.5547.35173.3517.86001.5282 1.52539.5283h22.28807c.6561 0 1.1599-.1766 1.5117-.5283.3613-.3423.542-.8607.542-1.5547v-14.24194c0-.69398-.1807-1.21244-.542-1.55469-.3517-.34214-.8558-.5127-1.5117-.5127h-4.624c-.7719 0-1.3984-.62654-1.3984-1.39843.0002-.77171.6266-1.39747 1.3984-1.39747h4.8096c1.5402.00002 2.705.3903 3.4941 1.16993.789.77963 1.1836 1.93518 1.1836 3.46582v14.71258c0 1.5305-.3947 2.6853-1.1836 3.4649-.7891.7796-1.9539 1.1699-3.4941 1.1699h-22.64457c-1.54021 0-2.70501-.3903-3.49414-1.1699-.788897-.7796-1.18354196-1.9344-1.18359-3.4649v-14.71258c0-1.53064.394563-2.68619 1.18359-3.46582.78913-.77963 1.95393-1.16991 3.49414-1.16993z"/><path d="m16.0078 0c.3832.00005683.7111.136008.9834.408203.2825.27241.4238.590889.4238.954097v14.2481l-.1211 2.2548.8018-.9687 2.1494-2.2998c.2522-.2825.5652-.4238.9385-.4238.3429 0 .6358.1156.8779.3476.2522.2321.378.5203.378.8633-.0001.3328-.1314.6359-.3936.9082l-4.9785 4.7969c-.1816.1715-.3588.2926-.5303.3632-.1714.0706-.3478.1065-.5293.1065-.1816 0-.3587-.0358-.5303-.1065-.1714-.0706-.3533-.1918-.5449-.3632l-4.96385-4.7969c-.27233-.2723-.40812-.5754-.4082-.9082 0-.343.12114-.6312.36328-.8633.24207-.2319.53497-.3476.87797-.3476.3933 0 .711.1413.9531.4238l2.164 2.2998.8028.9687-.1211-2.2548v-14.2481c0-.363208.1358-.681687.4082-.954097.2824-.27226.6157-.408203.999-.408203z" fill="currentColor"/></svg>
+        <span>Download ISO <small>4.0.1</small></span>
+      </a>
+      <a class="btn btn--ghost" href="https://omarchy.org/manual/">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m0 4.49992c0-.3978.158025-.77931.439312-1.0606s.662798-.43931 1.060598-.43931h8.50549c2.4538 0 4.6337 1.17992 5.9996 3.00181.6982-.9334 1.6047-1.69085 2.6474-2.212 1.0426-.52115 2.1926-.7916 3.3582-.78981h8.4895c.3978 0 .7793.15802 1.0606.43931s.4393.6628.4393 1.0606v20.99868c0 .3978-.158.7793-.4393 1.0606s-.6628.4393-1.0606.4393h-9.0134c-.591 0-1.1761.1164-1.722.3425-.546.2261-1.042.5576-1.4598.9754l-1.244 1.2419c-.2812.2809-.6624.4387-1.0599.4387s-.7787-.1578-1.0599-.4387l-1.244-1.2419c-.4178-.4178-.9138-.7493-1.4598-.9754-.5459-.2261-1.131-.3425-1.722-.3425h-9.01539c-.3978 0-.779311-.158-1.060598-.4393s-.439312-.6628-.439312-1.0606zm14.5011 20.64668.008-10.1453-.004-4.5058c-.0011-1.19267-.4756-2.33616-1.3194-3.17916-.8437-.84299-1.9876-1.31652-3.1803-1.31652h-7.00559v17.99888h7.51349c1.4108-.0001 2.793.3978 3.9878 1.1479zm3.0078-14.6471-.008 14.6431c1.1942-.7477 2.5748-1.1442 3.9838-1.1439h7.5135v-17.99888h-6.9896c-1.1934 0-2.3379.47408-3.1818 1.31794-.8438.84386-1.3179 1.98838-1.3179 3.18174z" fill="currentColor"/></svg>
+        <span>Manual</span>
+      </a>
+      <a class="btn btn--ghost" href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">
+        <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m16 0c8.84 0 16 7.16 16 16-.0009 3.3524-1.053 6.6201-3.0083 9.3432-1.9553 2.7232-4.7154 4.7645-7.8917 5.8368-.8.16-1.1-.34-1.1-.76 0-.54.02-2.26.02-4.4 0-1.5-.5-2.46-1.08-2.96 3.56-.4 7.3-1.76 7.3-7.9 0-1.76-.62-3.18-1.64-4.3.16-.4.72-2.04-.16-4.24 0 0-1.34-.44-4.4 1.64-1.28-.36-2.64-.54-4-.54s-2.72.18-4 .54c-3.06-2.06-4.4-1.64-4.4-1.64-.88 2.2-.32 3.84-.16 4.24-1.02 1.12-1.64 2.56-1.64 4.3 0 6.12 3.72 7.5 7.28 7.9-.46.4-.88 1.1-1.02 2.14-.92.42-3.22 1.1-4.66-1.32-.3-.48-1.2-1.66-2.46-1.64-1.34.02-.54.76.02 1.06.68.38 1.46 1.8 1.64 2.26.32.9 1.36 2.62 5.38 1.88 0 1.34.02 2.6.02 2.98 0 .42-.3.9-1.1.76-3.18672-1.0607-5.95853-3.098-7.92222-5.8227-1.96369-2.7248-3.01954096-5.9987-3.0177778-9.3573 0-8.84 7.1599978-16 15.9999978-16z" fill="currentColor"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+    <p class="hero__hint"><kbd>1</kbd>–<kbd>3</kbd> switch workspaces · <kbd>t</kbd> cycles the theme</p>
+  </section>
+
+  <!-- ws2 · fastfetch + videos -->
+  <div class="row row--split" id="ws2">
+    <section class="win" style="--i: 1" aria-label="System info">
+      <p class="win__title">fastfetch</p>
+      <div class="fetch">
+        <span class="fetch__glyph" aria-hidden="true">❖</span>
+        <dl>
+          <dt>OS</dt><dd>Omarchy 4.0.1</dd>
+          <dt>Base</dt><dd>Arch Linux</dd>
+          <dt>Compositor</dt><dd>Hyprland</dd>
+          <dt>Font</dt><dd>JetBrains Mono</dd>
+          <dt>Theme</dt><dd id="fetch-theme">tokyo-night</dd>
+          <dt>Source</dt><dd><a href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">github.com/omacom/omarchy</a></dd>
+          <dt>Incubator</dt><dd><a href="https://37signals.com" target="_blank" rel="noopener">37signals</a></dd>
+          <div class="fetch__chips" id="chips" aria-hidden="true"></div>
+        </dl>
+      </div>
+    </section>
+
+    <div class="row row--videos">
+      <section class="win video" style="--i: 2">
+        <p class="win__title">mpv omarchy-intro.mp4</p>
+        <figure>
+          <a href="https://www.youtube.com/watch?v=F7fe9pa8OeE" target="_blank" rel="noopener" data-video="F7fe9pa8OeE" data-title="mpv omarchy-intro.mp4" aria-label="Watch: Omarchy introduction by DHH">
+            <img src="data:image/webp;base64,__QUATTRO_B64__" width="1280" height="720" alt="Omarchy Quattro — four tiled terminals" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption>The introduction, by DHH</figcaption>
+        </figure>
+      </section>
+      <section class="win video" style="--i: 3">
+        <p class="win__title">mpv networkchuck.mp4</p>
+        <figure>
+          <a href="https://www.youtube.com/watch?v=9SDkU5VDQEQ" target="_blank" rel="noopener" data-video="9SDkU5VDQEQ" data-title="mpv networkchuck.mp4" aria-label="Watch: You need to switch to Linux RIGHT NOW!! by NetworkChuck">
+            <img src="data:image/webp;base64,__CHUCK_B64__" width="1280" height="720" alt="NetworkChuck on switching to Linux" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption>“Switch to Linux RIGHT NOW” — NetworkChuck</figcaption>
+        </figure>
+      </section>
+    </div>
+  </div>
+
+  <!-- ws3+4 · project / community / support -->
+  <div class="row row--links" id="ws3">
+    <section class="win" style="--i: 4" aria-label="Project">
+      <p class="win__title">ls project/</p>
+      <div class="ls">
+        <a href="https://omarchy.org/manual/"><span class="mode">drwxr-xr-x</span><span class="name">manual/</span><span class="desc">Read this first — install to mastery</span></a>
+        <a href="https://omarchyplugins.com/" target="_blank" rel="noopener"><span class="mode">drwxr-xr-x</span><span class="name">plugins/</span><span class="desc">Extend the system</span></a>
+        <a href="https://omarchy.org/news/"><span class="mode">drwxr-xr-x</span><span class="name">news/</span><span class="desc">What just shipped</span></a>
+        <a href="https://omarchy.org/teams/"><span class="mode">drwxr-xr-x</span><span class="name">teams/</span><span class="desc">Who builds Omarchy</span></a>
+        <a href="https://omarchy.org/security/"><span class="mode">-rw-r--r--</span><span class="name">SECURITY</span><span class="desc">Report a vulnerability</span></a>
+      </div>
+    </section>
+
+    <section class="win" style="--i: 5" aria-label="Community">
+      <p class="win__title">ls community/</p>
+      <div class="ls">
+        <a href="https://discord.gg/tXFUdasqhY" target="_blank" rel="noopener"><span class="mode">drwxrwxrwx</span><span class="name">discord/</span><span class="desc">The daily conversation</span></a>
+        <a href="https://omarchy.org/meetups/"><span class="mode">drwxrwxrwx</span><span class="name">meetups/</span><span class="desc">Omarchs near you</span></a>
+        <a href="https://omarchy.org/workstations/"><span class="mode">drwxr-xr-x</span><span class="name">workstations/</span><span class="desc">Hardware that runs it well</span></a>
+        <a href="https://supply.37signals.com/collections/omarchy" target="_blank" rel="noopener"><span class="mode">drwxr-xr-x</span><span class="name">merch/</span><span class="desc">Wear the wordmark</span></a>
+      </div>
+    </section>
+
+    <section class="win" style="--i: 6" aria-label="Support the project">
+      <p class="win__title">cat SUPPORT.md</p>
+      <div class="ls">
+        <a href="https://omarchy.org/patrons/"><span class="mode">-rw-r--r--</span><span class="name">patrons</span><span class="desc">Individuals funding the work</span></a>
+        <a href="https://omarchy.org/sponsorships/"><span class="mode">-rw-r--r--</span><span class="name">sponsorships</span><span class="desc">Companies backing the project</span></a>
+        <a href="https://omarchy.org/air/"><span class="mode">-rw-r--r--</span><span class="name">air</span><span class="desc">Artists in Residence</span></a>
+      </div>
+      <p class="win__foot">Become a partner or patron: <a href="mailto:david@omarchy.org">david@omarchy.org</a></p>
+    </section>
+  </div>
+
+  <div class="foot-logo" id="logo-foot" role="img" aria-label="OMARCHY"></div>
+
+</div>
+
+<footer class="foot">
+  <p>Incubated at
+    <a href="https://37signals.com" target="_blank" rel="noopener" aria-label="37signals"><svg viewBox="0 0 37 37" aria-hidden="true"><g fill="currentColor"><path d="m35.4812 22.164c2.0248-2.0239 2.0248-5.3007-.0003-7.3248-2.0198-2.0258-5.301-2.0258-7.319.0007-2.0281 2.0232-2.0292 5.3012 0 7.3241 2.017 2.0215 5.2989 2.0221 7.3193 0z"/><path d="m22.1611 8.84334c2.0249-2.02387 2.0249-5.30008-.0002-7.32415-2.0198-2.02571-5.301-2.025711-7.319.00075-2.0281 2.02309-2.0292 5.30112 0 7.32404 2.017 2.02152 5.2989 2.02152 7.3192-.00064z"/><path d="m14.8417 35.4878c-2.0004-1.9957-1.9608-5.2847 0-7.3054 1.6632-1.6643 1.6633-4.3568 0-6.0182-1.6514-1.6494-4.3462-1.6166-6.01902 0-2.01326 2.0137-5.29117 2.0138-7.30726 0-2.000628-1.9982-1.960613-5.3031.00011-7.3247 1.64664-1.6469 1.614-4.3531 0-6.02035-2.020627-2.01857-2.020787-5.2857 0-7.30443 2.01572-2.019741 5.29428-2.019741 7.30798.00069 2.00119 1.99779 1.96109 5.28187-.0009 7.30374-1.6608 1.66305-1.6608 4.35645.00061 6.02035 1.65198 1.6478 4.34698 1.6154 6.01848 0 2.0158-2.0162 5.3064-2.0167 7.3201 0 2.004 1.9963 1.9646 5.3019 0 7.3247-1.6606 1.661-1.6615 4.354 0 6.0188 2.0241 2.0154 2.0252 5.2892 0 7.3055-2.0128 2.0155-5.3039 2.0155-7.3201-.0007z"/></g></svg> <strong>37signals</strong></a>
+    <span class="foot__makers">(makers of
+    <a href="https://basecamp.com" target="_blank" rel="noopener" aria-label="Basecamp"><svg viewBox="0 0 25 21" aria-hidden="true"><path clip-rule="evenodd" d="m12.5005 0c6.351 0 11.4126 7.57865 12.4363 14.5294.0565.3833.0847.575.0439.9423-.025.2243-.1727.7339-.2715.9368-.1619.3322-.2503.4349-.4271.6404-2.4491 2.8469-7.0342 3.9472-11.7816 3.9472-4.74773 0-9.3327-1.1003-11.782334-3.947-.176904-.2056-.265361-.3084-.427278-.6406-.098883-.2029-.2465927-.7126-.2715448-.9369-.0408566-.3674-.01261377-.5591.0438578-.9425 1.023859-6.95069 6.085899-14.52909515 12.437299-14.5291zm3.2375 4.98947c-1.0986 0-4.1697 5.44163-5.5786 5.44163-1.40909 0-2.14161-2.47648-3.87412-2.46686-1.71536.0098-3.48364 3.82686-4.32163 5.91136-.23503.5846-.35255.8769-.23729 1.4219.11527.545.27645.7017.59881 1.0153 1.24246 1.2084 4.09474 2.966 10.17513 2.966 6.0897 0 8.9411-1.7629 10.1803-2.9715.319-.3112.4786-.4667.5902-1.021s-.0076-.8358-.2459-1.3989c-.538-1.2713-1.4909-3.2521-2.8065-4.95014-1.4862-1.91791-3.3811-3.94777-4.4804-3.94779z" fill="currentColor" fill-rule="evenodd"/></svg> <strong>Basecamp</strong></a>
+    and
+    <a href="https://hey.com" target="_blank" rel="noopener" aria-label="HEY"><svg viewBox="0 0 34 37" aria-hidden="true"><path d="m16.932 0c.3437 0 .6833.077929.9932.226673.7035.296051 1.3945.951807 2.0493 1.817257.6572.86854 1.2905 1.96397 1.878 3.16083 1.1336 2.30928 2.1007 5.01294 2.7395 7.23324 1.0701-1.0382 2.3879-1.7857 3.8286-2.1718.7276-.2165 1.5015-.2226 2.2322-.0165.7319.2064 1.3903.6171 1.8993 1.1837 1.2048 1.3434 1.6425 3.5733 1.3697 6.6229-.2733 3.0558-1.2628 6.9686-2.9544 11.7154-.1105.3062-.338.5571-.6321.6955-.294.1382-.6307.1533-.9361.0426-.1524-.0523-.2933-.1345-.4133-.2422-.1208-.1084-.2187-.2403-.2875-.3875s-.1075-.3073-.1133-.4698c-.0057-.1619.0216-.3233.0794-.4746l.3862-1.0714c1.8517-5.2407 2.4956-8.6952 2.5856-10.9559.096-2.4117-.4389-3.448-.7918-3.8515-.2199-.2304-.503-.3911-.8131-.4611-.3123-.0704-.6386-.046-.9371.0698l-.0106.0039c-1.4717.4409-2.7558 1.3591-3.6505 2.6106.6827 2.7926 1.2701 5.7829 1.4685 8.3985.1 1.3181.1017 2.5454-.0339 3.6064-.1348 1.0557-.4079 1.958-.8654 2.6223-.2176.3533-.5142.6514-.8663.8698-.352.2183-.7495.3521-1.1617.3895-.3382.031-.6791-.0237-.9912-.1579-.3121-.1343-.586-.3442-.7967-.6113-.5102-.5901-.82-1.5541-.9903-2.6958-.1717-1.1514-.2052-2.509-.1471-3.9048.1161-2.7913.601-5.757 1.1103-7.5732.1319-.4754.3227-.932.5653-1.361l-.2856-1.0879c-.8475-3.1437-1.9843-5.94736-3.0367-7.97904-.5264-1.01623-1.0302-1.83569-1.4636-2.40719-.2169-.28603-.4132-.50661-.5837-.65774-.1429-.12666-.2555-.19285-.3369-.21892-.0606.051-.1383.1402-.2246.27898-.1087.17474-.2253.42016-.332.74686-.2134.65338-.3867 1.62544-.3921 2.99227-.0106 2.73358.6513 7.03528 2.9932 13.50448.1122.2974.1025.6277-.0262.9183-.1287.2904-.3659.5188-.6611.6345l-.001-.001c-.2897.1172-.6132.1199-.9041.0059-.2915-.1144-.5277-.3371-.6612-.621l-.001-.0009c-4.3727-9.5619-6.6825-13.08439-7.71125-14.30853-.15337 1.14582-.04162 2.97439.6418 5.54573.74695 2.8106 2.17255 6.499 4.66495 11.1351.1519.2752.1918.5993.1093.9028-.0825.3036-.2803.5629-.5508.7226l-.0009-.0009c-.2673.1654-.5879.2209-.8945.152-.3077-.0691-.5761-.2567-.7473-.5221-1.3668-2.0522-2.94227-4.4323-4.36966-6.5096-1.28751-1.8736-2.45029-3.4922-3.22837-4.4046-.01272 1.9126.81768 6.371 5.37153 13.2565.1868.2666.2601.5962.2053.9174-.0551.3222-.2354.6092-.50147.7982-.26615.1889-.59626.2644-.91769.2092-.32157-.0553-.60842-.2366-.79668-.5037l-.00388-.0049c-1.47917-2.2974-3.39994-4.2737-5.64842-5.815.69763 2.8769 2.08586 5.5376 4.04441 7.7485l.41625.4543.00677.0068.21975.2548c1.11738 1.2542 2.52111 2.2204 4.09276 2.815 1.675.6336 3.4842.8233 5.2535.5512.157-.0319.319-.0316.4763-.001.1579.0307.3082.0922.4424.1812.1341.089.2498.2034.3397.3371.0676.1003.1195.2102.1549.3254l.03.1173.001.0029c.0576.3213-.0129.6528-.1955.9231-.1826.2702-.4633.4578-.7822.5231l-.0019.001c-.7181.1399-1.4476.2134-2.1791.2189h-.0106c-2.2492-.1401-4.435-.8055-6.38316-1.9422-1.94611-1.1355-3.60164-2.7108-4.83529-4.6003l-.42883-.618c-.98631-1.4741-1.86106-3.1559-2.425871-4.6943-.322667-.8789-.546038-1.7162-.6292158-2.444-.0826903-.7236-.02965046-1.3599.2236138-1.8211l.000968-.002c.15171-.2694.368604-.4965.630184-.6606.261481-.1639.559551-.2602.867351-.279h.01258l.35043.0232c.63782.0691 1.24876.2873 1.78891.6316-.90747-2.23-1.39102-4.1153-1.56627-5.6164-.18693-1.6015-.02883-2.7843.34849-3.4728.12895-.2793.33247-.5178.58856-.6877.2584-.1714.55961-.2669.86929-.2751l.17231-.0029c.17264.0027.34503.0256.5266.0842.24087.0778.49002.2164.77539.4427.48397.3839 1.08731 1.032 1.9496 2.1001-1.34261-4.85282-.83573-7.37691-.42786-8.39558l.08325-.1918c.12333-.30459.33446-.56531.60598-.74977.24434-.16597.52767-.26283.82089-.28188l.02129-.00388h.08616l.00968.00194c.15091.00512.3388.02742.5721.12593.2823.11926.62242.34489 1.04547.76526.7828.77794 1.8672 2.24233 3.421 4.99359-.2947-2.47746-.2074-4.43971.1423-5.92837.3846-1.63712 1.0895-2.715995 1.9631-3.262543l.0136-.007749c.3121-.1512954.6543-.23048232 1.0009-.230548zm6.8575 20.0247c-.2391 1.7701-.3581 3.5942-.3581 5.1312 0 .8912.0403 1.683.12 2.3103.0398.3137.0888.5844.1471.804.0382.1438.0804.2615.123.3545.0311-.0268.0595-.0561.0803-.0872.3149-.4708.5418-1.4261.5373-2.9729-.0041-1.3783-.1937-3.2064-.6496-5.5399z" fill="currentColor"/></svg> <strong>HEY</strong></a>)</span>
+  </p>
+  <p class="cf-line">Sponsored hosting by <a class="cf-mark" href="https://cloudflare.com" target="_blank" rel="noopener" aria-label="Cloudflare"><svg viewBox="0 0 213 32" aria-hidden="true"><path d="m36.9297 0c7.7446 0 14.2333 5.45664 15.8369 12.7568.0082.0581.0166.1167.0166.1748 0 .1079-.0163.2159-.0576.3155l-1.4219 3.7373c-1.1241 2.9401-4.3231 5.3573-7.2822 5.4902l-24.9365.3154c-.2479.0083-.4876.1989-.5704.4395-.0579.1578-.0327.3246.0499.4492.0826.1242.2227.1986.3876.207l24.7139.3164c1.306.0664 2.3807.5977 3.0254 1.503.7024.98.86 2.3255.4385 3.7705l-.3477 1.2207c-.0743.2573-.3055.432-.5615.4404h-.0166l-45.617186-.0088c-.239688 0-.44642-.1741-.479492-.415-.066124-.4983-.107422-.9968-.107422-1.5117.00009889-5.6558 4.48838-10.2655 10.084-10.4317-.20653-.8136-.28128-1.6687-.19045-2.5654.33885-3.4466 3.09145-6.22099 6.52145-6.56152 1.9341-.191 3.7277.37402 5.1329 1.42872 2.1737-6.43646 8.2406-11.07120758 15.3818-11.0713zm42.956 19.376c3.0582 0 5.4056 2.0103 5.9346 4.7011h-3.29c-.4133-1.0796-1.3967-1.8769-2.6778-1.8769-1.7026 0-2.8427 1.3957-2.8427 3.0234v.0332c.0002 1.6359 1.1735 3.0557 2.8759 3.0557 1.2233-.0001 2.1411-.7061 2.5791-1.6943v-.0078h3.2891c-.6117 2.591-2.9342 4.5263-5.9014 4.5263-3.4713 0-6.0417-2.5995-6.042-5.8467v-.0332c0-3.2473 2.6038-5.8808 6.0752-5.8808zm27.2843 0c3.471 0 6.042 2.6003 6.042 5.8476v.0332c0 3.2471-2.604 5.8799-6.075 5.8799-3.472-.0001-6.042-2.5996-6.042-5.8467v-.0332c0-3.2472 2.603-5.8808 6.075-5.8808zm13.026 6.5195c0 1.6278.818 2.4092 2.075 2.4092 1.256-.0002 2.074-.7401 2.074-2.3262v-6.3613h3.166v6.2705c0 3.6541-2.075 5.2489-5.274 5.249-3.198-.0166-5.207-1.6446-5.207-5.1826v-6.3457h3.166zm-65.1814-12.374c7.4555.0001 13.5059 6.0795 13.5059 13.5625 0 1.2788-.1743 2.5077-.5049 3.6787-.0662.2158-.2641.3652-.4873.3652h-18.8535c-.19-.0083-.3302-.2073-.2559-.3984l.3965-1.0381c1.1241-2.9401 4.3316-5.3491 7.2989-5.4902l5.4716-.3155c.2477-.0085.4876-.1989.5703-.4394.0496-.1578.0324-.3246-.0585-.4492-.0826-.1243-.2145-.1986-.3711-.2071l-5.2657-.3154c-1.3059-.0665-2.3807-.5986-3.0254-1.5039-.7023-.98-.859-2.3255-.4375-3.7705l.9747-3.3721c.033-.1244.1325-.2241.248-.2656.033-.0166.0663-.0244.1074-.0244.2314-.0083.4551-.0166.6865-.0166zm81.6124 6.0869c4.018 0 6.348 2.3258 6.348 5.5898v.0332c0 3.2639-2.364 5.6895-6.414 5.6895h-4.273v-11.3125zm58.082 0c1.719 0 2.909.4572 3.661 1.2295.662.6478 1 1.5199 1 2.6328v.0332c0 1.7275-.917 2.8737-2.314 3.4717l2.686 3.9453h-3.603l-2.265-3.4219h-1.372v3.4219h-3.116v-11.3125zm-102.3008 8.5635h5.4551v2.7402h-8.5713v-11.3037h3.1162zm64.1058-5.8223h-5.885v1.9268h5.323v2.5996h-5.323v4.0361h-3.124v-11.3037h9.009zm7.456 5.8223h5.447v2.7402h-8.563v-11.3037h3.116zm21.407 2.7402h-3.347l-.818-2.0176h-4.34l-.802 2.0176h-3.281l4.786-11.3867h3.008zm27.541-8.6377h-5.96v1.711h5.398v2.4667h-5.398v1.794h6.042v2.666h-9.133v-11.3037h9.051zm-105.781-.0742c-1.703.0001-2.844 1.3874-2.844 3.0234v.0332c0 1.6276 1.174 3.0557 2.877 3.0557 1.719 0 2.86-1.3865 2.86-3.0225v-.0332c0-1.6278-1.174-3.0566-2.893-3.0566zm28.267 5.9385h1.273c1.868 0 3.1-1.0303 3.1-2.8575v-.0332c0-1.8104-1.24-2.8574-3.1-2.8574h-1.273zm42.369-1.6866h2.529l-1.256-3.2138zm14.729-1.4121h2.058v-.0078c1.057 0 1.67-.5149 1.67-1.3369v-.0332c0-.8887-.645-1.3379-1.687-1.3379h-2.041z" fill="currentColor"/></svg></a></p>
+</footer>
+
+<dialog class="lightbox" id="lightbox" aria-label="Video player">
+  <div class="lightbox__inner">
+    <div class="lightbox__bar">
+      <p class="win__title" id="lightbox-title">mpv</p>
+      <div class="lightbox__actions">
+        <a id="lightbox-yt" href="https://www.youtube.com" target="_blank" rel="noopener">YouTube ↗</a>
+        <button class="lightbox__close" id="lightbox-close" type="button">close [esc]</button>
+      </div>
+    </div>
+    <div class="lightbox__frame">
+      <iframe id="lightbox-iframe" title="YouTube video player" allow="autoplay; fullscreen; encrypted-media; picture-in-picture"></iframe>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  'use strict';
+
+  /* ---------- themes ---------- */
+  const THEMES = ['tokyo-night', 'catppuccin', 'everforest', 'gruvbox', 'kanagawa', 'matte-black', 'nord', 'rose-pine'];
+  const STORE_KEY = 'omarchy-redesign-theme-v1';
+  const root = document.documentElement;
+  const themeName = document.getElementById('theme-name');
+  const fetchTheme = document.getElementById('fetch-theme');
+  const chips = document.getElementById('chips');
+
+  function applyTheme(name) {
+    if (name === 'tokyo-night') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', name);
+    themeName.textContent = name;
+    fetchTheme.textContent = name;
+    const cs = getComputedStyle(root);
+    chips.innerHTML = '';
+    for (const v of ['--surface', '--err', '--ok', '--warn', '--accent', '--mag', '--accent-2', '--fg']) {
+      const s = document.createElement('span');
+      s.style.background = cs.getPropertyValue(v);
+      chips.appendChild(s);
+    }
+    logos.forEach(l => l.recolor());
+    const tc = document.getElementById('theme-color');
+    if (tc) tc.setAttribute('content', cs.getPropertyValue('--desktop').trim());
+    try { localStorage.setItem(STORE_KEY, name); } catch (e) {}
+  }
+  function cycleTheme() {
+    const current = root.getAttribute('data-theme') || 'tokyo-night';
+    applyTheme(THEMES[(THEMES.indexOf(current) + 1) % THEMES.length]);
+  }
+  document.getElementById('theme-btn').addEventListener('click', cycleTheme);
+
+  /* ---------- clock ---------- */
+  const clock = document.getElementById('clock');
+  function tick() {
+    const d = new Date();
+    clock.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+  }
+  tick(); setInterval(tick, 15000);
+
+  /* ---------- workspace indicator ---------- */
+  const wsLinks = [...document.querySelectorAll('#ws-buttons a')];
+  const sections = ['ws1', 'ws2', 'ws3'].map(id => document.getElementById(id));
+  let wsIdx = 0, wsLock = 0;
+
+  function renderWs() {
+    wsLinks.forEach((a, i) => a.setAttribute('aria-current', i === wsIdx ? 'true' : 'false'));
+  }
+  function setWs(idx) {
+    wsIdx = idx;
+    /* hold the explicit choice while smooth scrolling settles — on tall
+       screens several workspaces are visible at once and the scroll
+       handler would fight the click */
+    wsLock = performance.now() + 900;
+    renderWs();
+  }
+  /* active = last section whose top passed the reference line; the line is
+     capped at 300px so a tall viewport doesn't hand the highlight to a
+     later section that merely fits on screen */
+  addEventListener('scroll', () => {
+    if (performance.now() < wsLock) return;
+    const ref = Math.min(innerHeight * 0.35, 300);
+    let idx = 0;
+    sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= ref) idx = i; });
+    if (idx !== wsIdx) { wsIdx = idx; renderWs(); }
+  }, { passive: true });
+  wsLinks.forEach((a, i) => a.addEventListener('click', () => setWs(i)));
+
+  /* ---------- keyboard: t = theme, 1-3 = workspace ---------- */
+  addEventListener('keydown', e => {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    const lb = document.getElementById('lightbox');
+    if (lb && lb.open) return;
+    if (e.key === 't') cycleTheme();
+    const n = parseInt(e.key, 10);
+    if (n >= 1 && n <= 3) { setWs(n - 1); sections[n - 1].scrollIntoView({ block: 'start' }); }
+  });
+
+  /* ---------- video lightbox: floating mpv window ---------- */
+  (() => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox || typeof lightbox.showModal !== 'function') return;
+    const frame = document.getElementById('lightbox-iframe');
+    const title = document.getElementById('lightbox-title');
+    const yt = document.getElementById('lightbox-yt');
+    /* YouTube refuses embeds without an http(s) referrer (error 153) —
+       from file:// the thumbnails stay plain links */
+    if (!location.protocol.startsWith('http')) return;
+    document.querySelectorAll('.video a[data-video]').forEach(a => {
+      a.addEventListener('click', e => {
+        if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+        e.preventDefault();
+        title.textContent = a.dataset.title;
+        yt.href = a.href;
+        frame.src = 'https://www.youtube-nocookie.com/embed/' + a.dataset.video + '?autoplay=1';
+        lightbox.showModal();
+      });
+    });
+    document.getElementById('lightbox-close').addEventListener('click', () => lightbox.close());
+    /* backdrop click: the inner div covers everything but the backdrop */
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) lightbox.close(); });
+    lightbox.addEventListener('close', () => { frame.src = ''; });
+  })();
+
+  /* ---------- decrypting ASCII wordmarks ---------- */
+  const logos = [];
+  (() => {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fallback = document.getElementById('logo-fallback');
+    const ART = fallback.textContent.replace(/^\n/, '').split('\n');
+    const ROWS = ART.length;
+    const COLS = Math.max(...ART.map(l => l.length));
+    const POOL = '░▒▓█▄▀▐▌';
+    const SCRAMBLE_MS = 260, RADIUS = 48;
+
+    /* mainVar colors resolved glyphs, altVar the scramble; the footer inverts the pair */
+    function decryptLogo(box, opts) {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+      let cells = [], cw = 0, ch = 0, asc = 0, fs = 0, raf = 0, start = 0, started = false;
+      let colMain = '#888888', colAlt = '#555555', rowColors = null;
+      const pointer = { x: -1e4, y: -1e4 };
+
+      function readColors() {
+        const cs = getComputedStyle(root);
+        colMain = cs.getPropertyValue(opts.mainVar).trim();
+        colAlt = cs.getPropertyValue(opts.altVar).trim();
+        if (opts.gradient) {
+          /* row gradient like the original OG art, re-derived from the theme tokens */
+          const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+          const stops = ['--hover', '--accent', '--mag'].map(v => hex(cs.getPropertyValue(v).trim()));
+          rowColors = [];
+          for (let r = 0; r < ROWS; r++) {
+            const t = ROWS > 1 ? r / (ROWS - 1) : 0;
+            const [a, b, f] = t < 0.5 ? [stops[0], stops[1], t * 2] : [stops[1], stops[2], (t - 0.5) * 2];
+            rowColors.push('rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * f)).join(',') + ')');
+          }
+        }
+      }
+
+      function layout() {
+        const w = box.clientWidth;
+        const dpr = Math.min(devicePixelRatio || 1, 2);
+        fs = Math.min(w / (COLS * 0.6), opts.cap);
+        ctx.font = '700 ' + fs + 'px "JetBrains Mono", monospace';
+        /* integer cells, floored: fractions leave seams, rounding up overflows the container */
+        const m = ctx.measureText('█');
+        cw = Math.floor(m.width);
+        asc = Math.ceil(m.actualBoundingBoxAscent);
+        /* floored row height: 1px overlap is invisible, a 1px gap bands the wordmark */
+        ch = Math.floor(m.actualBoundingBoxAscent + m.actualBoundingBoxDescent);
+        const width = COLS * cw, height = ROWS * ch;
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        canvas.style.margin = '0 auto';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.font = '700 ' + fs + 'px "JetBrains Mono", monospace';
+        ctx.textBaseline = 'alphabetic';
+        cells = [];
+        for (let r = 0; r < ROWS; r++) {
+          for (let c = 0; c < ART[r].length; c++) {
+            const gl = ART[r][c];
+            if (gl === ' ') continue;
+            cells.push({
+              gl, r, x: c * cw, y: r * ch,
+              resolveAt: reduced ? 0 : (c / COLS) * (opts.duration * 0.72) + Math.random() * opts.duration * 0.28,
+              scrambleUntil: 0,
+            });
+          }
+        }
+      }
+
+      function draw(now) {
+        raf = 0;
+        const t = now - start;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let busy = false;
+        const frame = Math.floor(now / 140);
+        for (let i = 0; i < cells.length; i++) {
+          const cell = cells[i];
+          if (!reduced && pointer.x > -1e3) {
+            const dx = cell.x + cw / 2 - pointer.x, dy = cell.y + ch / 2 - pointer.y;
+            if (dx * dx + dy * dy < RADIUS * RADIUS) cell.scrambleUntil = now + SCRAMBLE_MS;
+          }
+          const scrambled = t < cell.resolveAt || now < cell.scrambleUntil;
+          if (scrambled) {
+            busy = true;
+            ctx.fillStyle = colAlt;
+            ctx.fillText(POOL[(frame * 7 + i * 13) % POOL.length], cell.x, cell.y + asc);
+          } else {
+            ctx.fillStyle = rowColors ? rowColors[cell.r] : colMain;
+            ctx.fillText(cell.gl, cell.x, cell.y + asc);
+          }
+        }
+        if (busy) raf = requestAnimationFrame(draw);
+      }
+
+      function wake() { if (started && !raf) raf = requestAnimationFrame(draw); }
+
+      readColors();
+      layout();
+      box.appendChild(canvas);
+      /* decrypt starts when the wordmark scrolls into view */
+      new IntersectionObserver((entries, io) => {
+        if (!entries.some(e => e.isIntersecting)) return;
+        started = true;
+        start = performance.now();
+        wake();
+        io.disconnect();
+      }, { threshold: opts.threshold }).observe(box);
+      box.addEventListener('pointermove', e => {
+        const r = canvas.getBoundingClientRect();
+        pointer.x = e.clientX - r.left; pointer.y = e.clientY - r.top;
+        wake();
+      });
+      box.addEventListener('pointerleave', () => { pointer.x = pointer.y = -1e4; });
+      new ResizeObserver(() => { layout(); wake(); }).observe(box);
+      logos.push({ recolor() { readColors(); wake(); } });
+    }
+
+    function init() {
+      fallback.hidden = true;
+      decryptLogo(document.getElementById('logo-box'), { cap: 15, mainVar: '--accent', altVar: '--muted', duration: 1500, threshold: 0, gradient: true });
+      decryptLogo(document.getElementById('logo-foot'), { cap: 24, mainVar: '--muted', altVar: '--accent', duration: 2600, threshold: 0.35 });
+    }
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.load('700 15px "JetBrains Mono"').then(() => document.fonts.ready).then(init);
+    } else init();
+  })();
+
+  /* ---------- console greeting ---------- */
+  console.log('%c❖ omarchy, but malleable', 'color:#7aa2f7;font-weight:700;font-size:14px');
+  console.log('Redesign proposal by Daniel Schmier · https://captainscor.ch · press t to cycle the themes.');
+
+  /* restore persisted theme (after logo exists) */
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved && THEMES.includes(saved)) applyTheme(saved);
+    else applyTheme('tokyo-night');
+  } catch (e) { applyTheme('tokyo-night'); }
+</script>
