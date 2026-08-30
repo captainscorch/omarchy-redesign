@@ -185,8 +185,10 @@
     padding: var(--gap);
     display: grid; gap: var(--gap);
   }
-  /* --bar-h follows the real bar height (safe-area insets make it taller on phones) */
-  #ws1, #ws2, #ws3 { scroll-margin-top: calc(var(--bar-h, 40px) + 28px); }
+  /* --bar-h follows the real bar height (safe-area insets make it taller on
+     phones); the 8px keep the previous window's bottom edge hidden behind
+     the bar so switching reads as a workspace change */
+  #ws1, #ws2, #ws3 { scroll-margin-top: calc(var(--bar-h, 40px) + 8px); }
   .row { display: grid; gap: var(--gap); }
   .row--split { grid-template-columns: 2fr 3fr; }
   .row--videos { grid-template-columns: 1fr 1fr; }
@@ -685,7 +687,13 @@
     sections.forEach((s, i) => { if (s.getBoundingClientRect().top <= ref) idx = i; });
     if (idx !== wsIdx) { wsIdx = idx; renderWs(); }
   }, { passive: true });
-  wsLinks.forEach((a, i) => a.addEventListener('click', () => setWs(i)));
+  /* workspace 1 goes to the very top so the news line stays visible */
+  function goWs(i) {
+    setWs(i);
+    if (i === 0) window.scrollTo({ top: 0 });
+    else sections[i].scrollIntoView({ block: 'start' });
+  }
+  wsLinks.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); goWs(i); }));
 
   /* ---------- keyboard: t = theme, 1-3 = workspace ---------- */
   addEventListener('keydown', e => {
@@ -694,7 +702,7 @@
     if (lb && lb.open) return;
     if (e.key === 't') cycleTheme();
     const n = parseInt(e.key, 10);
-    if (n >= 1 && n <= 3) { setWs(n - 1); sections[n - 1].scrollIntoView({ block: 'start' }); }
+    if (n >= 1 && n <= 3) goWs(n - 1);
   });
 
   /* ---------- video lightbox: floating mpv window ---------- */
@@ -732,7 +740,7 @@
     const ROWS = ART.length;
     const COLS = Math.max(...ART.map(l => l.length));
     const POOL = '░▒▓█▄▀▐▌';
-    const SCRAMBLE_MS = 260;
+    const SCRAMBLE_MS = 260, LINGER_MS = 1000;
 
     /* mainVar colors resolved glyphs, altVar the scramble; the footer inverts the pair */
     function decryptLogo(box, opts) {
@@ -840,9 +848,21 @@
         wake();
       });
       /* touch never fires pointerleave — without the up/cancel resets the
-         last touch point keeps scrambling forever */
+         last touch point keeps scrambling forever. On release the cells in
+         reach linger for a moment instead of snapping back. */
+      const release = () => {
+        if (pointer.x > -1e3) {
+          const now = performance.now();
+          for (const cell of cells) {
+            const dx = cell.x + cw / 2 - pointer.x, dy = cell.y + ch / 2 - pointer.y;
+            if (dx * dx + dy * dy < radius * radius) cell.scrambleUntil = now + LINGER_MS;
+          }
+        }
+        pointer.x = pointer.y = -1e4;
+        wake();
+      };
       for (const ev of ['pointerleave', 'pointerup', 'pointercancel']) {
-        box.addEventListener(ev, () => { pointer.x = pointer.y = -1e4; });
+        box.addEventListener(ev, release);
       }
       new ResizeObserver(() => { layout(); wake(); }).observe(box);
       logos.push({ recolor() { readColors(); wake(); } });
