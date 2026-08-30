@@ -874,10 +874,11 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
         wake();
       });
       /* touch never fires pointerleave — without the up/cancel resets the
-         last touch point keeps scrambling forever. On release the cells in
-         reach linger for a moment instead of snapping back. */
-      const release = () => {
-        if (pointer.x > -1e3) {
+         last touch point keeps scrambling forever. A lifted finger vanishes
+         abruptly, so only touch releases linger; the mouse trail just runs
+         out on its own. */
+      const release = e => {
+        if (e.pointerType === 'touch' && e.type !== 'pointerleave' && pointer.x > -1e3) {
           const now = performance.now();
           for (const cell of cells) {
             const dx = cell.x + cw / 2 - pointer.x, dy = cell.y + ch / 2 - pointer.y;
