@@ -1,11 +1,14 @@
 #!/bin/sh
-# Builds from index.src.html:
-#   index.html — complete standalone document (the actual page)
-#   404.html   — error page with the same theme tokens
+# Builds public/ (what Cloudflare deploys) from index.src.html:
+#   public/index.html — complete standalone document (the actual page)
+#   public/404.html   — error page with the same theme tokens
 # The video thumbnails and the JetBrains Mono woff2 files (fonts/, from
 # github.com/JetBrains/JetBrainsMono) are inlined as data URIs, so the
 # result is fully self-contained and covers the block glyphs the canvas
-# wordmark scrambles with.
+# wordmark scrambles with. The OG image ships alongside — link previews
+# need a plain file URL.
+mkdir -p public/assets
+cp assets/opengraph.png public/assets/opengraph.png
 python3 - <<'EOF'
 import base64
 import json
@@ -70,10 +73,10 @@ doc = (
     '<meta name="viewport" content="width=device-width, viewport-fit=cover, initial-scale=1, minimal-ui, maximum-scale=1, user-scalable=no">\n'
     + head + "\n</head>\n<body>" + body + "\n</body>\n</html>\n"
 )
-open("index.html", "w").write(doc)
+open("public/index.html", "w").write(doc)
 
 # 404 page: same theme tokens as the main page, injected so they never drift.
 tokens = src[src.index("/* ================= Omarchy theme tokens ================= */"):src.index("* { box-sizing")]
 p404 = open("404.src.html").read().replace("__THEME_TOKENS__", tokens.rstrip() + "\n")
-open("404.html", "w").write(p404)
+open("public/404.html", "w").write(p404)
 EOF

@@ -1,0 +1,12 @@
+{
+    "name": "omarchy-redesign",
+    "compatibility_date": "2026-08-30",
+    "assets": {
+        "directory": "./public",
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page"
+    },
+    "routes": [
+        { "pattern": "omarchy.captainscor.ch", "custom_domain": true }
+    ]
+}

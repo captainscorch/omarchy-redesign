@@ -19,13 +19,15 @@ One static file. No framework, no runtime dependencies — fonts, thumbnails, fa
 ## Files
 
 - `index.src.html` — the source of truth (markup, styles, scripts)
-- `build.sh` — inlines the assets and emits `index.html` (the standalone page) and `404.html`
 - `404.src.html` — error page source, same design language, no embedded fonts
+- `build.sh` — inlines the assets and emits `public/index.html` and `public/404.html`
+- `public/` — what gets deployed
 - `assets/` — favicon, OG image and video thumbnails from omarchy.org, JetBrains Mono woff2 in `fonts/`
+- `wrangler.jsonc` — Cloudflare Workers static-assets config (custom domain, 404 handling)
 
 ## Develop
 
-Edit `index.src.html`, run `sh build.sh`, open `index.html`.
+Edit `index.src.html`, run `sh build.sh`, open `public/index.html`.
 
 ---
 
