@@ -336,6 +336,10 @@
     gap: var(--space-sm); overflow-x: auto; scroll-snap-type: x proximity;
     padding-bottom: 6px; scrollbar-width: thin;
   }
+  .newsrow, .bento {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent);
+  }
   .newsrow__card {
     scroll-snap-align: start;
     display: flex; flex-direction: column; gap: 8px;
@@ -962,6 +966,16 @@
     clock.textContent = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
   }
   tick(); setInterval(tick, 15000);
+
+  /* horizontal scrollers fade the edge that still hides content */
+  for (const el of document.querySelectorAll('.newsrow, .bento')) {
+    const fade = () => {
+      el.style.setProperty('--fade-l', el.scrollLeft > 4 ? '28px' : '0px');
+      el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
+    };
+    el.addEventListener('scroll', fade, { passive: true });
+    new ResizeObserver(fade).observe(el);
+  }
 
   /* ---------- workspace indicator ---------- */
   const wsLinks = [...document.querySelectorAll('#ws-buttons a')];
