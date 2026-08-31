@@ -362,8 +362,9 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     padding-bottom: 6px; scrollbar-width: thin;
   }
   .newsrow, .bento {
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 var(--fade-l, 0px), #000 calc(100% - var(--fade-r, 0px)), transparent);
+    /* right edge only — snap keeps the left edge clean, a fade would eat card borders there */
+    -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+    mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
   }
   .newsrow__card {
     scroll-snap-align: start;
@@ -1004,7 +1005,6 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   /* horizontal scrollers fade the edge that still hides content */
   for (const el of document.querySelectorAll('.newsrow, .bento')) {
     const fade = () => {
-      el.style.setProperty('--fade-l', el.scrollLeft > 4 ? '28px' : '0px');
       el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
     };
     el.addEventListener('scroll', fade, { passive: true });
