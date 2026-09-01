@@ -9,6 +9,15 @@
 # need a plain file URL.
 mkdir -p public/assets
 cp assets/opengraph.png public/assets/opengraph.png
+# logo-demo.html: standalone autoplay of the bar mark's stroke draw, for demos.
+python3 - <<'EOF'
+import base64
+def b64(path):
+    return base64.b64encode(open(path, "rb").read()).decode()
+src = open("logo-demo.src.html").read()
+src = src.replace("__FAVICON_B64__", b64("assets/favicon.png"))
+open("public/logo-demo.html", "w").write(src)
+EOF
 python3 - <<'EOF'
 import base64
 import json
