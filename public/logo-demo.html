@@ -12,25 +12,27 @@
     background: #13141c;
     display: grid;
     place-items: center;
-    overflow: hidden;
+    overflow: auto;
     cursor: default;
   }
   .stage {
     display: grid;
     grid-template-columns: repeat(2, auto);
-    gap: 7vmin 12vmin;
+    gap: min(7vmin, 6vh) min(12vmin, 8vw);
     justify-items: center;
+    padding: 24px;
   }
   figure { display: grid; gap: 14px; justify-items: center; }
   figcaption {
-    font: 500 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    font: 500 min(12px, 3vw) ui-monospace, SFMono-Regular, Menlo, monospace;
     color: #565f89;
+    text-align: center;
   }
   .mark { color: #7aa2f7; }
   .mark svg {
     display: block;
-    width: min(26vmin, 280px);
-    height: min(26vmin, 280px);
+    width: min(26vmin, 34vw, 280px);
+    height: min(26vmin, 34vw, 280px);
   }
 
   /* v1 (committed): trailing connectors, orbiting chase segments */
