@@ -15,56 +15,141 @@
     overflow: hidden;
     cursor: default;
   }
-  .stage { display: flex; align-items: center; gap: 12vmin; }
+  .stage {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 7vmin 12vmin;
+    justify-items: center;
+  }
+  figure { display: grid; gap: 14px; justify-items: center; }
+  figcaption {
+    font: 500 12px ui-monospace, SFMono-Regular, Menlo, monospace;
+    color: #565f89;
+  }
   .mark { color: #7aa2f7; }
   .mark svg {
     display: block;
-    width: min(36vmin, 380px);
-    height: min(36vmin, 380px);
+    width: min(26vmin, 280px);
+    height: min(26vmin, 280px);
   }
 
-  /* draw: the bar logo animation slowed for the big stage — duration follows
-     path length so the pen moves at one speed, outer frame first, then the
-     connectors top (end of the inner path), left, bottom */
-  .mark--draw svg { stroke-dasharray: 1; }
-  .mark--draw svg path { stroke-dashoffset: 1; }
-  .mark--draw.play svg path { animation: logo-draw 1.1s cubic-bezier(0.45, 0, 0.25, 1) both; }
-  .mark--draw.play svg path:nth-child(2) { animation-duration: 0.9s; animation-delay: 0.75s; }
-  .mark--draw.play svg path:nth-child(3) { animation-duration: 0.25s; animation-delay: 1.7s; }
-  .mark--draw.play svg path:nth-child(4) { animation-duration: 0.25s; animation-delay: 1.9s; }
-  @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  /* v1 (committed): trailing connectors, orbiting chase segments */
+  .mark--bar svg { stroke-dasharray: 1; }
+  .mark--bar svg path { stroke-dashoffset: 1; }
+  .mark--bar.play svg path { animation: logo-draw 1.1s cubic-bezier(0.45, 0, 0.25, 1) both; }
+  .mark--bar.play svg path:nth-child(2) { animation-duration: 0.9s; animation-delay: 0.75s; }
+  .mark--bar.play svg path:nth-child(3) { animation-duration: 0.25s; animation-delay: 1.7s; }
+  .mark--bar.play svg path:nth-child(4) { animation-duration: 0.25s; animation-delay: 1.9s; }
 
-  /* spinner: the full mark dimmed as the base, one accent segment orbiting
-     each frame — outer clockwise, inner counter-clockwise */
-  .mark--spin .base { color: #2f3450; }
-  .mark--spin .chase {
+  .mark--run .base { color: #2f3450; }
+  .mark--run .chase {
     stroke-dasharray: 0.16 0.84;
     animation: chase 2.4s linear infinite;
   }
-  .mark--spin .chase--inner { animation-direction: reverse; animation-duration: 1.8s; }
+  .mark--run .chase--inner { animation-direction: reverse; animation-duration: 1.8s; }
   @keyframes chase { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+  /* v2 draw: each stroke branches off the pen passing its junction;
+     delays are the eased pen positions */
+  .mark--draw svg { stroke-dasharray: 1; }
+  .mark--draw svg path { stroke-dashoffset: 1; }
+  .mark--draw.play svg path { animation: logo-draw 1.1s cubic-bezier(0.45, 0, 0.25, 1) both; }
+  .mark--draw.play svg path:nth-child(2) { animation-timing-function: ease-out; animation-duration: 0.18s; animation-delay: 0.43s; }
+  .mark--draw.play svg path:nth-child(3) { animation-duration: 0.8s; animation-delay: 0.61s; }
+  .mark--draw.play svg path:nth-child(4) { animation-name: logo-draw-rev; animation-duration: 0.12s; animation-delay: 0.92s; }
+  .mark--draw.play svg path:nth-child(5) { animation-name: logo-draw-rev; animation-duration: 0.12s; animation-delay: 1.02s; }
+  @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes logo-draw-rev { from { stroke-dashoffset: -1; } to { stroke-dashoffset: 0; } }
+
+  /* v2 spinner: draw in, hold, fade, breathe; offsets reset while transparent */
+  .mark--spin .base { color: #2f3450; }
+  .mark--spin .cycle { animation: cycle-fade 3s linear infinite; }
+  .mark--spin .cycle path { stroke-dasharray: 1; animation: 3s linear infinite; }
+  .mark--spin .cycle path:nth-child(1) { animation-name: cycle-outer; }
+  .mark--spin .cycle path:nth-child(2) { animation-name: cycle-top; }
+  .mark--spin .cycle path:nth-child(3) { animation-name: cycle-inner; }
+  .mark--spin .cycle path:nth-child(4) { animation-name: cycle-bottom; }
+  .mark--spin .cycle path:nth-child(5) { animation-name: cycle-left; }
+  @keyframes cycle-outer {
+    0% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+    36.67% { stroke-dashoffset: 0; }
+    91% { stroke-dashoffset: 0; }
+    91.2%, 100% { stroke-dashoffset: 1; }
+  }
+  @keyframes cycle-top {
+    0%, 14.33% { stroke-dashoffset: 1; animation-timing-function: ease-out; }
+    20.33% { stroke-dashoffset: 0; }
+    91% { stroke-dashoffset: 0; }
+    91.2%, 100% { stroke-dashoffset: 1; }
+  }
+  @keyframes cycle-inner {
+    0%, 20.33% { stroke-dashoffset: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+    47% { stroke-dashoffset: 0; }
+    91% { stroke-dashoffset: 0; }
+    91.2%, 100% { stroke-dashoffset: 1; }
+  }
+  @keyframes cycle-bottom {
+    0%, 30.67% { stroke-dashoffset: -1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+    34.67% { stroke-dashoffset: 0; }
+    91% { stroke-dashoffset: 0; }
+    91.2%, 100% { stroke-dashoffset: -1; }
+  }
+  @keyframes cycle-left {
+    0%, 34% { stroke-dashoffset: -1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+    38% { stroke-dashoffset: 0; }
+    91% { stroke-dashoffset: 0; }
+    91.2%, 100% { stroke-dashoffset: -1; }
+  }
+  @keyframes cycle-fade {
+    0% { opacity: 1; }
+    66.67% { opacity: 1; animation-timing-function: ease-in-out; }
+    90%, 100% { opacity: 0; }
+  }
 </style>
 </head>
 <body>
 <div class="stage">
-  <div class="mark mark--draw" role="img" aria-label="Omarchy mark">
-    <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg>
-  </div>
-  <div class="mark mark--spin" role="img" aria-label="Omarchy mark, loading">
-    <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true">
-      <g class="base"><path d="M640 1160H40V40H1160V1160H720"/><path d="M880 200H1000V1000H200V200H600V40"/><path d="M40 600H200"/><path d="M600 1160V1040"/></g>
-      <path class="chase" pathLength="1" d="M40 40H1160V1160H40Z"/>
-      <path class="chase chase--inner" pathLength="1" d="M200 200H1000V1000H200Z"/>
-    </svg>
-  </div>
+  <figure>
+    <div class="mark mark--bar" role="img" aria-label="Omarchy mark">
+      <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg>
+    </div>
+    <figcaption>draw v1 — trailing connectors</figcaption>
+  </figure>
+  <figure>
+    <div class="mark mark--run" role="img" aria-label="Omarchy mark, loading">
+      <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true">
+        <g class="base"><path d="M640 1160H40V40H1160V1160H720"/><path d="M880 200H1000V1000H200V200H600V40"/><path d="M40 600H200"/><path d="M600 1160V1040"/></g>
+        <path class="chase" pathLength="1" d="M40 40H1160V1160H40Z"/>
+        <path class="chase chase--inner" pathLength="1" d="M200 200H1000V1000H200Z"/>
+      </svg>
+    </div>
+    <figcaption>spinner v1 — orbit chase</figcaption>
+  </figure>
+  <figure>
+    <div class="mark mark--draw" role="img" aria-label="Omarchy mark">
+      <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M600 40V200"/><path pathLength="1" d="M560 200H1000V1000H200V200H600"/><path pathLength="1" d="M600 1160V1040"/><path pathLength="1" d="M40 600H200"/></svg>
+    </div>
+    <figcaption>draw v2 — causal branching</figcaption>
+  </figure>
+  <figure>
+    <div class="mark mark--spin" role="img" aria-label="Omarchy mark, loading">
+      <svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true">
+        <g class="base"><path d="M640 1160H40V40H1160V1160H720"/><path d="M880 200H1000V1000H200V200H600V40"/><path d="M40 600H200"/><path d="M600 1160V1040"/></g>
+        <g class="cycle"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M600 40V200"/><path pathLength="1" d="M560 200H1000V1000H200V200H600"/><path pathLength="1" d="M600 1160V1040"/><path pathLength="1" d="M40 600H200"/></g>
+      </svg>
+    </div>
+    <figcaption>spinner v2 — draw cycle</figcaption>
+  </figure>
 </div>
 <script>
-  /* the draw plays on load, then every few seconds; click or any key replays */
-  const mark = document.querySelector('.mark--draw');
+  /* both draws play on load, then every few seconds; click or any key replays */
+  const draws = document.querySelectorAll('.mark--bar, .mark--draw');
   function play() {
-    mark.classList.remove('play');
-    void mark.offsetWidth;
-    mark.classList.add('play');
+    for (const mark of draws) {
+      mark.classList.remove('play');
+      void mark.offsetWidth;
+      mark.classList.add('play');
+    }
   }
   addEventListener('click', play);
   addEventListener('keydown', play);
