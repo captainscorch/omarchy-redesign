@@ -87,8 +87,8 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     --text-base: 0.9375rem;
     --text-lg: 1.25rem;
     --text-xl: clamp(1.375rem, 1rem + 1.6vw, 2rem);
-    --text-2xl: clamp(1.5rem, 1.05rem + 2.1vw, 2.5rem);
-    --text-hero: clamp(1.75rem, 1.2rem + 2.8vw, 3.25rem);
+    --text-2xl: clamp(1.75rem, 1.15rem + 2.4vw, 2.875rem);
+    --text-hero: clamp(1.875rem, 1.2rem + 2.9vw, 3.5rem);
 
     --space-2xs: 4px;
     --space-xs: 8px;
@@ -102,6 +102,8 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     --gap: clamp(8px, 1.2vw, 14px);
     /* page edge: the window gap stays tight, the text never sits on the bezel */
     --edge: max(var(--gap), 16px);
+    /* muted is fine for labels, reading copy needs more contrast on the dark themes */
+    --muted-text: color-mix(in oklab, var(--muted), var(--fg) 45%);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     /* hyprland ships decoration:rounding 0 in omarchy 4 — window chrome is
@@ -372,6 +374,9 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   }
   /* the gag from wecanfixeverything.com: the smaller promise struck out */
   .sec__title s { color: var(--muted); text-decoration-thickness: 2px; white-space: nowrap; }
+  /* a line break that only exists where the line is wide enough to want one */
+  .br-wide { display: none; }
+  @media (min-width: 900px) { .br-wide { display: inline; } }
   .sec__lead a { color: var(--fg); text-underline-offset: 3px; }
   .sec__lead a:hover { color: var(--accent-2); }
   .sec__body { margin-top: var(--space-2xl); }
@@ -990,9 +995,13 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .hero__sub, .hero__quip, .sec__lead, .facts p, .quote__text, .steps span, .steps__foot,
   .newsrow__card p, .stat__sub, .stat__num span { font-family: var(--font-text); }
   .facts p, .quote__text, .steps span, .newsrow__card p { font-size: 0.9375rem; }
+  .sec__lead, .facts p, .steps span, .steps__foot, .newsrow__card p, .stat__sub, .stat__num span { color: var(--muted-text); }
   .stat__sub, .steps__foot { font-size: 0.875rem; }
   .quote__text { line-height: 1.5; }
   .hero__sub { font-size: 1.0625rem; }
+  /* headlines in the reading face: a trial, the terminal titles stay mono */
+  .hero h1, .sec__title, .facts h3 { font-family: var(--font-text); font-weight: 700; letter-spacing: -0.025em; }
+  .sec__title { max-width: 24ch; }
   .hero__quip { font-size: 0.9375rem; }
 </style>
 </head>
@@ -1047,7 +1056,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
                                        ███   █▀</pre>
     </div>
     <h1>Beautiful, Fun &amp; Agentic Linux by <a href="https://dhh.dk" target="_blank" rel="noopener">DHH</a></h1>
-    <p class="hero__sub">The malleable OS for the age of agents. Where you can vibe your way through every alteration, tweak, and desire. <a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
+    <p class="hero__sub">The malleable OS for the age of agents.<br class="br-wide">Where you can vibe your way through every alteration, tweak, and desire.<br class="br-wide"><a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
     <div class="hero__actions">
       <a class="btn btn--primary" href="https://iso.omarchy.org/omarchy-4.0.2.iso">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9.47363 4.01687c.77167.00015 1.39727.62585 1.39747 1.39747 0 .7718-.6257 1.39829-1.39747 1.39843h-4.625c-.66518.00006-1.17367.17068-1.52539.5127-.34225.34225-.51364.86071-.51367 1.55469v14.24194c0 .694.17139 1.2124.51367 1.5547.35173.3517.86001.5282 1.52539.5283h22.28807c.6561 0 1.1599-.1766 1.5117-.5283.3613-.3423.542-.8607.542-1.5547v-14.24194c0-.69398-.1807-1.21244-.542-1.55469-.3517-.34214-.8558-.5127-1.5117-.5127h-4.624c-.7719 0-1.3984-.62654-1.3984-1.39843.0002-.77171.6266-1.39747 1.3984-1.39747h4.8096c1.5402.00002 2.705.3903 3.4941 1.16993.789.77963 1.1836 1.93518 1.1836 3.46582v14.71258c0 1.5305-.3947 2.6853-1.1836 3.4649-.7891.7796-1.9539 1.1699-3.4941 1.1699h-22.64457c-1.54021 0-2.70501-.3903-3.49414-1.1699-.788897-.7796-1.18354196-1.9344-1.18359-3.4649v-14.71258c0-1.53064.394563-2.68619 1.18359-3.46582.78913-.77963 1.95393-1.16991 3.49414-1.16993z"/><path d="m16.0078 0c.3832.00005683.7111.136008.9834.408203.2825.27241.4238.590889.4238.954097v14.2481l-.1211 2.2548.8018-.9687 2.1494-2.2998c.2522-.2825.5652-.4238.9385-.4238.3429 0 .6358.1156.8779.3476.2522.2321.378.5203.378.8633-.0001.3328-.1314.6359-.3936.9082l-4.9785 4.7969c-.1816.1715-.3588.2926-.5303.3632-.1714.0706-.3478.1065-.5293.1065-.1816 0-.3587-.0358-.5303-.1065-.1714-.0706-.3533-.1918-.5449-.3632l-4.96385-4.7969c-.27233-.2723-.40812-.5754-.4082-.9082 0-.343.12114-.6312.36328-.8633.24207-.2319.53497-.3476.87797-.3476.3933 0 .711.1413.9531.4238l2.164 2.2998.8028.9687-.1211-2.2548v-14.2481c0-.363208.1358-.681687.4082-.954097.2824-.27226.6157-.408203.999-.408203z" fill="currentColor"/></svg>
@@ -1062,7 +1071,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
         <span>GitHub</span>
       </a>
     </div>
-    <p class="hero__quip">We can <s>fix some things</s> fix everything — every missing app, every incompatibility, every paper cut.</p>
+    <p class="hero__quip">We can <s>fix some things</s> fix everything —<br class="br-wide">every missing app, every incompatibility, every paper cut.</p>
     <p class="hero__hint"><kbd>1</kbd>–<kbd>4</kbd> switch workspaces · <kbd>t</kbd> cycles the theme</p>
   </div>
 </section>
@@ -1072,7 +1081,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">omarchy-install-dashboard</p>
     <h2 class="sec__title">Boot the ISO. Answer a few questions.</h2>
-    <p class="sec__lead">Keyboard, account, disk, encryption — the installer takes it from there and teaches you the hotkeys while it works.</p>
+    <p class="sec__lead">Keyboard, account, disk, encryption —<br class="br-wide">the installer takes it from there and teaches you the hotkeys while it works.</p>
     <div class="sec__body row row--install">
       <div class="win win--app term" id="install">
         <div class="win__bar">
@@ -1172,7 +1181,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">omarchy menu summon style.theme</p>
     <h2 class="sec__title">Light by default. Yours by choice.</h2>
-    <p class="sec__lead">One keystroke restyles terminal, editor, bar, menu, lock screen and wallpaper — and this page with it. Every palette below is the one that ships in the repo.</p>
+    <p class="sec__lead">One keystroke restyles terminal, editor, bar, menu, lock screen and wallpaper.<br class="br-wide">This page follows along. Every palette below ships in the repo.</p>
     <div class="sec__body themebox">
       <figure class="win win--app wallpaper" id="wallpaper">
         <div class="win__bar"><b id="wall-name">flexoki-light</b><span class="win__bar-r">background</span></div>
@@ -1270,7 +1279,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">grep -ri omarchy x.com</p>
     <h2 class="sec__title">Heard on the timeline</h2>
-    <p class="sec__lead">A hundred thousand people installed it in a week. Eight of them, in their own words.</p>
+    <p class="sec__lead">A hundred thousand people installed it in a week.<br class="br-wide">Eight of them, in their own words.</p>
     <div class="sec__body quotes"><article class="win quote" style="--i: 0"><p class="quote__text">On Omarchy for the last few days.
 
 Wanted a dock, so I built it with an agent.
@@ -1335,7 +1344,7 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
   <div class="sec__in">
     <p class="sec__eyebrow">btop</p>
     <h2 class="sec__title">Real money, real commits</h2>
-    <p class="sec__lead">Eleven days of funding, the first week of installs and a year of commits, pulled straight from the news and the repo.</p>
+    <p class="sec__lead">Eleven days of funding, the first week of installs and a year of commits,<br class="br-wide">pulled straight from the news and the repo.</p>
     <div class="sec__body row row--stats">
       <section class="win stat" style="--i: 0" aria-label="Omacom Foundation funding">
         <div class="win__head"><p class="win__title">foundation</p><a class="win__more" href="/patrons/">the patrons</a></div>
@@ -1415,8 +1424,8 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
 <section class="sec">
   <div class="sec__in">
     <p class="sec__eyebrow">wecanfixeverything.com</p>
-    <h2 class="sec__title">We can <s>fix some things</s> fix everything</h2>
-    <p class="sec__lead">Every missing app, every incompatibility, every paper cut. Here is where it happens — <a href="https://wecanfixeverything.com" target="_blank" rel="noopener">we mean it</a>.</p>
+    <h2 class="sec__title">We can <s>fix some things</s><br class="br-wide">fix everything</h2>
+    <p class="sec__lead">Every missing app, every incompatibility, every paper cut.<br class="br-wide">Here is where it happens — <a href="https://wecanfixeverything.com" target="_blank" rel="noopener">we mean it</a>.</p>
     <div class="sec__body row row--links">
       <section class="win" style="--i: 0" aria-label="Project">
         <p class="win__title">Project</p>

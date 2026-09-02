@@ -121,10 +121,11 @@ __THEME_TOKENS__
     font-size: var(--text-2xl); font-weight: 800;
     letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance;
   }
+  .page-head h1 { font-family: var(--font-text); font-weight: 700; letter-spacing: -0.025em; }
   .lede {
     font-family: var(--font-text);
     max-width: 58ch; margin: var(--space-lg) 0 0;
-    color: var(--muted); font-size: var(--text-lg); line-height: 1.5; text-wrap: pretty;
+    color: color-mix(in oklab, var(--muted), var(--fg) 45%); font-size: var(--text-lg); line-height: 1.5; text-wrap: pretty;
   }
   .lede a { color: var(--fg); text-underline-offset: 3px; }
   .lede a:hover { color: var(--accent-2); }
