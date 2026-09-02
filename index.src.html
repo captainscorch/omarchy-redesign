@@ -338,7 +338,7 @@
   .sec__body { margin-top: var(--space-2xl); }
   /* --bar-h follows the real bar height (safe-area insets make it taller on
      phones); the 1px tucks the band's top border under the bar */
-  #ws1, #ws2, #ws3, #ws4 { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
+  #ws1, #ws2, #ws3, #ws4, #voices, #momentum { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
   .row { display: grid; gap: var(--gap); }
   .row--links { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 900px) { .row--links { grid-template-columns: 1fr; } }
@@ -634,6 +634,72 @@
   }
 
   /* ================= link listings ================= */
+  /* ================= voices: posts quoted as written ================= */
+  #voices { padding-top: calc(var(--space-3xl) / 2); }
+  /* columns are the no-script layout; the script re-stacks the cards shortest column first */
+  .quotes { --cols: 3; columns: var(--cols); column-gap: var(--gap); }
+  @media (max-width: 1150px) { .quotes { --cols: 2; } }
+  /* phones: one row to swipe through, like the news cards */
+  @media (max-width: 640px) {
+    .quotes {
+      --cols: 1; columns: auto; display: grid; grid-auto-flow: column; grid-auto-columns: min(320px, 82vw);
+      gap: var(--space-sm); align-items: stretch; overflow-x: auto; scroll-snap-type: x proximity;
+      padding-bottom: 6px; scrollbar-width: thin;
+      -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+      mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+    }
+    .quote { display: flex; flex-direction: column; margin: 0; scroll-snap-align: start; }
+    /* long posts are clipped, the link under them opens the whole thing */
+    .quote__text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 12; overflow: hidden; }
+    .quote__by, .quote__links { margin-top: auto; }
+  }
+  .quotes.is-stacked { columns: auto; display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: var(--gap); align-items: start; }
+  .quotes__col { display: grid; gap: var(--gap); }
+  .quote { display: inline-block; width: 100%; margin: 0 0 var(--gap); break-inside: avoid; }
+  .is-stacked .quote { display: block; margin: 0; }
+  .quote__text { margin: 0 0 var(--space-md); font-size: var(--text-sm); line-height: 1.6; white-space: pre-line; text-wrap: pretty; }
+  .quote__text a { color: var(--accent); overflow-wrap: anywhere; }
+  .quote__text a:hover { color: var(--accent-2); }
+  .quote__by { display: flex; align-items: center; gap: 10px; font-size: var(--text-xs); }
+  .quote__by img { width: 32px; height: 32px; border-radius: 50%; background: var(--surface); }
+  .quote__who { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .quote__who b { color: var(--fg); }
+  .quote__who span { color: var(--muted); }
+  .quote__src { margin-left: auto; flex-shrink: 0; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .quote__src::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .quote__src:hover { color: var(--fg); }
+  .quote--more { border-style: dashed; }
+  .quote--more .quote__text { color: var(--muted); }
+  .quote__links { margin: 0; display: flex; gap: var(--space-md); font-size: var(--text-sm); }
+  .quote__links a { color: var(--accent); text-decoration: none; }
+  .quote__links a::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .quote__links a:hover { color: var(--accent-2); }
+
+  /* ================= momentum: live figures ================= */
+  .row--stats { grid-template-columns: repeat(4, 1fr); }
+  .sec__note { margin: var(--space-md) 0 0; font-size: var(--text-xs); color: var(--muted); }
+  @media (max-width: 1150px) { .row--stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .row--stats { grid-template-columns: 1fr; } }
+  .stat { display: flex; flex-direction: column; container-type: inline-size; }
+  .stat__num { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .stat__num b { font-size: var(--text-2xl); font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat__num span { color: var(--muted); font-size: var(--text-sm); }
+  .stat__sub { margin: var(--space-sm) 0 0; color: var(--muted); font-size: var(--text-xs); }
+  .stat__sub b { color: var(--fg); font-weight: 500; }
+  /* one character per week or per step: the type scales to the card */
+  .stat__chart {
+    margin: auto 0 0; padding-top: var(--space-md); line-height: 0.92; color: var(--accent);
+    font-size: min(var(--text-sm), 3.15cqw); white-space: pre; overflow: hidden;
+    clip-path: inset(0 100% 0 0);
+  }
+  .stat__chart--steps { font-size: min(var(--text-xs), 4.3cqw); line-height: 1.35; }
+  .stat__chart i { font-style: normal; color: var(--muted); }
+  .stat.is-live .stat__chart { clip-path: inset(0); transition: clip-path 1.4s var(--ease-out); }
+  @media (prefers-reduced-motion: reduce) {
+    .stat__chart { clip-path: none; }
+    .stat.is-live .stat__chart { transition: none; }
+  }
+
   .ls { display: grid; gap: 2px; font-size: var(--text-sm); }
   .ls a {
     display: grid; grid-template-columns: 15ch 1fr; column-gap: 1.5ch; align-items: baseline;
@@ -1117,6 +1183,53 @@
   </div>
 </section>
 
+<!-- voices -->
+<section id="voices" class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">grep -ri omarchy x.com</p>
+    <h2 class="sec__title">Heard on the timeline</h2>
+    <p class="sec__lead">A hundred thousand people installed it in a week. Eight of them, in their own words.</p>
+    <div class="sec__body quotes"><!--QUOTE_CARDS-->
+      <article class="win quote quote--more" style="--i: 8">
+        <p class="quote__text">Running it? Say how it went.</p>
+        <p class="quote__links"><a href="https://x.com/intent/post?text=Omarchy%20" target="_blank" rel="noopener">post yours</a><a href="https://x.com/search?q=omarchy&amp;f=live" target="_blank" rel="noopener">read the rest</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- momentum -->
+<section id="momentum" class="sec sec--band">
+  <div class="sec__in">
+    <p class="sec__eyebrow">btop</p>
+    <h2 class="sec__title">Real money, real commits</h2>
+    <p class="sec__lead">Eleven days of funding, the first week of installs and a year of commits, pulled straight from the news and the repo.</p>
+    <div class="sec__body row row--stats">
+      <section class="win stat" style="--i: 0" aria-label="Omacom Foundation funding">
+        <div class="win__head"><p class="win__title">foundation</p><a class="win__more" href="/patrons/">the patrons</a></div>
+        <p class="stat__num"><b data-count="12.6" data-prefix="$" data-suffix="M" data-decimals="1">$12.6M</b><span>raised in eleven days</span></p>
+        <pre class="stat__chart stat__chart--steps" aria-hidden="true"><!--STAT_STEPS--></pre>
+      </section>
+      <section class="win stat" style="--i: 1" aria-label="Installs in the first week">
+        <div class="win__head"><p class="win__title">installs</p><a class="win__more" href="/news/2026/08/100000-downloads-in-a-week/">the week</a></div>
+        <p class="stat__num"><b data-count="100000">100,000</b><span>in the first week</span></p>
+        <p class="stat__sub">nearly a <b>petabyte</b> of ISO moved in seven days</p>
+      </section>
+      <section class="win stat" style="--i: 2" aria-label="GitHub stars">
+        <div class="win__head"><p class="win__title">github</p><a class="win__more" href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">the repo</a></div>
+        <p class="stat__num"><b data-count="__M_STARS__">__M_STARS_FMT__</b><span>stars</span></p>
+        <p class="stat__sub"><b>__M_FORKS_FMT__</b> forks · <b>__M_CONTRIB__</b> contributors</p>
+      </section>
+      <section class="win stat" style="--i: 3" aria-label="Commits over the last year">
+        <div class="win__head"><p class="win__title">commits</p><span>52 weeks</span></div>
+        <p class="stat__num"><b data-count="__M_COMMITS__">__M_COMMITS_FMT__</b><span>in the last year</span></p>
+        <pre class="stat__chart" aria-hidden="true"><!--STAT_COMMITS--></pre>
+      </section>
+    </div>
+    <p class="sec__note">figures checked __M_CHECKED__</p>
+  </div>
+</section>
+
 <!-- news -->
 <section class="sec sec--band">
   <div class="sec__in">
@@ -1293,7 +1406,7 @@
   tick(); setInterval(tick, 15000);
 
   /* horizontal scrollers fade the edge that still hides content */
-  for (const el of document.querySelectorAll('.newsrow')) {
+  for (const el of document.querySelectorAll('.newsrow, .quotes')) {
     const fade = () => {
       el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
     };
@@ -1968,4 +2081,53 @@
     else if (saved && THEMES.includes(saved)) applyTheme(saved);
     else applyTheme(matchMedia('(prefers-color-scheme: dark)').matches ? ALIAS.dark : DEFAULT_THEME);
   } catch (e) { applyTheme(DEFAULT_THEME); }
+  /* voices: each card goes into the shortest column, so the last one fills the gap */
+  (() => {
+    const wall = document.querySelector('.quotes');
+    if (!wall) return;
+    const cards = [...wall.querySelectorAll('.quote')];
+    let cols = 0;
+    const stack = () => {
+      const n = +getComputedStyle(wall).getPropertyValue('--cols') || 1;
+      if (n === cols) return;
+      cols = n;
+      wall.classList.toggle('is-stacked', n > 1);
+      if (n === 1) return wall.replaceChildren(...cards);
+      wall.replaceChildren(...Array.from({ length: n }, () => Object.assign(document.createElement('div'), { className: 'quotes__col' })));
+      cards.forEach((card) => {
+        const shortest = [...wall.children].reduce((a, b) => (b.offsetHeight < a.offsetHeight ? b : a));
+        shortest.append(card);
+      });
+    };
+    stack();
+    addEventListener('resize', stack);
+  })();
+
+  /* momentum: the figures count up and the charts draw once the cards are on screen */
+  (() => {
+    const cards = document.querySelectorAll('#momentum .stat');
+    if (!cards.length) return;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = (n, d) => n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const count = (b) => {
+      const to = parseFloat(b.dataset.count), d = +(b.dataset.decimals || 0);
+      const pre = b.dataset.prefix || '', suf = b.dataset.suffix || '';
+      const t0 = performance.now(), dur = 1400;
+      const step = (t) => {
+        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        b.textContent = pre + fmt(to * e, d) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        en.target.classList.add('is-live');
+        if (!still) en.target.querySelectorAll('[data-count]').forEach(count);
+      });
+    }, { threshold: 0.9, rootMargin: '0px 0px -12% 0px' });
+    cards.forEach((c) => io.observe(c));
+  })();
 </script>

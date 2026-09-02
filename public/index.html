@@ -362,7 +362,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .sec__body { margin-top: var(--space-2xl); }
   /* --bar-h follows the real bar height (safe-area insets make it taller on
      phones); the 1px tucks the band's top border under the bar */
-  #ws1, #ws2, #ws3, #ws4 { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
+  #ws1, #ws2, #ws3, #ws4, #voices, #momentum { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
   .row { display: grid; gap: var(--gap); }
   .row--links { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 900px) { .row--links { grid-template-columns: 1fr; } }
@@ -658,6 +658,72 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   }
 
   /* ================= link listings ================= */
+  /* ================= voices: posts quoted as written ================= */
+  #voices { padding-top: calc(var(--space-3xl) / 2); }
+  /* columns are the no-script layout; the script re-stacks the cards shortest column first */
+  .quotes { --cols: 3; columns: var(--cols); column-gap: var(--gap); }
+  @media (max-width: 1150px) { .quotes { --cols: 2; } }
+  /* phones: one row to swipe through, like the news cards */
+  @media (max-width: 640px) {
+    .quotes {
+      --cols: 1; columns: auto; display: grid; grid-auto-flow: column; grid-auto-columns: min(320px, 82vw);
+      gap: var(--space-sm); align-items: stretch; overflow-x: auto; scroll-snap-type: x proximity;
+      padding-bottom: 6px; scrollbar-width: thin;
+      -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+      mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+    }
+    .quote { display: flex; flex-direction: column; margin: 0; scroll-snap-align: start; }
+    /* long posts are clipped, the link under them opens the whole thing */
+    .quote__text { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 12; overflow: hidden; }
+    .quote__by, .quote__links { margin-top: auto; }
+  }
+  .quotes.is-stacked { columns: auto; display: grid; grid-template-columns: repeat(var(--cols), 1fr); gap: var(--gap); align-items: start; }
+  .quotes__col { display: grid; gap: var(--gap); }
+  .quote { display: inline-block; width: 100%; margin: 0 0 var(--gap); break-inside: avoid; }
+  .is-stacked .quote { display: block; margin: 0; }
+  .quote__text { margin: 0 0 var(--space-md); font-size: var(--text-sm); line-height: 1.6; white-space: pre-line; text-wrap: pretty; }
+  .quote__text a { color: var(--accent); overflow-wrap: anywhere; }
+  .quote__text a:hover { color: var(--accent-2); }
+  .quote__by { display: flex; align-items: center; gap: 10px; font-size: var(--text-xs); }
+  .quote__by img { width: 32px; height: 32px; border-radius: 50%; background: var(--surface); }
+  .quote__who { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .quote__who b { color: var(--fg); }
+  .quote__who span { color: var(--muted); }
+  .quote__src { margin-left: auto; flex-shrink: 0; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+  .quote__src::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .quote__src:hover { color: var(--fg); }
+  .quote--more { border-style: dashed; }
+  .quote--more .quote__text { color: var(--muted); }
+  .quote__links { margin: 0; display: flex; gap: var(--space-md); font-size: var(--text-sm); }
+  .quote__links a { color: var(--accent); text-decoration: none; }
+  .quote__links a::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
+  .quote__links a:hover { color: var(--accent-2); }
+
+  /* ================= momentum: live figures ================= */
+  .row--stats { grid-template-columns: repeat(4, 1fr); }
+  .sec__note { margin: var(--space-md) 0 0; font-size: var(--text-xs); color: var(--muted); }
+  @media (max-width: 1150px) { .row--stats { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .row--stats { grid-template-columns: 1fr; } }
+  .stat { display: flex; flex-direction: column; container-type: inline-size; }
+  .stat__num { margin: 0; display: flex; flex-direction: column; gap: 2px; }
+  .stat__num b { font-size: var(--text-2xl); font-weight: 800; letter-spacing: -0.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+  .stat__num span { color: var(--muted); font-size: var(--text-sm); }
+  .stat__sub { margin: var(--space-sm) 0 0; color: var(--muted); font-size: var(--text-xs); }
+  .stat__sub b { color: var(--fg); font-weight: 500; }
+  /* one character per week or per step: the type scales to the card */
+  .stat__chart {
+    margin: auto 0 0; padding-top: var(--space-md); line-height: 0.92; color: var(--accent);
+    font-size: min(var(--text-sm), 3.15cqw); white-space: pre; overflow: hidden;
+    clip-path: inset(0 100% 0 0);
+  }
+  .stat__chart--steps { font-size: min(var(--text-xs), 4.3cqw); line-height: 1.35; }
+  .stat__chart i { font-style: normal; color: var(--muted); }
+  .stat.is-live .stat__chart { clip-path: inset(0); transition: clip-path 1.4s var(--ease-out); }
+  @media (prefers-reduced-motion: reduce) {
+    .stat__chart { clip-path: none; }
+    .stat.is-live .stat__chart { transition: none; }
+  }
+
   .ls { display: grid; gap: 2px; font-size: var(--text-sm); }
   .ls a {
     display: grid; grid-template-columns: 15ch 1fr; column-gap: 1.5ch; align-items: baseline;
@@ -1143,6 +1209,113 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   </div>
 </section>
 
+<!-- voices -->
+<section id="voices" class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">grep -ri omarchy x.com</p>
+    <h2 class="sec__title">Heard on the timeline</h2>
+    <p class="sec__lead">A hundred thousand people installed it in a week. Eight of them, in their own words.</p>
+    <div class="sec__body quotes"><article class="win quote" style="--i: 0"><p class="quote__text">On Omarchy for the last few days.
+
+Wanted a dock, so I built it with an agent.
+Wanted an infinite canvas, so I built it with an agent.
+Want a new file manager, being built now.
+
+Yes it&#x27;s not super polished yet.
+But there is no going back to a locked down OS.
+
+You build your own apps. You build your own OS.
+
+PS: Posting from a MBPro because it&#x27;s 2:43AM and I can&#x27;t begin to learn Kdenlive now.</p><footer class="quote__by"><img src="/assets/media/avatars/kaolti.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Zsolt Kacso</b><span>@kaolti · Aug 27</span></span><a class="quote__src" href="https://x.com/kaolti/status/2092775130330202205" target="_blank" rel="noopener" aria-label="Open the post by Zsolt Kacso on X">on X</a></footer></article>
+<article class="win quote" style="--i: 1"><p class="quote__text">If you use AI, you need to switch to Omarchy immediately
+
+It is an AI first, open source operating system by <a href="https://x.com/dhh" target="_blank" rel="noopener">@dhh</a> and it has skyrocketed my productivity
+
+In this video I cover how to use it, how to install it, and why I&#x27;m having more fun using computers than I ever have before:</p><footer class="quote__by"><img src="/assets/media/avatars/alexfinn.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Alex Finn</b><span>@AlexFinn · Aug 28</span></span><a class="quote__src" href="https://x.com/AlexFinn/status/2093455057429889311" target="_blank" rel="noopener" aria-label="Open the post by Alex Finn on X">on X</a></footer></article>
+<article class="win quote" style="--i: 2"><p class="quote__text">Just finished <a href="https://x.com/lexfridman" target="_blank" rel="noopener">@lexfridman</a> interview with <a href="https://x.com/DHH" target="_blank" rel="noopener">@DHH</a>. Absolute hopecore. Truly a cure for AI psychosis.
+
+I&#x27;m excited about how a single person can actually compete with Apple, Google and Microsoft in the OS space with the help of agents. AI is an incredible amplifier. And I actually love the idea. I don&#x27;t want to live in this Cyberpunk 2077 world where we only have these 5 corporations that exist forever, and that&#x27;s it.
+
+Even if I don&#x27;t agree with DHH on everything (although I still agree on many things), he&#x27;s the person I can easily listen to for 5 hours.
+
+I just have to install Omarchy after this, don&#x27;t I? You&#x27;ll never guess which feature finally motivated me to get over the struggle of *checks notes* a 1-minute installation.</p><footer class="quote__by"><img src="/assets/media/avatars/chshersh.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Dmitrii Kovanikov</b><span>@ChShersh · Aug 30</span></span><a class="quote__src" href="https://x.com/ChShersh/status/2094099987281986006" target="_blank" rel="noopener" aria-label="Open the post by Dmitrii Kovanikov on X">on X</a></footer></article>
+<article class="win quote" style="--i: 3"><p class="quote__text">I finally looked into Omarchy and I can see why dev twitter is suddenly obsessed with it.
+
+It’s basically Arch with somebody else making all the hard/endless decisions for you.
+
+Hyprland. Terminal first. Keyboard driven. Neovim. Plain config files. Very little “click through six settings panels and hope for the best”
+
+This style of OS makes a lot of sense now with ai. An agent can read the config, edit the config, install the package , restart he service, inspect the logs and change the workflow.
+
+Which is weird because the future of ai computing might end up looking a lot like the old way of using computers: files, terminals, scripts, text and a machine you can actually understand.</p><footer class="quote__by"><img src="/assets/media/avatars/oldstackjournal.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Lars Jansen</b><span>@oldstackjournal · Sep 1</span></span><a class="quote__src" href="https://x.com/oldstackjournal/status/2094728212064723139" target="_blank" rel="noopener" aria-label="Open the post by Lars Jansen on X">on X</a></footer></article>
+<article class="win quote" style="--i: 4"><p class="quote__text">I&#x27;m officially installing Omarchy everywhere. This OS is just so good and it just doesn&#x27;t stop growing on me 🤌
+
+Please create Omarchy Android, <a href="https://x.com/dhh" target="_blank" rel="noopener">@dhh</a>. I want to go all-in!</p><footer class="quote__by"><img src="/assets/media/avatars/simonhoiberg.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Simon Høiberg</b><span>@SimonHoiberg · Sep 1</span></span><a class="quote__src" href="https://x.com/SimonHoiberg/status/2094771648377348264" target="_blank" rel="noopener" aria-label="Open the post by Simon Høiberg on X">on X</a></footer></article>
+<article class="win quote" style="--i: 5"><p class="quote__text">Using Omarchy for a week now, and needed the ability to mirror my screen to and AppleTV at the office (and home) for some presentation. Within ~30 mins, a plugin that can mirror screen and windows from Omarchy was created. The malleable computer from <a href="https://x.com/dhh" target="_blank" rel="noopener">@dhh</a> is the future happening in front of our eyes.
+
+<a href="https://github.com/ETroll/omarchy-airplay" target="_blank" rel="noopener">https://github.com/ETroll/omarchy-airplay</a></p><footer class="quote__by"><img src="/assets/media/avatars/etroll.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Karl Løland</b><span>@etroll · Sep 1</span></span><a class="quote__src" href="https://x.com/etroll/status/2094860150960013634" target="_blank" rel="noopener" aria-label="Open the post by Karl Løland on X">on X</a></footer></article>
+<article class="win quote" style="--i: 6"><p class="quote__text">Omarchy is interesting because I can prompt to configure my computer exactly to how I like it
+
+I can live out my computer dreams by just typing a few prompts
+
+you cooked <a href="https://x.com/dhh" target="_blank" rel="noopener">@dhh</a></p><footer class="quote__by"><img src="/assets/media/avatars/rasmic.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Micky</b><span>@Rasmic · Aug 29</span></span><a class="quote__src" href="https://x.com/Rasmic/status/2093788225160524076" target="_blank" rel="noopener" aria-label="Open the post by Micky on X">on X</a></footer></article>
+<article class="win quote" style="--i: 7"><p class="quote__text">I will say this much about Omarchy: 
+
+I haven&#x27;t seen this kind of popular energy around an OPERATING SYSTEM, since Windows 95. 
+
+This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it. 
+
+<a href="https://www.youtube.com/watch?v=wRdl1BjTG7c" target="_blank" rel="noopener">https://www.youtube.com/watch?v=wRdl1BjTG7c</a></p><footer class="quote__by"><img src="/assets/media/avatars/gmgauthier1967.webp" width="32" height="32" alt="" loading="lazy" decoding="async"><span class="quote__who"><b>Greg Gauthier</b><span>@gmgauthier1967 · Aug 30</span></span><a class="quote__src" href="https://x.com/gmgauthier1967/status/2094121529042710854" target="_blank" rel="noopener" aria-label="Open the post by Greg Gauthier on X">on X</a></footer></article>
+      <article class="win quote quote--more" style="--i: 8">
+        <p class="quote__text">Running it? Say how it went.</p>
+        <p class="quote__links"><a href="https://x.com/intent/post?text=Omarchy%20" target="_blank" rel="noopener">post yours</a><a href="https://x.com/search?q=omarchy&amp;f=live" target="_blank" rel="noopener">read the rest</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- momentum -->
+<section id="momentum" class="sec sec--band">
+  <div class="sec__in">
+    <p class="sec__eyebrow">btop</p>
+    <h2 class="sec__title">Real money, real commits</h2>
+    <p class="sec__lead">Eleven days of funding, the first week of installs and a year of commits, pulled straight from the news and the repo.</p>
+    <div class="sec__body row row--stats">
+      <section class="win stat" style="--i: 0" aria-label="Omacom Foundation funding">
+        <div class="win__head"><p class="win__title">foundation</p><a class="win__more" href="/patrons/">the patrons</a></div>
+        <p class="stat__num"><b data-count="12.6" data-prefix="$" data-suffix="M" data-decimals="1">$12.6M</b><span>raised in eleven days</span></p>
+        <pre class="stat__chart stat__chart--steps" aria-hidden="true"><i>Aug 21</i>  ██████████████  $8M
+<i>Aug 24</i>  █████████████████  $10M
+<i>Aug 31</i>  █████████████████████  $12M
+<i>Aug 31</i>  ██████████████████████  $12.6M</pre>
+      </section>
+      <section class="win stat" style="--i: 1" aria-label="Installs in the first week">
+        <div class="win__head"><p class="win__title">installs</p><a class="win__more" href="/news/2026/08/100000-downloads-in-a-week/">the week</a></div>
+        <p class="stat__num"><b data-count="100000">100,000</b><span>in the first week</span></p>
+        <p class="stat__sub">nearly a <b>petabyte</b> of ISO moved in seven days</p>
+      </section>
+      <section class="win stat" style="--i: 2" aria-label="GitHub stars">
+        <div class="win__head"><p class="win__title">github</p><a class="win__more" href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">the repo</a></div>
+        <p class="stat__num"><b data-count="37036">37,036</b><span>stars</span></p>
+        <p class="stat__sub"><b>3,862</b> forks · <b>444</b> contributors</p>
+      </section>
+      <section class="win stat" style="--i: 3" aria-label="Commits over the last year">
+        <div class="win__head"><p class="win__title">commits</p><span>52 weeks</span></div>
+        <p class="stat__num"><b data-count="3934">3,934</b><span>in the last year</span></p>
+        <pre class="stat__chart" aria-hidden="true">                                    █               
+                                    █               
+                                    █               
+                                   ▇█        ▂      
+                       ▅          ▅██        █  ▂   
+     ▂                 █         ▂███▅       █▂ █ ▄ 
+▃▆  ▂█▅   ▆      █     █▄       ▃█████      ▃██▂█ █ 
+██▃▂███▇▆▇█▅▁▃▅▃▅█▂▂▅▇▃██▄▆▄▇▃▃▆██████▆▄▂▅█▁█████▆█▄</pre>
+      </section>
+    </div>
+    <p class="sec__note">figures checked Sep 2</p>
+  </div>
+</section>
+
 <!-- news -->
 <section class="sec sec--band">
   <div class="sec__in">
@@ -1324,7 +1497,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   tick(); setInterval(tick, 15000);
 
   /* horizontal scrollers fade the edge that still hides content */
-  for (const el of document.querySelectorAll('.newsrow')) {
+  for (const el of document.querySelectorAll('.newsrow, .quotes')) {
     const fade = () => {
       el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
     };
@@ -1999,6 +2172,55 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     else if (saved && THEMES.includes(saved)) applyTheme(saved);
     else applyTheme(matchMedia('(prefers-color-scheme: dark)').matches ? ALIAS.dark : DEFAULT_THEME);
   } catch (e) { applyTheme(DEFAULT_THEME); }
+  /* voices: each card goes into the shortest column, so the last one fills the gap */
+  (() => {
+    const wall = document.querySelector('.quotes');
+    if (!wall) return;
+    const cards = [...wall.querySelectorAll('.quote')];
+    let cols = 0;
+    const stack = () => {
+      const n = +getComputedStyle(wall).getPropertyValue('--cols') || 1;
+      if (n === cols) return;
+      cols = n;
+      wall.classList.toggle('is-stacked', n > 1);
+      if (n === 1) return wall.replaceChildren(...cards);
+      wall.replaceChildren(...Array.from({ length: n }, () => Object.assign(document.createElement('div'), { className: 'quotes__col' })));
+      cards.forEach((card) => {
+        const shortest = [...wall.children].reduce((a, b) => (b.offsetHeight < a.offsetHeight ? b : a));
+        shortest.append(card);
+      });
+    };
+    stack();
+    addEventListener('resize', stack);
+  })();
+
+  /* momentum: the figures count up and the charts draw once the cards are on screen */
+  (() => {
+    const cards = document.querySelectorAll('#momentum .stat');
+    if (!cards.length) return;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fmt = (n, d) => n.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d });
+    const count = (b) => {
+      const to = parseFloat(b.dataset.count), d = +(b.dataset.decimals || 0);
+      const pre = b.dataset.prefix || '', suf = b.dataset.suffix || '';
+      const t0 = performance.now(), dur = 1400;
+      const step = (t) => {
+        const p = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+        b.textContent = pre + fmt(to * e, d) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        en.target.classList.add('is-live');
+        if (!still) en.target.querySelectorAll('[data-count]').forEach(count);
+      });
+    }, { threshold: 0.9, rootMargin: '0px 0px -12% 0px' });
+    cards.forEach((c) => io.observe(c));
+  })();
 </script>
 
 <script>

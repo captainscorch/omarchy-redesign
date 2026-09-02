@@ -1,0 +1,66 @@
+[
+  {
+    "handle": "kaolti",
+    "name": "Zsolt Kacso",
+    "date": "2026-08-27",
+    "url": "https://x.com/kaolti/status/2092775130330202205",
+    "avatar": "/assets/media/avatars/kaolti.webp",
+    "text": "On Omarchy for the last few days.\n\nWanted a dock, so I built it with an agent.\nWanted an infinite canvas, so I built it with an agent.\nWant a new file manager, being built now.\n\nYes it's not super polished yet.\nBut there is no going back to a locked down OS.\n\nYou build your own apps. You build your own OS.\n\nPS: Posting from a MBPro because it's 2:43AM and I can't begin to learn Kdenlive now."
+  },
+  {
+    "handle": "AlexFinn",
+    "name": "Alex Finn",
+    "date": "2026-08-28",
+    "url": "https://x.com/AlexFinn/status/2093455057429889311",
+    "avatar": "/assets/media/avatars/alexfinn.webp",
+    "text": "If you use AI, you need to switch to Omarchy immediately\n\nIt is an AI first, open source operating system by @dhh and it has skyrocketed my productivity\n\nIn this video I cover how to use it, how to install it, and why I'm having more fun using computers than I ever have before:"
+  },
+  {
+    "handle": "ChShersh",
+    "name": "Dmitrii Kovanikov",
+    "date": "2026-08-30",
+    "url": "https://x.com/ChShersh/status/2094099987281986006",
+    "avatar": "/assets/media/avatars/chshersh.webp",
+    "text": "Just finished @lexfridman interview with @DHH. Absolute hopecore. Truly a cure for AI psychosis.\n\nI'm excited about how a single person can actually compete with Apple, Google and Microsoft in the OS space with the help of agents. AI is an incredible amplifier. And I actually love the idea. I don't want to live in this Cyberpunk 2077 world where we only have these 5 corporations that exist forever, and that's it.\n\nEven if I don't agree with DHH on everything (although I still agree on many things), he's the person I can easily listen to for 5 hours.\n\nI just have to install Omarchy after this, don't I? You'll never guess which feature finally motivated me to get over the struggle of *checks notes* a 1-minute installation."
+  },
+  {
+    "handle": "oldstackjournal",
+    "name": "Lars Jansen",
+    "date": "2026-09-01",
+    "url": "https://x.com/oldstackjournal/status/2094728212064723139",
+    "avatar": "/assets/media/avatars/oldstackjournal.webp",
+    "text": "I finally looked into Omarchy and I can see why dev twitter is suddenly obsessed with it.\n\nIt’s basically Arch with somebody else making all the hard/endless decisions for you.\n\nHyprland. Terminal first. Keyboard driven. Neovim. Plain config files. Very little “click through six settings panels and hope for the best”\n\nThis style of OS makes a lot of sense now with ai. An agent can read the config, edit the config, install the package , restart he service, inspect the logs and change the workflow.\n\nWhich is weird because the future of ai computing might end up looking a lot like the old way of using computers: files, terminals, scripts, text and a machine you can actually understand."
+  },
+  {
+    "handle": "SimonHoiberg",
+    "name": "Simon Høiberg",
+    "date": "2026-09-01",
+    "url": "https://x.com/SimonHoiberg/status/2094771648377348264",
+    "avatar": "/assets/media/avatars/simonhoiberg.webp",
+    "text": "I'm officially installing Omarchy everywhere. This OS is just so good and it just doesn't stop growing on me 🤌\n\nPlease create Omarchy Android, @dhh. I want to go all-in!"
+  },
+  {
+    "handle": "etroll",
+    "name": "Karl Løland",
+    "date": "2026-09-01",
+    "url": "https://x.com/etroll/status/2094860150960013634",
+    "avatar": "/assets/media/avatars/etroll.webp",
+    "text": "Using Omarchy for a week now, and needed the ability to mirror my screen to and AppleTV at the office (and home) for some presentation. Within ~30 mins, a plugin that can mirror screen and windows from Omarchy was created. The malleable computer from @dhh is the future happening in front of our eyes.\n\nhttps://github.com/ETroll/omarchy-airplay"
+  },
+  {
+    "handle": "Rasmic",
+    "name": "Micky",
+    "date": "2026-08-29",
+    "url": "https://x.com/Rasmic/status/2093788225160524076",
+    "avatar": "/assets/media/avatars/rasmic.webp",
+    "text": "Omarchy is interesting because I can prompt to configure my computer exactly to how I like it\n\nI can live out my computer dreams by just typing a few prompts\n\nyou cooked @dhh"
+  },
+  {
+    "handle": "gmgauthier1967",
+    "name": "Greg Gauthier",
+    "date": "2026-08-30",
+    "url": "https://x.com/gmgauthier1967/status/2094121529042710854",
+    "avatar": "/assets/media/avatars/gmgauthier1967.webp",
+    "text": "I will say this much about Omarchy: \n\nI haven't seen this kind of popular energy around an OPERATING SYSTEM, since Windows 95. \n\nThis definitely has that \"Where Do You Want To Go, Today?\" feel to it. \n\nhttps://www.youtube.com/watch?v=wRdl1BjTG7c"
+  }
+]

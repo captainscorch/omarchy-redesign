@@ -74,6 +74,56 @@ news_cards = "\n".join(
 )
 src = src.replace("<!--NEWS_CARDS-->", news_cards)
 
+# --- voices: data/quotes.json, posts quoted as written, linked to the original ---
+import html as H
+def linkify(text):
+    text = H.escape(text)
+    text = re.sub(r'(https?://[^\s<]+)', r'<a href="\1" target="_blank" rel="noopener">\1</a>', text)
+    return re.sub(r'(^|\s)@([A-Za-z0-9_]{1,15})', r'\1<a href="https://x.com/\2" target="_blank" rel="noopener">@\2</a>', text)
+MONTHS = "Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec".split()
+def short_date(iso):
+    y, m, d = (int(x) for x in iso.split("-"))
+    return f"{MONTHS[m - 1]} {d}"
+quotes = json.load(open("data/quotes.json"))
+def quote_card(i, q):
+    name = H.escape(q["name"])
+    return (
+        f'<article class="win quote" style="--i: {i}">'
+        f'<p class="quote__text">{linkify(q["text"])}</p>'
+        '<footer class="quote__by">'
+        f'<img src="{q["avatar"]}" width="32" height="32" alt="" loading="lazy" decoding="async">'
+        f'<span class="quote__who"><b>{name}</b>'
+        f'<span>@{q["handle"]} · {short_date(q["date"])}</span></span>'
+        f'<a class="quote__src" href="{q["url"]}" target="_blank" rel="noopener" '
+        f'aria-label="Open the post by {name} on X">on X</a>'
+        '</footer></article>'
+    )
+quote_cards = "\n".join(quote_card(i, q) for i, q in enumerate(quotes))
+src = src.replace("<!--QUOTE_CARDS-->", quote_cards)
+
+# --- momentum: data/momentum.json (bin/momentum refreshes it from GitHub) ---
+m = json.load(open("data/momentum.json"))
+g = m["github"]
+# funding steps as bars scaled to the total, one row per news post
+W = 22
+steps = "\n".join(
+    f'<i>{date}</i>  ' + "█" * round(W * amount / m["foundation"]["total"]) + f'  ${amount:g}M'
+    for date, amount, path in m["foundation"]["steps"]
+)
+# commits per week as eight rows of eighth-blocks, oldest week left
+weeks, ROWS = g["weeks"], 8
+top = max(weeks) or 1
+EIGHTHS = " ▁▂▃▄▅▆▇"
+def cell(v, row):
+    e = round(v / top * ROWS * 8) - (ROWS - 1 - row) * 8
+    return "█" if e >= 8 else EIGHTHS[max(0, e)]
+commits = "\n".join("".join(cell(v, r) for v in weeks) for r in range(ROWS))
+src = (src.replace("<!--STAT_STEPS-->", steps).replace("<!--STAT_COMMITS-->", commits)
+    .replace("__M_STARS_FMT__", f"{g['stars']:,}").replace("__M_STARS__", str(g["stars"]))
+    .replace("__M_FORKS_FMT__", f"{g['forks']:,}").replace("__M_CONTRIB__", str(g["contributors"]))
+    .replace("__M_COMMITS_FMT__", f"{g['commits_52w']:,}").replace("__M_COMMITS__", str(g["commits_52w"]))
+    .replace("__M_CHECKED__", short_date(m["checked"])))
+
 # no start_url: a data-URI manifest has an opaque origin, the browser falls
 # back to the document URL anyway and skips the console warning
 manifest = json.dumps({
@@ -188,6 +238,8 @@ PAGES = {
 
 sindex.append({"t": "Home — the desktop", "c": "page", "p": "/"})
 sindex.append({"t": "Theme gallery", "c": "home", "p": "/#ws3"})
+sindex.append({"t": "Heard on the timeline", "c": "home", "p": "/#voices"})
+sindex.append({"t": "Real money, real commits", "c": "home", "p": "/#momentum"})
 for slug, (title, desc, bar_title, partner) in PAGES.items():
     sindex.append({"t": title.split(" — ")[0], "c": "page", "p": f"/{slug}/"})
 for slug, (title, desc, bar_title, partner) in PAGES.items():

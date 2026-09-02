@@ -1,0 +1,38 @@
+#!/bin/sh
+# Refreshes data/momentum.json from the GitHub API (needs gh). The
+# foundation and install figures are quoted from omarchy.org/news and
+# kept here by hand, with the article they come from.
+set -e
+cd "$(dirname "$0")/.."
+repo=omacom/omarchy
+last_page() { gh api -i "$1" | grep -i '^link:' | sed -n 's/.*page=\([0-9]*\)>; rel="last".*/\1/p'; }
+stars=$(gh api "repos/$repo" --jq .stargazers_count)
+forks=$(gh api "repos/$repo" --jq .forks_count)
+contributors=$(last_page "repos/$repo/contributors?per_page=1")
+weeks=$(gh api "repos/$repo/stats/commit_activity" --jq '[.[].total] | tostring')
+python3 - "$stars" "$forks" "$contributors" "$weeks" <<'PY'
+import json, sys, datetime
+stars, forks, contributors, weeks = sys.argv[1:]
+weeks = json.loads(weeks)
+data = {
+    "checked": datetime.date.today().isoformat(),
+    "github": {
+        "stars": int(stars), "forks": int(forks),
+        "contributors": int(contributors),
+        "commits_52w": sum(weeks), "weeks": weeks,
+    },
+    "foundation": {
+        "total": 12.6,
+        "steps": [
+            ["Aug 21", 8, "2026/08/omacom-foundation-launches-with-8-million"],
+            ["Aug 24", 10, "2026/08/omacom-foundation-funding-hits-10m"],
+            ["Aug 31", 12, "2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai"],
+            ["Aug 31", 12.6, "2026/08/1password-and-37signals-become-distinguished-corporate-patrons"],
+        ],
+    },
+    "installs": {"week_one": 100000, "source": "2026/08/100000-downloads-in-a-week"},
+}
+json.dump(data, open("data/momentum.json", "w"), indent=2)
+open("data/momentum.json", "a").write("\n")
+print(json.dumps({k: v for k, v in data["github"].items() if k != "weeks"}), data["checked"])
+PY
