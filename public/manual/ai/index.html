@@ -771,6 +771,10 @@
   .cmdk[open] { display: flex; flex-direction: column; }
   .cmdk:focus { outline: none; }
   .cmdk::backdrop { background: color-mix(in srgb, var(--desktop) 50%, transparent); }
+  /* on touch the card sits at the top so an opening keyboard can't push it out */
+  @media (pointer: coarse) {
+    .cmdk, .cmdk--pinned { inset: 6vh 0 auto; margin: 0 auto; max-height: 82dvh; }
+  }
   /* the header does double duty: prompt when idle, the typed filter after */
   .cmdk__field { display: flex; align-items: center; height: 34px; flex-shrink: 0; }
   .cmdk__field input {
@@ -959,12 +963,16 @@
   function openBox(f) {
     filter = ['manual', 'news', 'pages'].includes(f) ? f : 'all';
     unpin();
+    /* touch: keep the keyboard closed until the header is tapped */
+    const touch = matchMedia('(pointer: coarse)').matches;
+    input.disabled = touch;
     box.showModal();
+    input.disabled = false;
     input.value = '';
     sub = null;
     input.placeholder = 'Omarchy…';
     load().then(() => search(''));
-    input.focus();
+    if (!touch) input.focus();
   }
 
   input.addEventListener('input', () => {

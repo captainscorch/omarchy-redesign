@@ -299,7 +299,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .bar__ws a[aria-current="true"] b { font-weight: 700; }
   .bar__ws a[aria-current="true"] span { color: var(--win); }
   /* numbers only once the names stop fitting */
-  @media (max-width: 900px) {
+  @media (max-width: 1150px) {
     .bar__ws a { gap: 0; padding-right: 0; }
     .bar__ws a span { display: none; }
   }
@@ -310,7 +310,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   /* both groups reserve their widest state so the title stays put — the left
      one now carries four named workspaces */
   @media (min-width: 640px) { .bar__right { min-width: 27.5em; } }
-  @media (min-width: 1000px) { .bar__left, .bar__right { min-width: 31.5em; } }
+  @media (min-width: 1200px) { .bar__left, .bar__right { min-width: 31.5em; } }
   .bar__theme, .bar__search {
     display: flex; align-items: center; gap: 8px;
     background: none; border: 1px solid var(--border); border-radius: var(--radius-ui);
@@ -772,6 +772,8 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
     gap: var(--space-xl) var(--space-2xl);
     margin-top: var(--space-2xl);
   }
+  /* four facts: never three plus an orphan */
+  @media (min-width: 640px) and (max-width: 1150px) { .facts { grid-template-columns: 1fr 1fr; } }
   /* column so the chapter link can be pushed to a shared baseline */
   .facts > div { display: flex; flex-direction: column; }
   .facts h3 { margin: 0 0 var(--space-2xs); font-size: var(--text-base); font-weight: 700; letter-spacing: -0.01em; }
@@ -785,13 +787,13 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
 
   /* ================= theme gallery ================= */
   .themebox { display: grid; gap: var(--gap); align-items: stretch; }
-  @media (min-width: 900px) { .themebox { grid-template-columns: 1.05fr 1fr; } }
+  @media (min-width: 1150px) { .themebox { grid-template-columns: 1.05fr 1fr; } }
   /* no wallpaper file for the active theme: the gallery takes the full width */
   .themebox:has(.wallpaper[hidden]) { grid-template-columns: 1fr; }
   .wallpaper { margin: 0; display: flex; flex-direction: column; }
   /* the image eats whatever height the gallery beside it sets */
   .wallpaper img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--surface); }
-  @media (min-width: 900px) {
+  @media (min-width: 1150px) {
     .wallpaper img { flex: 1; min-height: 0; height: auto; aspect-ratio: auto; }
   }
   .wallpaper figcaption {
@@ -1241,7 +1243,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
       <p class="win__title" id="lightbox-title">mpv</p>
       <div class="lightbox__actions">
         <a id="lightbox-yt" href="https://www.youtube.com" target="_blank" rel="noopener">YouTube ↗</a>
-        <button class="lightbox__close" id="lightbox-close" type="button">close [esc]</button>
+        <button class="lightbox__close" id="lightbox-close" type="button">close<span class="kbd-hint"> [esc]</span></button>
       </div>
     </div>
     <div class="lightbox__frame">
@@ -2019,6 +2021,10 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .cmdk[open] { display: flex; flex-direction: column; }
   .cmdk:focus { outline: none; }
   .cmdk::backdrop { background: color-mix(in srgb, var(--desktop) 50%, transparent); }
+  /* on touch the card sits at the top so an opening keyboard can't push it out */
+  @media (pointer: coarse) {
+    .cmdk, .cmdk--pinned { inset: 6vh 0 auto; margin: 0 auto; max-height: 82dvh; }
+  }
   /* the header does double duty: prompt when idle, the typed filter after */
   .cmdk__field { display: flex; align-items: center; height: 34px; flex-shrink: 0; }
   .cmdk__field input {
@@ -2207,12 +2213,16 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   function openBox(f) {
     filter = ['manual', 'news', 'pages'].includes(f) ? f : 'all';
     unpin();
+    /* touch: keep the keyboard closed until the header is tapped */
+    const touch = matchMedia('(pointer: coarse)').matches;
+    input.disabled = touch;
     box.showModal();
+    input.disabled = false;
     input.value = '';
     sub = null;
     input.placeholder = 'Omarchy…';
     load().then(() => search(''));
-    input.focus();
+    if (!touch) input.focus();
   }
 
   input.addEventListener('input', () => {
