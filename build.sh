@@ -29,6 +29,8 @@ def b64(path):
     return base64.b64encode(open(path, "rb").read()).decode()
 
 src = open("index.src.html").read()
+theme_boot = open("partials/theme-boot.js").read().strip()
+src = src.replace("__THEME_BOOT__", theme_boot)
 src = src.replace("__QUATTRO_B64__", b64("assets/video-quattro.webp"))
 src = src.replace("__CHUCK_B64__", b64("assets/video-networkchuck.webp"))
 favicon = b64("assets/favicon.png")
@@ -216,6 +218,7 @@ def render(path, title, desc, bar_title, body, page_css="", partner=True):
             .replace("__PAGE_CSS__", page_css)
             .replace("__THEME_TOKENS__", tokens.rstrip() + "\n")
             .replace("__MENU_FONT__", menu_font)
+            .replace("__THEME_BOOT__", theme_boot)
             .replace("__FAVICON_B64__", favicon)
         + "\n" + body + "\n" + (foot if partner else foot.replace(PARTNER_LINE, "")) + "\n" + base_js
     )

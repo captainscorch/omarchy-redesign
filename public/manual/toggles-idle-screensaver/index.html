@@ -17,6 +17,17 @@
 <meta property="og:image" content="https://omarchy.captainscor.ch/assets/opengraph.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<script>
+/* sets the theme before first paint, the page script validates it again later */
+(() => {
+  const alias = { light: 'flexoki-light', dark: 'tokyo-night' };
+  const param = new URLSearchParams(location.search).get('theme');
+  let theme = alias[param] || param;
+  try { theme = theme || localStorage.getItem('omarchy-redesign-theme-v1'); } catch {}
+  document.documentElement.dataset.theme =
+    theme || (matchMedia('(prefers-color-scheme: dark)').matches ? alias.dark : alias.light);
+})();
+</script>
 <style>
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Light.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Regular.woff2) format('woff2')}
