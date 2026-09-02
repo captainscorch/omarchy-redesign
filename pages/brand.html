@@ -2,7 +2,7 @@
   .preview {
     display: grid; place-items: center;
     background: var(--desktop);
-    border: 1px solid var(--border); border-radius: 4px;
+    border: 1.5px solid var(--border); border-radius: 0;
     padding: 32px; margin-bottom: 16px;
     transition: background 0.25s ease;
   }
@@ -11,10 +11,13 @@
   .preview--logo img { width: 160px; }
 -->
 <div class="desktop">
-  <h1>The Omarchy Brand</h1>
+  <header class="page-head">
+    <p class="eyebrow">brand</p>
+    <h1>The Omarchy Brand</h1>
+  </header>
 
   <section class="win" aria-label="Wordmark">
-    <p class="win__title">open omarchy-wordmark.svg</p>
+    <p class="win__title">Wordmark</p>
     <div class="preview preview--wordmark">
       <img src="omarchy-wordmark.svg" alt="OMARCHY wordmark" width="4131" height="950">
     </div>
@@ -26,7 +29,7 @@
 
   <div class="row">
     <section class="win" aria-label="Logo">
-      <p class="win__title">open omarchy-logo.svg</p>
+      <p class="win__title">Logo</p>
       <div class="preview preview--logo">
         <img src="omarchy-logo.svg" alt="Omarchy logo" width="1200" height="1200">
       </div>
@@ -37,7 +40,7 @@
     </section>
 
     <section class="win" aria-label="Trademark">
-      <div class="win__head"><p class="win__title">cat TRADEMARK</p><a class="arrow" href="/">cd ~</a></div>
+      <div class="win__head"><p class="win__title">Trademark</p><a class="arrow" href="/">Back to the desktop</a></div>
       <p>Omarchy is a pending trademark. All rights reserved.</p>
       <p>Write <a href="mailto:david@omarchy.org">david@omarchy.org</a> for partnerships.</p>
     </section>

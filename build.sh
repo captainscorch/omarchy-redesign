@@ -36,6 +36,10 @@ src = src.replace("__FAVICON_B64__", favicon)
 
 # --- news: one list drives the /news/ pages and the homepage ticker ---
 NEWS = [
+    ("2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai", "Omacom Foundation welcomes Brian Armstrong and Yunjie Dai", "August 31, 2026",
+     "Two more Founding Patrons join the mission with $1 million each, and the foundation hits $12 million."),
+    ("2026/08/1password-and-37signals-become-distinguished-corporate-patrons", "1Password and 37signals become Distinguished Corporate Patrons", "August 31, 2026",
+     "The first two Distinguished Corporate Patrons each pledge $100,000 a year for three years, taking the Omacom Foundation to $12.6 million."),
     ("2026/08/the-first-plugin-competition-winners", "The first plugin competition winners", "August 28, 2026",
      "Radio Atlas, Omagotchi, and AirPods take the podium in the first Omarchy plugin competition."),
     ("2026/08/introducing-omarchy-air", "Introducing Omarchy AIR", "August 28, 2026",
@@ -54,8 +58,8 @@ NEWS = [
      "Drew Houston and Peter Steinberger join the Omacom Foundation as Founding Patrons, taking total funding to $10 million."),
     ("2026/08/omacom-foundation-to-be-exclusive-hyprland-sponsor", "Omacom Foundation to be exclusive Hyprland sponsor", "August 21, 2026",
      "What better way to start spending some of the treasure we just raised for the Omacom Foundation than on the most cracked Linux kid in Poland: Vaxry!"),
-    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $10 million", "August 21, 2026",
-     "It's time to dream big. Omarchy Quattro has given people a chance to experience what the malleable computer of the future looks like."),
+    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $12.6 million", "August 21, 2026",
+     "It's time to dream big. Omarchy Quattro has given people a chance to experience what the malleable computer of the future looks like, and they like it (a lot!)."),
     ("2026/09/the-omarchy-core-team", "The Omarchy Core Team", "August 19, 2026",
      "Omarchy's explosive growth demands structured teams in response, starting with The Omarchy Core Team."),
     ("2026/08/the-first-plugin-competition", "The first plugin competition", "August 19, 2026",
@@ -76,8 +80,8 @@ manifest = json.dumps({
     "name": "Omarchy",
     "short_name": "Omarchy",
     "display": "browser",
-    "background_color": "#13141c",
-    "theme_color": "#13141c",
+    "background_color": "#f2efe4",
+    "theme_color": "#f2efe4",
     "icons": [{
         "src": "data:image/png;base64," + favicon,
         "sizes": "300x300",
@@ -94,7 +98,17 @@ for name, weight in [("Light", 300), ("Regular", 400), ("Medium", 500), ("Bold",
         f"font-weight:{weight};font-display:swap;"
         f"src:url(data:font/woff2;base64,{b64}) format('woff2');}}"
     )
-src = src.replace("__FONT_FACES__", "".join(faces))
+
+# Symbols Nerd Font Mono, subset to the eleven codepoints the command menu
+# draws (the ten navigation rows plus the empty-state glyph).
+menu_font = (
+    "@font-face{font-family:'Omarchy Menu Symbols';font-style:normal;"
+    "font-weight:400;font-display:block;"
+    "src:url(data:font/woff2;base64,"
+    + base64.b64encode(open("fonts/SymbolsNerdFontMono-Menu.woff2", "rb").read()).decode()
+    + ") format('woff2');}"
+)
+src = src.replace("__FONT_FACES__", "".join(faces) + menu_font)
 
 page = src
 
@@ -151,6 +165,7 @@ def render(path, title, desc, bar_title, body, page_css="", partner=True):
             .replace("__BAR_TITLE__", bar_title)
             .replace("__PAGE_CSS__", page_css)
             .replace("__THEME_TOKENS__", tokens.rstrip() + "\n")
+            .replace("__MENU_FONT__", menu_font)
             .replace("__FAVICON_B64__", favicon)
         + "\n" + body + "\n" + (foot if partner else foot.replace(PARTNER_LINE, "")) + "\n" + base_js
     )
@@ -216,7 +231,7 @@ for i, ch in enumerate(chapters):
     body = f"""<div class="desktop">
   <div class="docs">
     <aside class="docs__toc win" aria-label="Chapters">
-      <p class="win__title">ls manual/</p>
+      <p class="win__title">Chapters</p>
       <button class="docs__search" type="button" data-search-open="manual">search the manual<kbd data-kbd-search>⌘K</kbd></button>
       <div class="docs__toc-body">
       <ol>
@@ -225,8 +240,8 @@ for i, ch in enumerate(chapters):
       </div>
     </aside>
     <section class="win" aria-label="{ch['title']}">
-      <p class="win__title">cat manual/{i + 1:02d}-{ch['file']}.md</p>
-      <h1 style="margin: 0 0 16px">{ch['title']}</h1>
+      <p class="win__title">Manual &middot; chapter {i + 1:02d}</p>
+      <h1>{ch['title']}</h1>
       <div class="prose">
 {content}
       </div>
@@ -253,7 +268,7 @@ news_css = """
   @media (max-width: 700px) { .news-grid { grid-template-columns: 1fr; } }
   .news-card {
     display: block; padding: 14px 16px;
-    border: 1px solid var(--border); border-radius: 4px;
+    border: 1.5px solid var(--border); border-radius: 0;
     text-decoration: none; color: var(--fg);
     transition: border-color 0.15s, background 0.12s;
   }
@@ -267,9 +282,12 @@ news_css = """
 """
 render("/news/", "News — Omarchy", "Announcements, releases, and other Omarchy news.", "news",
        f"""<div class="desktop">
-  <h1>Announcements, releases, and other news</h1>
+  <header class="page-head">
+    <p class="eyebrow">news</p>
+    <h1>Announcements, releases, and other news</h1>
+  </header>
   <section class="win" aria-label="News">
-    <p class="win__title">tail -f news.log</p>
+    <p class="win__title">Latest news</p>
     <div class="news-grid">
 {news_index_items}
     </div>
@@ -294,15 +312,15 @@ for i, (path, title, date, teaser) in enumerate(NEWS):
     body = f"""<div class="desktop">
   <div class="article-grid">
     <section class="win" aria-label="{title}">
-      <div class="win__head"><p class="win__title">cat news/{path.split('/')[-1]}.md</p><a class="win__more" href="/news/">all news</a></div>
-      <h1 style="margin: 0 0 12px">{title}</h1>
+      <div class="win__head"><p class="win__title">News</p><a class="win__more" href="/news/">all news</a></div>
+      <h1>{title}</h1>
       <div class="prose">
 {content}
       </div>
       {pager}
     </section>
     <aside class="win" aria-label="All news">
-      <p class="win__title">tail -f news.log</p>
+      <p class="win__title">All news</p>
       <div class="index-list">
 {sidebar}
       </div>
@@ -322,6 +340,10 @@ json.dump(sindex, open("public/assets/search-index.json", "w"))
 for name in ("omarchy-wordmark.svg", "omarchy-wordmark.png", "omarchy-logo.svg", "omarchy-logo.png"):
     shutil.copyfile(f"assets/brand/{name}", f"public/brand/{name}")
 shutil.copytree("assets/img", "public/assets/img", dirs_exist_ok=True)
+# boot video, wallpapers, screenshots and video thumbnails
+shutil.copytree("assets/media", "public/assets/media", dirs_exist_ok=True)
+# web text effects runtime — the hero wordmark's laseretch playback
+shutil.copytree("assets/wte", "public/assets/js/wte", dirs_exist_ok=True)
 os.makedirs("public/assets/fonts", exist_ok=True)
 for name in ("Light", "Regular", "Medium", "Bold", "ExtraBold"):
     shutil.copyfile(f"fonts/JetBrainsMono-{name}.woff2", f"public/assets/fonts/JetBrainsMono-{name}.woff2")

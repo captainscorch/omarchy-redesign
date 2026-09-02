@@ -8,10 +8,11 @@
     'rose-pine', 'solitude', 'tokyo-night',
   ];
   const STORE_KEY = 'omarchy-redesign-theme-v1';
+  const DEFAULT_THEME = 'flexoki-light';
   const root = document.documentElement;
 
   function applyTheme(name) {
-    if (name === 'tokyo-night') root.removeAttribute('data-theme');
+    if (name === DEFAULT_THEME) root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', name);
     document.getElementById('theme-name').textContent = name;
     const tc = document.getElementById('theme-color');
@@ -19,7 +20,7 @@
     try { localStorage.setItem(STORE_KEY, name); } catch (e) {}
   }
   function cycleTheme() {
-    const current = root.getAttribute('data-theme') || 'tokyo-night';
+    const current = root.getAttribute('data-theme') || DEFAULT_THEME;
     applyTheme(THEMES[(THEMES.indexOf(current) + 1) % THEMES.length]);
   }
   document.getElementById('theme-btn').addEventListener('click', cycleTheme);
@@ -91,10 +92,18 @@
   }
   tick(); setInterval(tick, 15000);
 
+  /* ?theme=<name> wins over the stored choice and becomes the stored one */
   try {
+    /* light/dark are shorthands for the two headline themes */
+    const ALIAS = { light: 'flexoki-light', dark: 'tokyo-night' };
+    const param = new URLSearchParams(location.search).get('theme');
+    const wanted = ALIAS[param] || param;
     const saved = localStorage.getItem(STORE_KEY);
-    applyTheme(saved && THEMES.includes(saved) ? saved : 'tokyo-night');
-  } catch (e) { applyTheme('tokyo-night'); }
+    if (THEMES.includes(wanted)) applyTheme(wanted);
+    /* nothing chosen yet: follow the OS, dark systems land on tokyo-night */
+    else if (saved && THEMES.includes(saved)) applyTheme(saved);
+    else applyTheme(matchMedia('(prefers-color-scheme: dark)').matches ? ALIAS.dark : DEFAULT_THEME);
+  } catch (e) { applyTheme(DEFAULT_THEME); }
 </script>
 </body>
 </html>

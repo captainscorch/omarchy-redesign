@@ -1,6 +1,6 @@
-<title>Omarchy — Beautiful, Fun &amp; Opinionated Linux by DHH</title>
+<title>Omarchy — Beautiful, Fun &amp; Agentic Linux by DHH</title>
 <meta name="author" content="Daniel Schmier — captainscor.ch">
-<meta name="description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta name="description" content="Beautiful, Fun &amp; Agentic Linux by DHH">
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://omarchy.captainscor.ch/">
 <link rel="manifest" href="data:application/manifest+json;base64,__MANIFEST_B64__">
@@ -10,11 +10,11 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#13141c" id="theme-color">
+<meta name="theme-color" content="#f2efe4" id="theme-color">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Omarchy">
 <meta property="og:title" content="Omarchy">
-<meta property="og:description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta property="og:description" content="Beautiful, Fun &amp; Agentic Linux by DHH">
 <meta property="og:url" content="https://omarchy.captainscor.ch/">
 <meta property="og:image" content="https://omarchy.captainscor.ch/assets/opengraph.png">
 <meta property="og:image:type" content="image/png">
@@ -23,26 +23,26 @@
 <meta property="og:image:alt" content="Omarchy">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Omarchy">
-<meta name="twitter:description" content="Beautiful, Fun &amp; Opinionated Linux by DHH">
+<meta name="twitter:description" content="Beautiful, Fun &amp; Agentic Linux by DHH">
 <meta name="twitter:image" content="https://omarchy.captainscor.ch/assets/opengraph.png">
 <meta name="twitter:image:alt" content="Omarchy">
 <style>__FONT_FACES__</style>
 <style>
   /* ================= Omarchy theme tokens ================= */
   :root {
-    --desktop: #13141c;
-    --win: #1a1b26;
-    --surface: #24283b;
-    --border: rgba(65, 72, 104, 0.75);
-    --fg: #c0caf5;
-    --muted: #565f89;
-    --accent: #7aa2f7;
-    --accent-2: #7dcfff;
-    --hover: #b4f9f8;
-    --ok: #9ece6a;
-    --warn: #e0af68;
-    --err: #f7768e;
-    --mag: #bb9af7;
+    --desktop: #f2efe4;
+    --win: #fffcf0;
+    --surface: #e6e4d9;
+    --border: rgba(183, 181, 172, 1);
+    --fg: #100f0f;
+    --muted: #878580;
+    --accent: #205ea6;
+    --accent-2: #3aa99f;
+    --hover: #3aa99f;
+    --ok: #879a39;
+    --warn: #d0a215;
+    --err: #d14d41;
+    --mag: #ce5d97;
 
     --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
     --text-xs: 0.6875rem;
@@ -50,6 +50,8 @@
     --text-base: 0.9375rem;
     --text-lg: 1.25rem;
     --text-xl: clamp(1.375rem, 1rem + 1.6vw, 2rem);
+    --text-2xl: clamp(1.5rem, 1.05rem + 2.1vw, 2.5rem);
+    --text-hero: clamp(1.75rem, 1.2rem + 2.8vw, 3.25rem);
 
     --space-2xs: 4px;
     --space-xs: 8px;
@@ -58,16 +60,23 @@
     --space-lg: 24px;
     --space-xl: 32px;
     --space-2xl: 48px;
+    --space-3xl: clamp(72px, 9vw, 132px);
 
     --gap: clamp(8px, 1.2vw, 14px);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+    /* hyprland ships decoration:rounding 0 in omarchy 4 — window chrome is
+       square, only the small controls inside keep a radius */
+    --radius-win: 0;
+    --radius-ui: 4px;
   }
-  /* All palettes below map 1:1 from themes/<name>/colors.toml in the Omarchy
-     repo: desktop=dark_background, win=background, surface=lighter_background,
-     border=muted, muted=dark_foreground (light_foreground where dark_ is
-     unreadable), accent=accent, accent-2=cyan, hover=bright_cyan.
-     tokyo-night keeps the website's own bright_foreground text and turquoise
-     hover from omarchy.org's root.css. */
+  /* :root is flexoki-light, the default theme; all palettes map 1:1 from
+     themes/<name>/colors.toml in the Omarchy repo: desktop=dark_background,
+     win=background, surface=lighter_background, border=muted,
+     muted=dark_foreground (light_foreground where dark_ is unreadable),
+     accent=accent, accent-2=cyan, hover=bright_cyan. tokyo-night keeps the
+     website's own bright_foreground text and turquoise hover from
+     omarchy.org's root.css. */
   html[data-theme="catppuccin"] {
     --desktop: #161622; --win: #1e1e2e; --surface: #313244;
     --border: rgba(88, 91, 112, 0.85);
@@ -132,13 +141,6 @@
     --accent: #7d82d9; --accent-2: #a3bfd1; --hover: #dfeaf0;
     --ok: #c4cfc4; --warn: #f7dc9c; --err: #ed5b5a; --mag: #c89dc1;
   }
-  html[data-theme="flexoki-light"] {
-    --desktop: #f2efe4; --win: #fffcf0; --surface: #e6e4d9;
-    --border: rgba(183, 181, 172, 1);
-    --fg: #100f0f; --muted: #878580;
-    --accent: #205ea6; --accent-2: #3aa99f; --hover: #3aa99f;
-    --ok: #879a39; --warn: #d0a215; --err: #d14d41; --mag: #ce5d97;
-  }
   html[data-theme="hackerman"] {
     --desktop: #080910; --win: #0b0c16; --surface: #151828;
     --border: rgba(45, 52, 80, 0.95);
@@ -202,6 +204,13 @@
     --accent: #798186; --accent-2: #707070; --hover: #c9c2b4;
     --ok: #9fa5a9; --warn: #d9dbdc; --err: #565d60; --mag: #aeaeae;
   }
+  html[data-theme="tokyo-night"] {
+    --desktop: #13141c; --win: #1a1b26; --surface: #24283b;
+    --border: rgba(65, 72, 104, 0.75);
+    --fg: #c0caf5; --muted: #565f89;
+    --accent: #7aa2f7; --accent-2: #7dcfff; --hover: #b4f9f8;
+    --ok: #9ece6a; --warn: #e0af68; --err: #f7768e; --mag: #bb9af7;
+  }
 
   * { box-sizing: border-box; }
   /* the root colour is what Safari paints behind its own chrome and into the
@@ -235,32 +244,52 @@
   .bar__logo { display: flex; align-items: center; color: var(--accent); text-decoration: none; transition: color 0.15s; }
   .bar__logo svg { width: 20px; height: 20px; stroke-dasharray: 1; }
   .bar__logo:hover { color: var(--accent-2); }
-  /* hovering redraws the mark stroke by stroke, outer frame first */
-  .bar__logo:hover svg path { animation: logo-draw 0.45s ease both; }
-  .bar__logo:hover svg path:nth-child(2) { animation-delay: 0.3s; }
-  .bar__logo:hover svg path:nth-child(3) { animation-delay: 0.55s; }
-  .bar__logo:hover svg path:nth-child(4) { animation-delay: 0.62s; }
+  /* hovering redraws the mark stroke by stroke — each stroke branches off the
+     pen passing its junction, so the two stubs run backwards */
+  .bar__logo:hover svg path { animation: logo-draw 0.65s cubic-bezier(0.45, 0, 0.25, 1) both; }
+  .bar__logo:hover svg path:nth-child(2) { animation-timing-function: ease-out; animation-duration: 0.11s; animation-delay: 0.25s; }
+  .bar__logo:hover svg path:nth-child(3) { animation-duration: 0.47s; animation-delay: 0.36s; }
+  .bar__logo:hover svg path:nth-child(4) { animation-name: logo-draw-rev; animation-duration: 0.07s; animation-delay: 0.54s; }
+  .bar__logo:hover svg path:nth-child(5) { animation-name: logo-draw-rev; animation-duration: 0.07s; animation-delay: 0.60s; }
   @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes logo-draw-rev { from { stroke-dashoffset: -1; } to { stroke-dashoffset: 0; } }
   .bar__ws { display: flex; gap: 2px; }
+  /* named workspaces, the way hyprland names them: the number stays the
+     square, the name rides along beside it */
   .bar__ws a {
-    display: grid; place-items: center;
-    width: 26px; height: 26px;
+    display: flex; align-items: center; gap: 2px;
+    height: 26px; padding-right: 8px;
     text-decoration: none; color: var(--muted); font-weight: 500;
-    border-radius: 4px;
+    border-radius: var(--radius-ui);
     transition: color 0.15s, background 0.15s;
   }
+  .bar__ws a b {
+    display: grid; place-items: center;
+    width: 26px; height: 26px; flex-shrink: 0;
+    font-weight: 500;
+  }
+  .bar__ws a span { color: var(--muted); transition: color 0.15s; }
   .bar__ws a:hover { color: var(--fg); background: var(--surface); }
-  .bar__ws a[aria-current="true"] { color: var(--win); background: var(--accent); font-weight: 700; }
+  .bar__ws a:hover span { color: var(--fg); }
+  .bar__ws a[aria-current="true"] { color: var(--win); background: var(--accent); }
+  .bar__ws a[aria-current="true"] b { font-weight: 700; }
+  .bar__ws a[aria-current="true"] span { color: var(--win); }
+  /* numbers only once the names stop fitting */
+  @media (max-width: 900px) {
+    .bar__ws a { gap: 0; padding-right: 0; }
+    .bar__ws a span { display: none; }
+  }
   .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .bar__title strong { color: var(--fg); font-weight: 500; }
   .bar__left { display: flex; align-items: center; gap: var(--space-md); }
   .bar__right { display: flex; align-items: center; gap: var(--space-sm); margin-left: auto; justify-content: flex-end; }
-  /* both groups reserve the widest theme-name state so the title stays put */
+  /* both groups reserve their widest state so the title stays put — the left
+     one now carries four named workspaces */
   @media (min-width: 640px) { .bar__right { min-width: 27.5em; } }
-  @media (min-width: 1000px) { .bar__left { min-width: 27.5em; } }
+  @media (min-width: 1000px) { .bar__left, .bar__right { min-width: 31.5em; } }
   .bar__theme, .bar__search {
     display: flex; align-items: center; gap: 8px;
-    background: none; border: 1px solid var(--border); border-radius: 4px;
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-ui);
     color: var(--fg); font: inherit; font-size: var(--text-sm);
     padding: 3px 10px; cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
@@ -269,7 +298,7 @@
   .bar__theme .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); }
   .bar__theme kbd, .bar__search kbd {
     font: inherit; font-size: 0.8em; color: var(--muted);
-    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px;
+    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: var(--radius-ui);
     padding: 0 5px;
   }
   .bar__clock { color: var(--fg); font-weight: 500; font-variant-numeric: tabular-nums; }
@@ -287,31 +316,37 @@
     .bar__ws { display: none; }
   }
 
-  /* ================= desktop / tiling ================= */
-  .desktop {
-    max-width: 1200px; margin: 0 auto;
-    padding: var(--gap);
-    display: grid; gap: var(--gap);
+  /* ================= sections ================= */
+  .sec { padding-block: var(--space-3xl); transition: background 0.25s ease; }
+  .sec__in { max-width: 1280px; margin: 0 auto; padding-inline: var(--gap); }
+  .sec--band { background: var(--surface); border-block: 1.5px solid var(--border); }
+  .sec__eyebrow { display: flex; gap: 1ch; margin: 0 0 var(--space-md); font-size: var(--text-sm); color: var(--muted); }
+  .sec__eyebrow::before { content: "❯"; color: var(--ok); font-weight: 700; }
+  .sec__title {
+    margin: 0; max-width: 22ch;
+    font-size: var(--text-2xl); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance;
   }
+  .sec__lead {
+    max-width: 58ch; margin: var(--space-lg) 0 0;
+    color: var(--muted); font-size: var(--text-lg); line-height: 1.5; text-wrap: pretty;
+  }
+  /* the gag from wecanfixeverything.com: the smaller promise struck out */
+  .sec__title s { color: var(--muted); text-decoration-thickness: 2px; white-space: nowrap; }
+  .sec__lead a { color: var(--fg); text-underline-offset: 3px; }
+  .sec__lead a:hover { color: var(--accent-2); }
+  .sec__body { margin-top: var(--space-2xl); }
   /* --bar-h follows the real bar height (safe-area insets make it taller on
-     phones); the 8px keep the previous window's bottom edge hidden behind
-     the bar so switching reads as a workspace change */
-  #ws1, #ws2, #ws3, #ws4 { scroll-margin-top: calc(var(--bar-h, 40px) + 8px); }
+     phones); the 1px tucks the band's top border under the bar */
+  #ws1, #ws2, #ws3, #ws4 { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
   .row { display: grid; gap: var(--gap); }
-  .row--split { grid-template-columns: 2fr 3fr; }
-  .row--videos { grid-template-columns: 1fr 1fr; }
-  .row--links { grid-template-columns: 1fr 1fr 1fr; }
-  @media (max-width: 900px) {
-    .row--split, .row--links { grid-template-columns: 1fr; }
-  }
-  @media (max-width: 700px) {
-    .row--videos { grid-template-columns: 1fr; }
-  }
+  .row--links { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 900px) { .row--links { grid-template-columns: 1fr; } }
 
   .win {
     background: var(--win);
     border: 1.5px solid var(--border);
-    border-radius: 6px;
+    border-radius: var(--radius-win);
     padding: var(--space-lg);
     transition: border-color 0.2s ease, background 0.25s ease;
     min-width: 0;
@@ -331,13 +366,28 @@
   .win__more::after { content: " →"; color: var(--accent-2); font-weight: 700; }
   .win__more:hover { color: var(--fg); }
 
+  /* app windows: title bar on top, content bleeding to the frame */
+  .win--app { padding: 0; overflow: hidden; }
+  .win__bar {
+    display: flex; align-items: center; gap: 1ch;
+    padding: 9px 12px;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-xs); color: var(--muted);
+    white-space: nowrap; overflow: hidden;
+    user-select: none;
+  }
+  .win__bar b { color: var(--fg); font-weight: 500; }
+  .win__bar-r { margin-left: auto; display: flex; align-items: center; gap: 1ch; flex-shrink: 0; }
+  /* hyprland has no window buttons — the active window is marked by its border */
+  .win--app.is-active { border-color: var(--accent); }
+
   /* ================= news slider ================= */
   .newsrow {
     display: grid; grid-auto-flow: column; grid-auto-columns: min(320px, 78vw);
     gap: var(--space-sm); overflow-x: auto; scroll-snap-type: x proximity;
     padding-bottom: 6px; scrollbar-width: thin;
   }
-  .newsrow, .bento {
+  .newsrow {
     /* right edge only — snap keeps the left edge clean, a fade would eat card borders there */
     -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
     mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
@@ -345,7 +395,7 @@
   .newsrow__card {
     scroll-snap-align: start;
     display: flex; flex-direction: column; gap: 8px;
-    border: 1.5px solid var(--border); border-radius: 6px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-win);
     padding: 14px 16px;
     text-decoration: none;
     transition: border-color 0.15s, background 0.15s;
@@ -363,13 +413,14 @@
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .win { animation: none; }
+    .hero video { display: none; }
   }
 
   /* ================= news marquee ================= */
   .news {
     display: block; overflow: hidden;
     background: var(--win);
-    border: 1.5px solid var(--border); border-radius: 6px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-win);
     padding-block: 7px;
     font-size: var(--text-sm); color: var(--muted);
     text-decoration: none; white-space: nowrap;
@@ -384,7 +435,7 @@
   .news__track { display: flex; flex: 0 0 auto; animation: news-marquee 32s linear infinite; }
   .news:hover .news__track { animation-play-state: paused; }
   .news__item { display: inline-flex; gap: 1ch; align-items: baseline; padding-right: 3ch; }
-  .news__item b { color: var(--warn); font-weight: 700; }
+  .news__item b { color: var(--accent); font-weight: 700; }
   .news__item i { font-style: normal; color: var(--accent-2); }
   @keyframes news-marquee { to { transform: translateX(-100%); } }
   @media (prefers-reduced-motion: reduce) {
@@ -392,32 +443,96 @@
     .news__track + .news__track { display: none; }
   }
 
-  /* ================= hero ================= */
-  /* top padding compensates the art's nearly-empty first row (the M's tip) */
-  .hero { padding: var(--space-md) var(--space-lg) var(--space-lg); }
-  .hero__logo { position: relative; margin: 0 auto var(--space-xl); }
-  .hero__logo canvas { display: block; width: 100%; }
+  /* ================= boot hero ================= */
+  /* the still is the frame the boot video ends on, so a blocked autoplay,
+     reduced motion and the finished playback all land on the same sky */
+  .hero {
+    position: relative; isolation: isolate; overflow: hidden;
+    min-height: calc(100svh - var(--bar-h, 44px));
+    display: flex; align-items: center;
+    padding: var(--space-2xl) var(--gap);
+    background: #2c1d38 url("/assets/media/sunrise-last.jpg") center / cover no-repeat;
+  }
+  .hero video {
+    position: absolute; inset: 0; z-index: -3;
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  /* same still as the hero's own background, on its own layer */
+  .hero__still {
+    position: absolute; inset: 0; z-index: -4;
+    background: inherit;
+  }
+  /* the ambient loop opens on the boot clip's last frame and sits right on
+     top of it, so the crossfade reads as one continuous sky */
+  .hero .hero__ambient { z-index: -2; opacity: 0; transition: opacity 1.2s ease; }
+  .hero--ambient .hero__ambient { opacity: 1; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; z-index: -1;
+    background:
+      linear-gradient(180deg, rgba(20, 11, 28, 0.4), rgba(20, 11, 28, 0) 34%),
+      linear-gradient(0deg, rgba(20, 11, 28, 0.66), rgba(20, 11, 28, 0) 62%);
+  }
+  .hero__in { width: 100%; max-width: 880px; margin: 0 auto; text-align: center; color: #fbf7f3; }
+  /* the wordmark runs on the wallpaper's own palette, not the theme's */
+  /* box hugs the art so the laseretch canvas maps onto the pre exactly */
+  .hero__logo {
+    position: relative; width: max-content; max-width: min(760px, 100%);
+    margin: 0 auto var(--space-xl);
+    /* the wallpaper's own palette, not the theme's — the fallback mark has
+       to read on the sky in every theme */
+    --accent: #ffc9a6;
+  }
+  /* the etch is screen-blended, so a bright pink sky washes it out — this
+     darkened ground under it turns the mark back into a glowing one */
+  .hero__logo::before {
+    content: ""; position: absolute; inset: -12%; z-index: -1;
+    background: radial-gradient(ellipse at center, rgba(10, 12, 20, 0.55), transparent 70%);
+    pointer-events: none;
+  }
   .hero__logo pre {
     margin: 0; overflow: hidden;
     color: var(--accent);
-    font-size: clamp(4px, 1.05vw, 12px); line-height: 1.15;
+    /* 1.2 puts the pre on the playback's native grid: cell aspect 2 at a
+       0.6em glyph width */
+    font-size: clamp(4px, 1.3vw, 15px); line-height: 1.2;
     text-align: center;
+    /* hidden so the still mark never flashes before the canvas takes over;
+       if the effect never starts this reveal fires on its own */
+    visibility: hidden; animation: wte-reveal 0s 2s forwards;
+  }
+  @keyframes wte-reveal { to { visibility: visible; } }
+  .hero__logo--live pre { animation: none; }
+  .hero__logo--static pre { visibility: visible; }
+  .hero__logo--static .hero__wte { display: none; }
+  .hero__wte { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+  .hero__wte canvas { position: absolute; display: block; mix-blend-mode: screen; transform-origin: 0 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__logo pre { visibility: visible; }
+    .hero__wte { display: none; }
   }
   .hero h1 {
     margin: 0;
-    text-align: center;
-    font-size: var(--text-xl); font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: var(--text-hero); font-weight: 800;
+    letter-spacing: -0.035em; line-height: 1.06;
     text-wrap: balance;
+    text-shadow: 0 2px 20px rgba(20, 8, 30, 0.45);
   }
-  .hero h1 a { color: var(--accent-2); text-decoration-color: var(--muted); text-underline-offset: 4px; }
+  .hero h1 a { color: inherit; text-decoration-color: rgba(255, 255, 255, 0.4); text-underline-offset: 6px; }
+  .hero h1 a:hover { text-decoration-color: currentColor; }
   .hero__sub {
-    max-width: 58ch; margin: var(--space-md) auto 0;
-    text-align: center; color: var(--muted);
+    max-width: 56ch; margin: var(--space-lg) auto 0;
+    color: rgba(255, 255, 255, 0.82);
     font-size: var(--text-base); text-wrap: pretty;
+    text-shadow: 0 1px 12px rgba(20, 8, 30, 0.5);
   }
-  .hero__sub a { color: var(--fg); text-underline-offset: 3px; white-space: nowrap; }
-  .hero__sub a:hover { color: var(--accent-2); }
+  .hero__sub s { opacity: 0.62; text-decoration-thickness: 1.5px; }
+  .hero__sub a { color: #fff; text-underline-offset: 3px; }
+  .hero__sub a:hover { color: #ffc9a6; }
+  .hero .btn--ghost {
+    border-color: rgba(255, 255, 255, 0.5); color: #fff;
+    background: rgba(24, 14, 32, 0.28); backdrop-filter: blur(6px);
+  }
+  .hero .btn--ghost:hover { background: #fff; border-color: #fff; color: #1a1220; }
   .hero__actions {
     display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-sm);
     margin-top: var(--space-xl);
@@ -430,7 +545,7 @@
   .btn {
     display: inline-flex; align-items: center; gap: 1ch;
     padding: 10px 18px;
-    border-radius: 5px;
+    border-radius: var(--radius-ui);
     font-weight: 700; font-size: var(--text-sm);
     letter-spacing: 0.04em; text-transform: uppercase;
     text-decoration: none;
@@ -445,29 +560,33 @@
   .btn--primary:hover { background: var(--hover); border-color: var(--hover); }
   .btn--ghost:hover { background: var(--hover); border-color: var(--hover); color: var(--win); }
   .btn small { font-weight: 400; letter-spacing: 0; text-transform: none; opacity: 0.75; }
-  .hero__hint {
-    margin: var(--space-xl) 0 0; text-align: center;
-    font-size: var(--text-xs); color: var(--muted);
+  /* the hint's quiet register, one step up */
+  .hero__quip {
+    max-width: 60ch; margin: var(--space-lg) auto 0; text-align: center;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: var(--text-sm); text-wrap: pretty;
+    text-shadow: 0 1px 12px rgba(20, 8, 30, 0.5);
   }
-  .hero__hint kbd, .win__foot kbd, .win__head kbd {
+  .hero__quip s { opacity: 0.6; white-space: nowrap; text-decoration-thickness: 1.5px; }
+  .hero__hint {
+    margin: var(--space-2xl) 0 0; text-align: center;
+    font-size: var(--text-xs); color: rgba(255, 255, 255, 0.66);
+  }
+  .hero__hint kbd, .win__foot kbd, .win__head kbd, .facts kbd, .sec__lead kbd, .sec__hint kbd {
     font: inherit; padding: 1px 6px;
-    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 3px;
+    border: 1px solid var(--border); border-bottom-width: 2px; border-radius: var(--radius-ui);
     color: var(--fg);
   }
+  .hero__hint kbd { border-color: rgba(255, 255, 255, 0.4); color: #fff; }
   /* keyboard hints mean nothing on touch */
   @media (pointer: coarse) {
     .hero__hint, .bar__theme kbd, .kbd-hint { display: none; }
   }
 
   /* ================= fastfetch ================= */
-  .fetch { display: flex; gap: var(--space-xl); align-items: flex-start; }
-  .fetch__glyph {
-    color: var(--accent);
-    font-size: 88px; line-height: 1;
-    user-select: none;
-  }
+  .fetch { padding: var(--space-md); }
   .fetch dl {
-    margin: 0; flex: 1;
+    margin: 0;
     display: grid; grid-template-columns: max-content 1fr;
     column-gap: 2ch; row-gap: 3px;
     font-size: var(--text-sm);
@@ -478,87 +597,184 @@
   .fetch dd a { text-decoration-color: var(--muted); text-underline-offset: 3px; }
   .fetch dd a:hover { color: var(--accent-2); }
   .fetch__chips { grid-column: 1 / -1; display: flex; gap: 4px; margin-top: var(--space-sm); }
-  .fetch__chips span { width: 22px; height: 12px; border-radius: 2px; }
-  @media (max-width: 480px) { .fetch__glyph { display: none; } }
+  .fetch__chips span { width: 22px; height: 12px; border-radius: var(--radius-win); }
 
-  /* ================= video windows ================= */
-  .video { padding: var(--space-md); }
-  .video a { display: block; position: relative; border-radius: 4px; overflow: hidden; }
-  .video img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; filter: saturate(0.92); transition: filter 0.2s, transform 0.3s var(--ease-out); }
+  /* ================= community wall ================= */
+  /* bento: the introduction on the left across two rows, the four takes
+     stacked two by two beside it */
+  .wall { display: grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 1fr; gap: var(--gap); }
+  .video { padding: var(--space-sm); }
+  .video a { display: block; position: relative; border-radius: var(--radius-win); overflow: hidden; aspect-ratio: 16 / 9; }
+  .video img { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--surface); filter: saturate(0.92); transition: filter 0.2s, transform 0.3s var(--ease-out); }
   .video a:hover img { filter: none; transform: scale(1.015); }
   .video__play {
     position: absolute; inset: auto auto 10px 10px;
     display: inline-flex; align-items: center; gap: 1ch;
-    padding: 4px 10px; border-radius: 4px;
+    padding: 4px 10px; border-radius: var(--radius-ui);
     background: color-mix(in oklab, var(--win) 82%, transparent);
     color: var(--fg); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.06em;
   }
   .video__play::before { content: "▶"; color: var(--accent); }
-  .video figcaption { margin-top: var(--space-sm); font-size: var(--text-sm); color: var(--muted); }
-  .video figure { margin: 0; }
+  .video figcaption { margin: var(--space-sm) 4px 4px; font-size: var(--text-sm); }
+  .video figcaption b { display: block; color: var(--fg); font-weight: 700; line-height: 1.4; }
+  .video figcaption span { color: var(--muted); font-size: var(--text-xs); }
+  .video figure { margin: 0; display: flex; flex-direction: column; height: 100%; }
+  /* the lead tile takes the height the four small ones set, not its own ratio */
+  .video--lead { grid-column: span 2; grid-row: span 2; }
+  .video--lead a { aspect-ratio: auto; flex: 1; min-height: 0; }
+  .video--lead figcaption b { font-size: var(--text-lg); letter-spacing: -0.02em; }
+  @media (max-width: 900px) {
+    .wall { grid-template-columns: repeat(2, 1fr); grid-auto-rows: auto; }
+    .video--lead { grid-row: auto; }
+    .video--lead a { aspect-ratio: 16 / 9; flex: none; }
+  }
+  @media (max-width: 560px) {
+    .wall { grid-template-columns: 1fr; }
+    .video--lead { grid-column: auto; }
+  }
 
-  /* ================= ls listings ================= */
+  /* ================= link listings ================= */
   .ls { display: grid; gap: 2px; font-size: var(--text-sm); }
   .ls a {
-    display: grid; grid-template-columns: 11ch 1fr; column-gap: 2ch; align-items: baseline;
+    display: grid; grid-template-columns: 15ch 1fr; column-gap: 1.5ch; align-items: baseline;
     padding: 6px 10px; margin: 0 -10px;
-    border-radius: 4px; text-decoration: none;
+    border-radius: var(--radius-ui); text-decoration: none;
     transition: background 0.12s;
   }
   .ls a:hover { background: var(--surface); }
-  .ls .mode { color: var(--muted); font-weight: 300; }
-  .ls .name { color: var(--accent); font-weight: 700; }
-  .ls .name::after { content: " ↗"; color: var(--accent-2); font-weight: 700; font-size: 1.15em; line-height: 0; vertical-align: -0.15em; opacity: 0; transition: opacity 0.12s; }
+  .ls .name { color: var(--accent); font-weight: 700; white-space: nowrap; }
+  /* the arrow sits in the gutter so it never widens the name column */
+  .ls .name::after { content: " ↗"; color: var(--accent-2); font-weight: 700; font-size: 1.15em; line-height: 0; vertical-align: -0.15em; margin-right: -1.4ch; opacity: 0; transition: opacity 0.12s; }
   .ls a:hover .name::after { opacity: 1; }
-  .ls .desc { grid-column: 2; color: var(--muted); }
+  .ls .desc { color: var(--muted); text-wrap: pretty; }
   @media (max-width: 480px) {
     .ls a { grid-template-columns: 1fr; }
-    .ls .mode { display: none; }
-    .ls .desc { grid-column: 1; }
   }
-  /* ================= feature bento ================= */
-  .bento { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gap); }
-  .bento__item { display: block; text-decoration: none; color: var(--fg); }
-  .bento__item .win__title { display: block; overflow: hidden; white-space: nowrap; }
-  .bento__item .win__title::before { content: "❯ "; }
-  .bento__icon { display: block; width: 26px; height: 26px; fill: var(--accent); margin: 0 0 var(--space-sm); }
-  .bento__item--lead .bento__icon { width: 32px; height: 32px; }
-  .bento__item h3 { margin: 0 0 var(--space-xs); font-size: var(--text-base); font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
-  .bento__item h3 + p { margin: 0; font-size: var(--text-sm); color: var(--muted); max-width: 52ch; }
-  .bento__item--lead { grid-column: span 2; grid-row: span 2; display: flex; flex-direction: column; }
-  .bento__item--lead h3 { font-size: var(--text-lg); }
-  .bento__files {
-    margin-top: auto; padding-top: var(--space-lg);
-    display: grid; gap: 3px;
-    font-size: var(--text-xs); color: var(--muted);
+  /* ================= install terminal ================= */
+  /* one gum screen at a time, the way the ISO's TUI replaces its own frame */
+  .term__body { padding: var(--space-lg) var(--space-md); font-size: var(--text-sm); line-height: 1.6; }
+  /* the account screen is the tallest at six lines — every screen reserves it
+     so the window never resizes mid-replay */
+  .term__screen { display: grid; gap: 2px; align-content: start; min-height: 10.4em; color: var(--muted); }
+  .term__screen p { margin: 0; }
+  .term__screen em { color: var(--fg); font-style: normal; }
+  .term__brand { color: var(--accent); font-size: var(--text-lg); font-weight: 800; letter-spacing: 0.5em; }
+  .term__step { color: var(--fg); font-weight: 700; }
+  .term__dim { color: var(--muted); opacity: 0.7; }
+  .term__warn { color: var(--warn); }
+  .term__pick { display: flex; gap: 1ch; color: var(--fg); }
+  .term__pick::before { content: "❯"; color: var(--accent); font-weight: 700; }
+  .term__bar { color: var(--accent); white-space: nowrap; overflow: hidden; }
+  .term__tip b { color: var(--ok); font-weight: 700; }
+  .term__ok { color: var(--ok); font-weight: 700; }
+  .term__reboot {
+    display: inline-block; margin-top: 8px; padding: 3px 14px;
+    background: var(--accent); color: var(--win); border-radius: var(--radius-win);
+    font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.04em;
   }
-  .bento__files .mode { opacity: 0.55; margin-right: 2ch; }
-  .bento__short { display: none; }
-  .bento__item--wide { grid-column: span 2; }
+  .term__replay {
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-ui);
+    color: var(--muted); font: inherit; font-size: var(--text-xs);
+    padding: 2px 9px; cursor: pointer;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .term__replay:hover { color: var(--fg); border-color: var(--accent); background: var(--surface); }
+  /* the account screen stays the tallest down to 300px — a smaller phone
+     reserve would put the jump straight back */
+  @media (max-width: 560px) { .term__screen { min-height: 10.4em; } }
+
+  /* ================= desktop show-off ================= */
+  /* the slots are the tiles and the windows only move between them — the
+     spans belong to the slot, so a swap moves a window, not the layout */
+  .shots {
+    display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--gap);
+    container-type: inline-size;
+    --slot: calc((100cqw - 5 * var(--gap)) / 6);
+  }
+  .shot { grid-column: span 2; margin: 0; display: flex; flex-direction: column; }
+  .shot--wide { grid-column: span 4; }
+  .shot img { display: block; width: 100%; height: 100%; object-fit: cover; background: var(--surface); }
+  /* the clipboard shot's right half is an empty preview column — anchor left
+     so the search line and the list survive the crop */
+  .shot__img--left { object-position: left center; }
+  .shot__view { flex: 1; min-height: 0; aspect-ratio: 16 / 9; border-radius: var(--radius-win); }
+  /* the info window has no screenshot to set its slot's height — the slot
+     states the same 16/9 itself, so any window can land in any slot */
+  .shot .fetch { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .shot__view, .shot .fetch { min-height: calc((2 * var(--slot) + var(--gap)) * 9 / 16); }
+  .shot--wide .shot__view, .shot--wide .fetch { min-height: calc((4 * var(--slot) + 3 * var(--gap)) * 9 / 16); }
+  /* the tile beside the wide one takes that window's height, not its own ratio */
+  .shot--tall .shot__view { aspect-ratio: auto; }
+  .shot--tall .shot__view, .shot--tall .fetch { min-height: 0; }
+  /* and it has to stay inside that box: a slot the info window outgrows
+     would resize the wall every time it moves */
+  @media (min-width: 901px) and (max-width: 1150px) {
+    .shot .fetch { padding: var(--space-sm); }
+    .shot .fetch dl { font-size: var(--text-xs); row-gap: 2px; }
+    .shot .fetch__chips { margin-top: var(--space-xs); }
+  }
+  /* focus follows the keyboard; hyprland marks it on the border alone */
+  .shot.is-active { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+  /* the accent ring is the focus indicator; the autopilot moves it on its own */
+  .shot:focus-visible { outline: none; }
+  .shot { cursor: grab; }
+  .shot .win__bar { touch-action: none; }
+  .shot a, .shot button { cursor: pointer; }
+  .shot.is-dragging { position: relative; z-index: 5; opacity: 0.92; }
+  .shot.is-dragging { cursor: grabbing; }
+  .shot.is-drop { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent-2); }
   @media (max-width: 900px) {
-    .bento { grid-template-columns: 1fr 1fr; }
-    .bento__item--lead { grid-row: auto; }
+    .shots { grid-template-columns: 1fr; --slot: 100cqw; }
+    .shot, .shot--wide { grid-column: auto; }
+    .shot--tall .shot__view { aspect-ratio: 16 / 10; }
+    .shot__view, .shot .fetch, .shot--wide .shot__view, .shot--wide .fetch { min-height: calc(var(--slot) * 9 / 16); }
+    .shot--tall .shot__view, .shot--tall .fetch { min-height: calc(var(--slot) * 10 / 16); }
   }
-  /* on phones the bento becomes a swipeable row instead of a long stack */
+  /* one column and no room to swap — the title bar goes back to scrolling and
+     the info window back to its own height */
   @media (max-width: 560px) {
-    .bento {
-      display: flex; overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
-    }
-    .bento::-webkit-scrollbar { display: none; }
-    .bento__item { flex: 0 0 84%; scroll-snap-align: start; }
-    /* the lead tile only outranks the others on desktop, where it owns a
-       2x2 area — in the slider every card is the same size, so the manual
-       excerpt and the long copy disappear and headline and icon fall back
-       to the shared scale */
-    .bento__files, .bento__long { display: none; }
-    .bento__short { display: inline; }
-    .bento__item--lead h3 { font-size: var(--text-base); }
-    .bento__item--lead .bento__icon { width: 26px; height: 26px; }
+    .shot, .shot .win__bar { cursor: default; touch-action: auto; }
+    .shot .fetch, .shot--wide .fetch, .shot--tall .fetch { min-height: 0; }
   }
+  .sec__hint { margin: var(--space-md) 0 0; font-size: var(--text-xs); color: var(--muted); }
+  .sec__hint kbd + kbd { margin-left: 3px; }
+  .sec__hint--touch { display: none; }
+  @media (pointer: coarse) {
+    .sec__hint { display: none; }
+    .sec__hint--touch { display: block; }
+  }
+  .facts {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+    gap: var(--space-xl) var(--space-2xl);
+    margin-top: var(--space-2xl);
+  }
+  /* column so the chapter link can be pushed to a shared baseline */
+  .facts > div { display: flex; flex-direction: column; }
+  .facts h3 { margin: 0 0 var(--space-2xs); font-size: var(--text-base); font-weight: 700; letter-spacing: -0.01em; }
+  .facts p { margin: 0; max-width: 42ch; color: var(--muted); font-size: var(--text-sm); }
+  .facts a { color: var(--fg); text-underline-offset: 3px; }
+  .facts a:hover { color: var(--accent-2); }
+  /* the chapter link is its own row, not a tail on the sentence */
+  .facts__more { align-self: start; margin-top: auto; padding-top: 6px; font-size: var(--text-sm); text-decoration: none; color: var(--muted); }
+  .facts__more::after { content: " →"; color: var(--accent-2); font-weight: 700; }
+  .facts__more:hover { color: var(--fg); }
 
   /* ================= theme gallery ================= */
+  .themebox { display: grid; gap: var(--gap); align-items: stretch; }
+  @media (min-width: 900px) { .themebox { grid-template-columns: 1.05fr 1fr; } }
+  /* no wallpaper file for the active theme: the gallery takes the full width */
+  .themebox:has(.wallpaper[hidden]) { grid-template-columns: 1fr; }
+  .wallpaper { margin: 0; display: flex; flex-direction: column; }
+  /* the image eats whatever height the gallery beside it sets */
+  .wallpaper img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--surface); }
+  @media (min-width: 900px) {
+    .wallpaper img { flex: 1; min-height: 0; height: auto; aspect-ratio: auto; }
+  }
+  .wallpaper figcaption {
+    display: flex; justify-content: space-between; gap: 1ch;
+    padding: 10px 12px; border-top: 1px solid var(--border);
+    font-size: var(--text-xs); color: var(--muted);
+  }
   .themes {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
     gap: var(--space-xs);
@@ -566,7 +782,7 @@
   .theme-card {
     display: flex; flex-direction: column; gap: 7px;
     padding: 10px 12px;
-    background: none; border: 1px solid var(--border); border-radius: 4px;
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-win);
     color: var(--fg); font: inherit; font-size: var(--text-xs);
     text-align: left; cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
@@ -576,7 +792,7 @@
   .theme-card__name { font-weight: 700; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .theme-card[aria-pressed="true"] .theme-card__name::before { content: "● "; color: var(--accent); }
   .theme-card__chips { display: flex; gap: 3px; }
-  .theme-card__chips span { flex: 1; height: 8px; border-radius: 2px; }
+  .theme-card__chips span { flex: 1; height: 8px; border-radius: var(--radius-win); }
   .theme-card--new { border-style: dashed; text-decoration: none; color: var(--fg); }
   @media (max-width: 640px) {
     .theme-card--new { grid-column: 1 / -1; }
@@ -596,7 +812,7 @@
   .lightbox {
     width: min(960px, 94vw);
     background: var(--win); color: var(--fg);
-    border: 1.5px solid var(--accent); border-radius: 6px;
+    border: 1.5px solid var(--accent); border-radius: var(--radius-win);
     padding: 0;
   }
   .lightbox:focus { outline: none; }
@@ -611,13 +827,13 @@
   .lightbox__actions a { color: var(--muted); text-decoration: none; }
   .lightbox__actions a:hover { color: var(--accent-2); }
   .lightbox__close {
-    background: none; border: 1px solid var(--border); border-radius: 4px;
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-ui);
     color: var(--muted); font: inherit; font-size: var(--text-sm);
     padding: 2px 8px; cursor: pointer;
     transition: color 0.15s, border-color 0.15s;
   }
   .lightbox__close:hover { color: var(--err); border-color: var(--err); }
-  .lightbox__frame { aspect-ratio: 16 / 9; background: #000; border-radius: 4px; overflow: hidden; }
+  .lightbox__frame { aspect-ratio: 16 / 9; background: #000; border-radius: var(--radius-win); overflow: hidden; }
   .lightbox__frame iframe { display: block; width: 100%; height: 100%; border: 0; }
 
   /* ================= footer bar ================= */
@@ -646,51 +862,38 @@
 <!-- waybar -->
 <nav class="bar" aria-label="Site">
   <div class="bar__left">
-    <a class="bar__logo" href="#ws1" aria-label="Omarchy home"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg></a>
+    <a class="bar__logo" href="#ws1" aria-label="Omarchy home"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M600 40V200"/><path pathLength="1" d="M560 200H1000V1000H200V200H600"/><path pathLength="1" d="M600 1160V1040"/><path pathLength="1" d="M40 600H200"/></svg></a>
     <div class="bar__ws" id="ws-buttons">
-      <a href="#ws1" aria-current="true">1</a>
-      <a href="#ws2">2</a>
-      <a href="#ws3">3</a>
-      <a href="#ws4">4</a>
+      <a href="#ws1" aria-current="true"><b>1</b><span>boot</span></a>
+      <a href="#ws2"><b>2</b><span>install</span></a>
+      <a href="#ws3"><b>3</b><span>themes</span></a>
+      <a href="#ws4"><b>4</b><span>community</span></a>
     </div>
   </div>
-  <p class="bar__title"><strong>omarchy</strong> 4.0.1 — the malleable OS</p>
+  <p class="bar__title"><strong>omarchy</strong> 4.0.2 — the malleable OS</p>
   <div class="bar__right">
-    <button class="bar__search" type="button" data-search-open aria-label="Search and navigate">
-      <span class="bar__search-burger" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3.5h14M1 8h14M1 12.5h14"/></svg></span><span class="bar__search-label">search</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
+    <button class="bar__search" type="button" data-search-open aria-label="Open the menu">
+      <span class="bar__search-burger" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3.5h14M1 8h14M1 12.5h14"/></svg></span><span class="bar__search-label">menu</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
     </button>
     <button class="bar__theme" id="theme-btn" type="button" aria-label="Cycle theme">
-      <span class="dot" aria-hidden="true"></span><span id="theme-name">tokyo-night</span><kbd aria-hidden="true">t</kbd>
+      <span class="dot" aria-hidden="true"></span><span id="theme-name">flexoki-light</span><kbd aria-hidden="true">t</kbd>
     </button>
     <span class="bar__clock" id="clock">--:--</span>
   </div>
 </nav>
 
-<div class="desktop">
-
-  <a class="news" href="/news/2026/08/omacom-foundation-launches-with-8-million/" aria-label="News: Omacom Foundation launches with 10 million dollars">
-   <div class="news__viewport" aria-hidden="true">
-    <div class="news__track">
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-    </div>
-    <div class="news__track">
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-      <span class="news__item"><b>news</b> Omacom Foundation launches with $10 million <i>→</i></span>
-    </div>
-   </div>
-  </a>
-
-  <!-- ws1 · hero -->
-  <section id="ws1" class="win hero" style="--i: 0">
+<!-- ws1 · the desktop right after boot -->
+<section id="ws1" class="hero">
+  <span class="hero__still" aria-hidden="true"></span>
+  <video id="boot-video" autoplay muted playsinline preload="auto" tabindex="-1" aria-hidden="true">
+    <source src="/assets/media/sunrise-sm.mp4" type="video/mp4" media="(max-width: 640px)">
+    <source src="/assets/media/sunrise.mp4" type="video/mp4">
+  </video>
+  <video id="ambient-video" class="hero__ambient" loop muted playsinline preload="none" aria-hidden="true">
+    <source src="/assets/media/sunrise-loop-sm.mp4" type="video/mp4" media="(max-width: 640px)">
+    <source src="/assets/media/sunrise-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero__in">
     <div class="hero__logo" id="logo-box" role="img" aria-label="OMARCHY" data-brand-menu>
       <pre id="logo-fallback" aria-hidden="true">
                  ▄▄▄
@@ -704,12 +907,12 @@
  ▀█████▀    ▀█   ███   █▀   ███   █▀   ███   ███  ███████▀   ███   █▀    ▀█████▀
                                        ███   █▀</pre>
     </div>
-    <h1>Beautiful, Fun &amp; Opinionated Linux by <a href="https://dhh.dk" target="_blank" rel="noopener">DHH</a></h1>
+    <h1>Beautiful, Fun &amp; Agentic Linux by <a href="https://dhh.dk" target="_blank" rel="noopener">DHH</a></h1>
     <p class="hero__sub">The malleable OS for the age of agents. Where you can vibe your way through every alteration, tweak, and desire. <a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
     <div class="hero__actions">
-      <a class="btn btn--primary" href="https://iso.omarchy.org/omarchy-4.0.1.iso">
+      <a class="btn btn--primary" href="https://iso.omarchy.org/omarchy-4.0.2.iso">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9.47363 4.01687c.77167.00015 1.39727.62585 1.39747 1.39747 0 .7718-.6257 1.39829-1.39747 1.39843h-4.625c-.66518.00006-1.17367.17068-1.52539.5127-.34225.34225-.51364.86071-.51367 1.55469v14.24194c0 .694.17139 1.2124.51367 1.5547.35173.3517.86001.5282 1.52539.5283h22.28807c.6561 0 1.1599-.1766 1.5117-.5283.3613-.3423.542-.8607.542-1.5547v-14.24194c0-.69398-.1807-1.21244-.542-1.55469-.3517-.34214-.8558-.5127-1.5117-.5127h-4.624c-.7719 0-1.3984-.62654-1.3984-1.39843.0002-.77171.6266-1.39747 1.3984-1.39747h4.8096c1.5402.00002 2.705.3903 3.4941 1.16993.789.77963 1.1836 1.93518 1.1836 3.46582v14.71258c0 1.5305-.3947 2.6853-1.1836 3.4649-.7891.7796-1.9539 1.1699-3.4941 1.1699h-22.64457c-1.54021 0-2.70501-.3903-3.49414-1.1699-.788897-.7796-1.18354196-1.9344-1.18359-3.4649v-14.71258c0-1.53064.394563-2.68619 1.18359-3.46582.78913-.77963 1.95393-1.16991 3.49414-1.16993z"/><path d="m16.0078 0c.3832.00005683.7111.136008.9834.408203.2825.27241.4238.590889.4238.954097v14.2481l-.1211 2.2548.8018-.9687 2.1494-2.2998c.2522-.2825.5652-.4238.9385-.4238.3429 0 .6358.1156.8779.3476.2522.2321.378.5203.378.8633-.0001.3328-.1314.6359-.3936.9082l-4.9785 4.7969c-.1816.1715-.3588.2926-.5303.3632-.1714.0706-.3478.1065-.5293.1065-.1816 0-.3587-.0358-.5303-.1065-.1714-.0706-.3533-.1918-.5449-.3632l-4.96385-4.7969c-.27233-.2723-.40812-.5754-.4082-.9082 0-.343.12114-.6312.36328-.8633.24207-.2319.53497-.3476.87797-.3476.3933 0 .711.1413.9531.4238l2.164 2.2998.8028.9687-.1211-2.2548v-14.2481c0-.363208.1358-.681687.4082-.954097.2824-.27226.6157-.408203.999-.408203z" fill="currentColor"/></svg>
-        <span>Download ISO <small>4.0.1</small></span>
+        <span>Download ISO <small>4.0.2</small></span>
       </a>
       <a class="btn btn--ghost" href="/manual/">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m0 4.49992c0-.3978.158025-.77931.439312-1.0606s.662798-.43931 1.060598-.43931h8.50549c2.4538 0 4.6337 1.17992 5.9996 3.00181.6982-.9334 1.6047-1.69085 2.6474-2.212 1.0426-.52115 2.1926-.7916 3.3582-.78981h8.4895c.3978 0 .7793.15802 1.0606.43931s.4393.6628.4393 1.0606v20.99868c0 .3978-.158.7793-.4393 1.0606s-.6628.4393-1.0606.4393h-9.0134c-.591 0-1.1761.1164-1.722.3425-.546.2261-1.042.5576-1.4598.9754l-1.244 1.2419c-.2812.2809-.6624.4387-1.0599.4387s-.7787-.1578-1.0599-.4387l-1.244-1.2419c-.4178-.4178-.9138-.7493-1.4598-.9754-.5459-.2261-1.131-.3425-1.722-.3425h-9.01539c-.3978 0-.779311-.158-1.060598-.4393s-.439312-.6628-.439312-1.0606zm14.5011 20.64668.008-10.1453-.004-4.5058c-.0011-1.19267-.4756-2.33616-1.3194-3.17916-.8437-.84299-1.9876-1.31652-3.1803-1.31652h-7.00559v17.99888h7.51349c1.4108-.0001 2.793.3978 3.9878 1.1479zm3.0078-14.6471-.008 14.6431c1.1942-.7477 2.5748-1.1442 3.9838-1.1439h7.5135v-17.99888h-6.9896c-1.1934 0-2.3379.47408-3.1818 1.31794-.8438.84386-1.3179 1.98838-1.3179 3.18174z" fill="currentColor"/></svg>
@@ -720,103 +923,115 @@
         <span>GitHub</span>
       </a>
     </div>
+    <p class="hero__quip">We can <s>fix some things</s> fix everything — every missing app, every incompatibility, every paper cut.</p>
     <p class="hero__hint"><kbd>1</kbd>–<kbd>4</kbd> switch workspaces · <kbd>t</kbd> cycles the theme</p>
-  </section>
+  </div>
+</section>
 
-  <!-- ws2 · fastfetch + videos -->
-  <div class="row row--split" id="ws2">
-    <section class="win" style="--i: 1" aria-label="System info">
-      <p class="win__title">fastfetch</p>
-      <div class="fetch">
-        <span class="fetch__glyph" aria-hidden="true">❖</span>
-        <dl>
-          <dt>OS</dt><dd>Omarchy 4.0.1</dd>
-          <dt>Base</dt><dd>Arch Linux</dd>
-          <dt>Compositor</dt><dd>Hyprland</dd>
-          <dt>Font</dt><dd>JetBrains Mono</dd>
-          <dt>Theme</dt><dd id="fetch-theme">tokyo-night</dd>
-          <dt>Source</dt><dd><a href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">github.com/omacom/omarchy</a></dd>
-          <dt>Incubator</dt><dd><a href="https://37signals.com" target="_blank" rel="noopener">37signals</a></dd>
-          <div class="fetch__chips" id="chips" aria-hidden="true"></div>
-        </dl>
+<!-- ws2 · install -->
+<section id="ws2" class="sec sec--band">
+  <div class="sec__in">
+    <p class="sec__eyebrow">omarchy-install-dashboard</p>
+    <h2 class="sec__title">Boot the ISO. Answer a few questions.</h2>
+    <p class="sec__lead">Keyboard, account, disk, encryption — the installer takes it from there and teaches you the hotkeys while it works.</p>
+    <div class="sec__body">
+      <div class="win win--app term" id="install">
+        <div class="win__bar">
+          <b>omarchy-iso</b>
+          <span class="win__bar-r">
+            <button class="term__replay" type="button" id="install-replay">replay</button>
+          </span>
+        </div>
+        <div class="term__body">
+          <div class="term__screen" id="install-screen" aria-hidden="true"></div>
+        </div>
       </div>
-    </section>
-
-    <div class="row row--videos">
-      <section class="win video" style="--i: 2">
-        <p class="win__title">mpv omarchy-intro.mp4</p>
-        <figure>
-          <a href="https://www.youtube.com/watch?v=F7fe9pa8OeE" target="_blank" rel="noopener" data-video="F7fe9pa8OeE" data-title="mpv omarchy-intro.mp4" aria-label="Watch: Omarchy introduction by DHH">
-            <img src="data:image/webp;base64,__QUATTRO_B64__" width="1280" height="720" alt="Omarchy Quattro — four tiled terminals" loading="lazy" decoding="async">
-            <span class="video__play">PLAY</span>
-          </a>
-          <figcaption>The introduction, by DHH</figcaption>
-        </figure>
-      </section>
-      <section class="win video" style="--i: 3">
-        <p class="win__title">mpv networkchuck.mp4</p>
-        <figure>
-          <a href="https://www.youtube.com/watch?v=9SDkU5VDQEQ" target="_blank" rel="noopener" data-video="9SDkU5VDQEQ" data-title="mpv networkchuck.mp4" aria-label="Watch: You need to switch to Linux RIGHT NOW!! by NetworkChuck">
-            <img src="data:image/webp;base64,__CHUCK_B64__" width="1280" height="720" alt="NetworkChuck on switching to Linux" loading="lazy" decoding="async">
-            <span class="video__play">PLAY</span>
-          </a>
-          <figcaption>“Switch to Linux RIGHT NOW” — NetworkChuck</figcaption>
-        </figure>
-      </section>
     </div>
   </div>
+</section>
 
-  <!-- ws3 · features + themes -->
-  <div class="row" id="ws3">
-    <div class="bento">
-      <a class="win bento__item bento__item--lead" href="/manual/">
-        <p class="win__title">cat 01-welcome-to-omarchy.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m0 4.49992c0-.3978.158025-.77931.439312-1.0606s.662798-.43931 1.060598-.43931h8.50549c2.4538 0 4.6337 1.17992 5.9996 3.00181.6982-.9334 1.6047-1.69085 2.6474-2.212 1.0426-.52115 2.1926-.7916 3.3582-.78981h8.4895c.3978 0 .7793.15802 1.0606.43931s.4393.6628.4393 1.0606v20.99868c0 .3978-.158.7793-.4393 1.0606s-.6628.4393-1.0606.4393h-9.0134c-.591 0-1.1761.1164-1.722.3425-.546.2261-1.042.5576-1.4598.9754l-1.244 1.2419c-.2812.2809-.6624.4387-1.0599.4387s-.7787-.1578-1.0599-.4387l-1.244-1.2419c-.4178-.4178-.9138-.7493-1.4598-.9754-.5459-.2261-1.131-.3425-1.722-.3425h-9.01539c-.3978 0-.779311-.158-1.060598-.4393s-.439312-.6628-.439312-1.0606zm14.5011 20.64668.008-10.1453-.004-4.5058c-.0011-1.19267-.4756-2.33616-1.3194-3.17916-.8437-.84299-1.9876-1.31652-3.1803-1.31652h-7.00559v17.99888h7.51349c1.4108-.0001 2.793.3978 3.9878 1.1479zm3.0078-14.6471-.008 14.6431c1.1942-.7477 2.5748-1.1442 3.9838-1.1439h7.5135v-17.99888h-6.9896c-1.1934 0-2.3379.47408-3.1818 1.31794-.8438.84386-1.3179 1.98838-1.3179 3.18174z"/></svg>
-        <h3>Arch + Hyprland, preconfigured</h3>
-        <p><span class="bento__long">A complete, opinionated desktop: Arch Linux underneath, the Hyprland compositor on top, everything configured before first boot. The manual takes you from install to mastery in 51 chapters.</span><span class="bento__short">A complete, opinionated desktop, configured before first boot. The manual covers the rest in 51 chapters.</span></p>
-        <span class="bento__files" aria-hidden="true">
-          <span><span class="mode">-rw-r--r--</span>02-getting-started.md</span>
-          <span><span class="mode">-rw-r--r--</span>03-coming-from-mac-or-windows.md</span>
-          <span><span class="mode">-rw-r--r--</span>04-navigation.md</span>
-          <span><span class="mode">-rw-r--r--</span>05-the-top-bar.md</span>
-          <span><span class="mode">&nbsp;</span>… and 46 more</span>
-        </span>
-      </a>
-      <a class="win bento__item bento__item--wide" href="/manual/themes/">
-        <p class="win__title">cat 06-themes.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2.4C8.5 2.4 2.4 8.5 2.4 16S8.5 29.6 16 29.6c1.4 0 2.5-1.1 2.5-2.5 0-.65-.25-1.24-.65-1.68-.39-.44-.64-1.02-.64-1.66 0-1.38 1.12-2.5 2.5-2.5h2.95c4.06 0 7.34-3.29 7.34-7.34C29.6 7.06 23.5 2.4 16 2.4zM8.2 16.9a2.35 2.35 0 1 1 0-4.7 2.35 2.35 0 0 1 0 4.7zm4.3-5.75a2.35 2.35 0 1 1 0-4.7 2.35 2.35 0 0 1 0 4.7zm7 0a2.35 2.35 0 1 1 0-4.7 2.35 2.35 0 0 1 0 4.7zm4.3 5.75a2.35 2.35 0 1 1 0-4.7 2.35 2.35 0 0 1 0 4.7z"/></svg>
-        <h3>Themes change everything</h3>
-        <p>One keystroke restyles the entire system. All 20 ship in the repo, and the gallery below runs on their exact palettes.</p>
-      </a>
-      <a class="win bento__item" href="/manual/unified-clipboard-history/">
-        <p class="win__title">cat 08-unified-clipboard-history.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><path fill-rule="evenodd" d="M7 6h18v24H7zm3 4h12v17H10z"/><rect x="11" y="3" width="10" height="6" rx="2"/><rect x="13" y="14" width="8" height="2" rx="1"/><rect x="13" y="18" width="8" height="2" rx="1"/><rect x="13" y="22" width="5" height="2" rx="1"/></svg>
-        <h3>One clipboard, with history</h3>
-        <p>Copy anywhere, paste everywhere, across the whole system.</p>
-      </a>
-      <a class="win bento__item" href="/manual/web-apps/">
-        <p class="win__title">cat 25-web-apps.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><path d="m28.46 2.00391c1.1044 0 1.9687.31157 2.5918.93457.6324.62296.9481 1.49175.9482 2.60547v15.91605c0 1.1139-.3115 1.9824-.9346 2.6054-.6324.623-1.501.9346-2.6054.9346h-7.837v2.4229h1.0713c.3587 0 .6609.1227.9063.3681.2452.2548.3681.5615.3682.9199 0 .3492-.123.6515-.3682.9063-.2454.2548-.5476.3827-.9063.3828h-11.374c-.35871 0-.666-.1279-.92089-.3828-.24523-.2548-.36816-.5571-.36816-.9063.00009-.3584.12292-.6651.36816-.9199.25489-.2454.56218-.3681.92089-.3681h1.0703v-2.4229h-7.84665c-1.10431 0-1.96783-.3117-2.590825-.9346-.632481-.623-.9492125-1.4915-.94921875-2.6054v-15.91605c.00008533-1.11372.31160875-1.98251.93457075-2.60547.632443-.62293 1.501143-.93454 2.605473-.93457zm-24.7598 2.71875c-.29257 0-.52867.09026-.70801.26953-.17928.16984-.26945.41038-.26953.72168v15.57613c0 .3115.09022.5518.26953.7217.17936.1794.41536.2695.70801.2695h24.6045c.2925 0 .5287-.0902.708-.2695.1791-.1699.2685-.4104.2685-.7217v-15.57613c0-.3112-.0893-.55185-.2685-.72168-.1793-.1793-.4155-.26947-.708-.26953z"/></svg>
-        <h3>Web apps,<br>first class</h3>
-        <p>Installed and windowed like native applications.</p>
-      </a>
-      <a class="win bento__item bento__item--wide" href="/manual/hotkeys/">
-        <p class="win__title">cat 07-hotkeys.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="9" width="4" height="4" rx="1"/><rect x="8" y="9" width="4" height="4" rx="1"/><rect x="14" y="9" width="4" height="4" rx="1"/><rect x="20" y="9" width="4" height="4" rx="1"/><rect x="26" y="9" width="4" height="4" rx="1"/><rect x="4" y="15" width="4" height="4" rx="1"/><rect x="10" y="15" width="4" height="4" rx="1"/><rect x="16" y="15" width="4" height="4" rx="1"/><rect x="22" y="15" width="4" height="4" rx="1"/><rect x="8" y="21" width="16" height="4" rx="1"/></svg>
-        <h3>Keyboard-first</h3>
-        <p>Super drives windows, workspaces and menus. The <b>1</b>–<b>4</b> and <b>t</b> keys on this page are a small taste.</p>
-      </a>
-      <a class="win bento__item bento__item--wide" href="/manual/ai/">
-        <p class="win__title">cat 17-ai.md</p>
-        <svg class="bento__icon" viewBox="0 0 32 32" aria-hidden="true"><path d="M13 5l2.7 8.1L24 16l-8.3 2.9L13 27l-2.7-8.1L2 16l8.3-2.9z"/><path d="M25 3l1.4 3.6L30 8l-3.6 1.4L25 13l-1.4-3.6L20 8l3.6-1.4z"/><path d="M26 20l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z"/></svg>
-        <h3>Ready for the age of agents</h3>
-        <p>AI tooling has its own chapter in the manual. The tagline is not decoration.</p>
-      </a>
+<!-- the OS itself: real screenshots, tiled the way Hyprland tiles them -->
+<section class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">hyprctl clients</p>
+    <h2 class="sec__title">The desktop does the tiling</h2>
+    <p class="sec__lead">Windows place themselves — on the desktop <kbd>Super</kbd> and one key splits, stacks and throws them across workspaces. Try it here: arrows move focus, <kbd>Shift</kbd> + arrows swap windows — or drag one onto another.</p>
+    <div class="sec__body">
+      <div class="shots">
+        <figure class="win win--app shot shot--wide is-active" style="--i: 0" aria-label="Hyprland four-way tiling">
+          <div class="win__bar"><b>Hyprland</b> four-way tiling<span class="win__bar-r">workspace 1</span></div>
+          <div class="shot__view"><img src="/assets/media/screens/fourway-tiling.webp" width="1600" height="900" alt="Four terminals and an editor tiled in four quadrants" loading="lazy" decoding="async"></div>
+        </figure>
+        <figure class="win win--app shot shot--tall" style="--i: 1" aria-label="Clipboard history">
+          <div class="win__bar"><b>Clipboard</b> history<span class="win__bar-r">Super + Ctrl + V</span></div>
+          <div class="shot__view"><img class="shot__img--left" src="/assets/media/screens/clipboard-history.webp" width="1600" height="1132" alt="The unified clipboard history overlay listing recent copies" loading="lazy" decoding="async"></div>
+        </figure>
+        <section class="win win--app shot" style="--i: 2" aria-label="System info">
+          <div class="win__bar"><b>fastfetch</b><span class="win__bar-r">live</span></div>
+          <div class="fetch">
+            <dl>
+              <dt>OS</dt><dd>Omarchy 4.0.2</dd>
+              <dt>Base</dt><dd>Arch Linux</dd>
+              <dt>Compositor</dt><dd>Hyprland</dd>
+              <dt>Font</dt><dd>JetBrains Mono</dd>
+              <dt>Theme</dt><dd id="fetch-theme">flexoki-light</dd>
+              <dt>Source</dt><dd><a href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">github.com/omacom/omarchy</a></dd>
+              <div class="fetch__chips" id="chips" aria-hidden="true"></div>
+            </dl>
+          </div>
+        </section>
+        <figure class="win win--app shot" style="--i: 3" aria-label="Browser and terminal">
+          <div class="win__bar"><b>Browser</b> and terminal<span class="win__bar-r">workspace 2</span></div>
+          <div class="shot__view"><img src="/assets/media/screens/browser-terminal.webp" width="1600" height="900" alt="A browser and a terminal tiled side by side" loading="lazy" decoding="async"></div>
+        </figure>
+        <figure class="win win--app shot" style="--i: 4" aria-label="tmux session">
+          <div class="win__bar"><b>tmux</b> session<span class="win__bar-r">workspace 3</span></div>
+          <div class="shot__view"><img src="/assets/media/screens/tmux-session.webp" width="1600" height="900" alt="A tmux session split into several panes" loading="lazy" decoding="async"></div>
+        </figure>
+      </div>
+      <p class="sec__hint"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> focus · <kbd>Shift</kbd> + arrows swap · drag to swap</p>
+      <p class="sec__hint sec__hint--touch">drag a window onto another</p>
+      <div class="facts">
+        <div>
+          <h3>Keyboard-first</h3>
+          <p>Super drives windows, workspaces and menus. The <kbd>1</kbd>–<kbd>4</kbd> and <kbd>t</kbd> keys on this page are a small taste of it.</p>
+          <a class="facts__more" href="/manual/hotkeys/">Read the chapter</a>
+        </div>
+        <div>
+          <h3>One clipboard, with history</h3>
+          <p>Copy anywhere, paste everywhere, across the whole system.</p>
+          <a class="facts__more" href="/manual/unified-clipboard-history/">Read the chapter</a>
+        </div>
+        <div>
+          <h3>Web apps, first class</h3>
+          <p>Installed and windowed like native applications, right from the menu.</p>
+          <a class="facts__more" href="/manual/web-apps/">Read the chapter</a>
+        </div>
+        <div>
+          <h3>Ready for the age of agents</h3>
+          <p>Your agent gets its own chapter, its own defaults and its own keys.</p>
+          <a class="facts__more" href="/manual/ai/">Read the chapter</a>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <section class="win" aria-label="Theme gallery">
-      <div class="win__head"><p class="win__title">ls themes/</p><span>click any theme<span class="kbd-hint"> · <kbd>t</kbd> cycles</span></span></div>
-      <div class="themes">
+<!-- ws3 · themes -->
+<section id="ws3" class="sec sec--band">
+  <div class="sec__in">
+    <p class="sec__eyebrow">omarchy menu summon style.theme</p>
+    <h2 class="sec__title">Light by default. Yours by choice.</h2>
+    <p class="sec__lead">One keystroke restyles terminal, editor, bar, menu, lock screen and wallpaper — and this page with it. Every palette below is the one that ships in the repo.</p>
+    <div class="sec__body themebox">
+      <figure class="win win--app wallpaper" id="wallpaper">
+        <div class="win__bar"><b id="wall-name">flexoki-light</b><span class="win__bar-r">background</span></div>
+        <img id="wall-img" src="/assets/media/wallpapers/flexoki-light.webp" width="1600" height="1000" alt="" loading="lazy" decoding="async">
+        <figcaption><span>the theme's own wallpaper</span><span id="wall-file">flexoki-light.webp</span></figcaption>
+      </figure>
+      <section class="win" aria-label="Theme gallery">
+        <div class="win__head"><p class="win__title">ls themes/</p><span>click any theme<span class="kbd-hint"> · <kbd>t</kbd> cycles</span></span></div>
+        <div class="themes">
         <button class="theme-card" type="button" data-theme-name="catppuccin" aria-pressed="false"><span class="theme-card__name">catppuccin</span><span class="theme-card__chips" aria-hidden="true"><span style="background:#313244"></span><span style="background:#f38ba8"></span><span style="background:#a6e3a1"></span><span style="background:#f9e2af"></span><span style="background:#89b4fa"></span><span style="background:#f5c2e7"></span><span style="background:#94e2d5"></span><span style="background:#cdd6f4"></span></span></button>
         <button class="theme-card" type="button" data-theme-name="catppuccin-latte" aria-pressed="false"><span class="theme-card__name">catppuccin-latte</span><span class="theme-card__chips" aria-hidden="true"><span style="background:#dce0e8"></span><span style="background:#d20f39"></span><span style="background:#40a02b"></span><span style="background:#df8e1d"></span><span style="background:#1e66f5"></span><span style="background:#ea76cb"></span><span style="background:#179299"></span><span style="background:#4c4f69"></span></span></button>
         <button class="theme-card" type="button" data-theme-name="ethereal" aria-pressed="false"><span class="theme-card__name">ethereal</span><span class="theme-card__chips" aria-hidden="true"><span style="background:#131a3a"></span><span style="background:#ed5b5a"></span><span style="background:#c4cfc4"></span><span style="background:#f7dc9c"></span><span style="background:#7d82d9"></span><span style="background:#c89dc1"></span><span style="background:#a3bfd1"></span><span style="background:#ffcead"></span></span></button>
@@ -838,51 +1053,143 @@
         <button class="theme-card" type="button" data-theme-name="solitude" aria-pressed="false"><span class="theme-card__name">solitude</span><span class="theme-card__chips" aria-hidden="true"><span style="background:#343d41"></span><span style="background:#565d60"></span><span style="background:#9fa5a9"></span><span style="background:#d9dbdc"></span><span style="background:#798186"></span><span style="background:#aeaeae"></span><span style="background:#707070"></span><span style="background:#cacccc"></span></span></button>
         <button class="theme-card" type="button" data-theme-name="tokyo-night" aria-pressed="false"><span class="theme-card__name">tokyo-night</span><span class="theme-card__chips" aria-hidden="true"><span style="background:#24283b"></span><span style="background:#f7768e"></span><span style="background:#9ece6a"></span><span style="background:#e0af68"></span><span style="background:#7aa2f7"></span><span style="background:#bb9af7"></span><span style="background:#7dcfff"></span><span style="background:#c0caf5"></span></span></button>
         <a class="theme-card theme-card--new" href="/manual/making-your-own-theme/"><span class="theme-card__name">make your own</span><span class="theme-card__chips" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></a>
-      </div>
-    </section>
+        </div>
+      </section>
+    </div>
   </div>
+</section>
 
-  <!-- ws4 · news + project / community / support -->
-  <section id="ws4" class="win" aria-label="Latest news">
-    <div class="win__head"><p class="win__title">tail -f news.log</p><a class="win__more" href="/news/">all news</a></div>
-    <div class="newsrow"><!--NEWS_CARDS--></div>
-  </section>
-
-  <div class="row row--links">
-    <section class="win" style="--i: 4" aria-label="Project">
-      <p class="win__title">ls project/</p>
-      <div class="ls">
-        <a href="/manual/"><span class="mode">drwxr-xr-x</span><span class="name">manual/</span><span class="desc">Read this first — install to mastery</span></a>
-        <a href="https://omarchyplugins.com/" target="_blank" rel="noopener"><span class="mode">drwxr-xr-x</span><span class="name">plugins/</span><span class="desc">Extend the system</span></a>
-        <a href="/news/"><span class="mode">drwxr-xr-x</span><span class="name">news/</span><span class="desc">What just shipped</span></a>
-        <a href="/teams/"><span class="mode">drwxr-xr-x</span><span class="name">teams/</span><span class="desc">Who builds Omarchy</span></a>
-        <a href="/security/"><span class="mode">-rw-r--r--</span><span class="name">SECURITY</span><span class="desc">Report a vulnerability</span></a>
-      </div>
-    </section>
-
-    <section class="win" style="--i: 5" aria-label="Community">
-      <p class="win__title">ls community/</p>
-      <div class="ls">
-        <a href="https://discord.gg/tXFUdasqhY" target="_blank" rel="noopener"><span class="mode">drwxrwxrwx</span><span class="name">discord/</span><span class="desc">The daily conversation</span></a>
-        <a href="/meetups/"><span class="mode">drwxrwxrwx</span><span class="name">meetups/</span><span class="desc">Omarchs near you</span></a>
-        <a href="/workstations/"><span class="mode">drwxr-xr-x</span><span class="name">workstations/</span><span class="desc">Hardware that runs it well</span></a>
-        <a href="https://supply.37signals.com/collections/omarchy" target="_blank" rel="noopener"><span class="mode">drwxr-xr-x</span><span class="name">merch/</span><span class="desc">Wear the wordmark</span></a>
-      </div>
-    </section>
-
-    <section class="win" style="--i: 6" aria-label="Support the project">
-      <p class="win__title">cat SUPPORT.md</p>
-      <div class="ls">
-        <a href="/patrons/"><span class="mode">-rw-r--r--</span><span class="name">patrons</span><span class="desc">Individuals funding the work</span></a>
-        <a href="/sponsorships/"><span class="mode">-rw-r--r--</span><span class="name">sponsorships</span><span class="desc">Companies backing the project</span></a>
-        <a href="/air/"><span class="mode">-rw-r--r--</span><span class="name">air</span><span class="desc">Artists in Residence</span></a>
-      </div>
-    </section>
+<!-- ws4 · what people are saying -->
+<section id="ws4" class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">mpv playlist.m3u</p>
+    <h2 class="sec__title">Watch somebody else use it</h2>
+    <p class="sec__lead">The introduction, and four takes from people who installed it and kept it.</p>
+    <div class="sec__body wall">
+      <section class="win video video--lead" style="--i: 0">
+        <figure>
+          <a href="https://www.youtube.com/watch?v=F7fe9pa8OeE" target="_blank" rel="noopener" data-video="F7fe9pa8OeE" data-title="Omarchy Quattro" aria-label="Watch: Omarchy Quattro by David Heinemeier Hansson">
+            <img src="data:image/webp;base64,__QUATTRO_B64__" width="1280" height="720" alt="Omarchy Quattro — four tiled terminals" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption><b>Omarchy Quattro</b><span>David Heinemeier Hansson</span></figcaption>
+        </figure>
+      </section>
+      <section class="win video" style="--i: 1">
+        <figure>
+          <a href="https://www.youtube.com/watch?v=9SDkU5VDQEQ" target="_blank" rel="noopener" data-video="9SDkU5VDQEQ" data-title="You need to switch to Linux RIGHT NOW!!" aria-label="Watch: You need to switch to Linux RIGHT NOW!! by NetworkChuck">
+            <img src="data:image/webp;base64,__CHUCK_B64__" width="1280" height="720" alt="NetworkChuck on switching to Linux" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption><b>You need to switch to Linux RIGHT NOW!!</b><span>NetworkChuck</span></figcaption>
+        </figure>
+      </section>
+      <section class="win video" style="--i: 2">
+        <figure>
+          <a href="https://www.youtube.com/watch?v=5JPYJfN7HY0" target="_blank" rel="noopener" data-video="5JPYJfN7HY0" data-title="They finally fixed linux" aria-label="Watch: They finally fixed linux by typecraft">
+            <img src="/assets/media/videos/5JPYJfN7HY0.webp" width="1280" height="720" alt="typecraft on Omarchy" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption><b>They finally fixed linux</b><span>typecraft</span></figcaption>
+        </figure>
+      </section>
+      <section class="win video" style="--i: 3">
+        <figure>
+          <a href="https://www.youtube.com/watch?v=qBKMe8AatY0" target="_blank" rel="noopener" data-video="qBKMe8AatY0" data-title="I Didn't Expect Omarchy 4 to Be This Good" aria-label="Watch: I Didn't Expect Omarchy 4 to Be This Good by LinuxBTW">
+            <img src="/assets/media/videos/qBKMe8AatY0.webp" width="1280" height="720" alt="LinuxBTW reviewing Omarchy 4" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption><b>I Didn't Expect Omarchy 4 to Be This Good</b><span>LinuxBTW</span></figcaption>
+        </figure>
+      </section>
+      <section class="win video" style="--i: 4">
+        <figure>
+          <a href="https://www.youtube.com/watch?v=KO2T0oET9go" target="_blank" rel="noopener" data-video="KO2T0oET9go" data-title="If you use AI, switch to Omarchy immediately" aria-label="Watch: If you use AI, switch to Omarchy immediately by Alex Finn">
+            <img src="/assets/media/videos/KO2T0oET9go.webp" width="1280" height="720" alt="Alex Finn on running agents in Omarchy" loading="lazy" decoding="async">
+            <span class="video__play">PLAY</span>
+          </a>
+          <figcaption><b>If you use AI, switch to Omarchy immediately</b><span>Alex Finn</span></figcaption>
+        </figure>
+      </section>
+    </div>
   </div>
+</section>
 
-  <div class="foot-logo" id="logo-foot" role="img" aria-label="OMARCHY" data-brand-menu></div>
+<!-- news -->
+<section class="sec sec--band">
+  <div class="sec__in">
+    <p class="sec__eyebrow">tail -f news.log</p>
+    <h2 class="sec__title">Something ships almost every day</h2>
+    <div class="sec__body row">
+      <a class="news" href="/news/2026/08/omacom-foundation-launches-with-8-million/" aria-label="News: Omacom Foundation launches with 12.6 million dollars">
+       <div class="news__viewport" aria-hidden="true">
+        <div class="news__track">
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+        </div>
+        <div class="news__track">
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+        </div>
+       </div>
+      </a>
+      <section class="win" aria-label="Latest news">
+        <div class="win__head"><p class="win__title">ls news/</p><a class="win__more" href="/news/">all news</a></div>
+        <div class="newsrow"><!--NEWS_CARDS--></div>
+      </section>
+    </div>
+  </div>
+</section>
 
-</div>
+<!-- links -->
+<section class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">wecanfixeverything.com</p>
+    <h2 class="sec__title">We can <s>fix some things</s> fix everything</h2>
+    <p class="sec__lead">Every missing app, every incompatibility, every paper cut. Here is where it happens — <a href="https://wecanfixeverything.com" target="_blank" rel="noopener">we mean it</a>.</p>
+    <div class="sec__body row row--links">
+      <section class="win" style="--i: 0" aria-label="Project">
+        <p class="win__title">Project</p>
+        <div class="ls">
+          <a href="/manual/"><span class="name">manual</span><span class="desc">Read this first — install to mastery</span></a>
+          <a href="https://omarchyplugins.com/" target="_blank" rel="noopener"><span class="name">plugins</span><span class="desc">Extend the system</span></a>
+          <a href="/news/"><span class="name">news</span><span class="desc">What just shipped</span></a>
+          <a href="/teams/"><span class="name">teams</span><span class="desc">Who builds Omarchy</span></a>
+          <a href="/security/"><span class="name">security</span><span class="desc">Report a vulnerability</span></a>
+        </div>
+      </section>
+
+      <section class="win" style="--i: 1" aria-label="Community">
+        <p class="win__title">Community</p>
+        <div class="ls">
+          <a href="https://discord.gg/tXFUdasqhY" target="_blank" rel="noopener"><span class="name">discord</span><span class="desc">The daily conversation</span></a>
+          <a href="/meetups/"><span class="name">meetups</span><span class="desc">Omarchs near you</span></a>
+          <a href="/workstations/"><span class="name">workstations</span><span class="desc">Hardware that runs it well</span></a>
+          <a href="https://supply.37signals.com/collections/omarchy" target="_blank" rel="noopener"><span class="name">merch</span><span class="desc">Wear the wordmark</span></a>
+        </div>
+      </section>
+
+      <section class="win" style="--i: 2" aria-label="Support the project">
+        <p class="win__title">Support</p>
+        <div class="ls">
+          <a href="/patrons/"><span class="name">patrons</span><span class="desc">Individuals funding the work</span></a>
+          <a href="/sponsorships/"><span class="name">sponsorships</span><span class="desc">Companies backing the project</span></a>
+          <a href="/air/"><span class="name">air</span><span class="desc">Artists in Residence</span></a>
+        </div>
+      </section>
+    </div>
+
+    <div class="foot-logo" id="logo-foot" role="img" aria-label="OMARCHY" data-brand-menu></div>
+  </div>
+</section>
 
 <footer class="foot">
   <p>Looking to become a partner or patron of Omarchy? Write <a href="mailto:david@omarchy.org">david@omarchy.org</a></p>
@@ -923,16 +1230,20 @@
     'rose-pine', 'solitude', 'tokyo-night',
   ];
   const STORE_KEY = 'omarchy-redesign-theme-v1';
+  const DEFAULT_THEME = 'flexoki-light';
   const root = document.documentElement;
   const themeName = document.getElementById('theme-name');
   const fetchTheme = document.getElementById('fetch-theme');
   const chips = document.getElementById('chips');
+  const wallpaper = document.getElementById('wallpaper');
+  const wallImg = document.getElementById('wall-img');
 
   function applyTheme(name) {
-    if (name === 'tokyo-night') root.removeAttribute('data-theme');
+    if (name === DEFAULT_THEME) root.removeAttribute('data-theme');
     else root.setAttribute('data-theme', name);
     themeName.textContent = name;
     fetchTheme.textContent = name;
+    setWallpaper(name);
     const cs = getComputedStyle(root);
     chips.innerHTML = '';
     for (const v of ['--surface', '--err', '--ok', '--warn', '--accent', '--mag', '--accent-2', '--fg']) {
@@ -948,8 +1259,16 @@
     });
     try { localStorage.setItem(STORE_KEY, name); } catch (e) {}
   }
+  /* the preview shows the theme's own background; themes without one hide it */
+  function setWallpaper(name) {
+    document.getElementById('wall-name').textContent = name;
+    document.getElementById('wall-file').textContent = name + '.webp';
+    wallImg.src = '/assets/media/wallpapers/' + name + '.webp';
+    wallpaper.hidden = false;
+  }
+  wallImg.addEventListener('error', () => { wallpaper.hidden = true; });
   function cycleTheme() {
-    const current = root.getAttribute('data-theme') || 'tokyo-night';
+    const current = root.getAttribute('data-theme') || DEFAULT_THEME;
     applyTheme(THEMES[(THEMES.indexOf(current) + 1) % THEMES.length]);
   }
   document.getElementById('theme-btn').addEventListener('click', cycleTheme);
@@ -972,7 +1291,7 @@
   tick(); setInterval(tick, 15000);
 
   /* horizontal scrollers fade the edge that still hides content */
-  for (const el of document.querySelectorAll('.newsrow, .bento')) {
+  for (const el of document.querySelectorAll('.newsrow')) {
     const fade = () => {
       el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
     };
@@ -1015,7 +1334,7 @@
   wsLinks.forEach((a, i) => a.addEventListener('click', e => { e.preventDefault(); goWs(i); }));
   document.querySelector('.bar__logo').addEventListener('click', e => { e.preventDefault(); goWs(0); });
 
-  /* ---------- keyboard: t = theme, 1-3 = workspace ---------- */
+  /* ---------- keyboard: t = theme, 1-4 = workspace ---------- */
   addEventListener('keydown', e => {
     if (e.metaKey || e.ctrlKey || e.altKey) return;
     if (document.querySelector('dialog[open]')) return;
@@ -1053,6 +1372,327 @@
     lightbox.addEventListener('close', () => { frame.src = ''; });
   })();
 
+  /* ---------- boot video, then the ambient loop ---------- */
+  (() => {
+    const video = document.getElementById('boot-video');
+    const ambient = document.getElementById('ambient-video');
+    const hero = document.getElementById('ws1');
+    /* the still behind both is the boot clip's last frame, so a refused
+       autoplay and the finished playback look the same */
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      video.remove(); ambient.remove(); return;
+    }
+    /* fade in only once the loop runs — a refused play keeps the still */
+    const reveal = () => hero.classList.add('hero--ambient');
+    const handoff = () => {
+      const p = ambient.play();
+      if (p) p.then(reveal).catch(() => {}); else reveal();
+    };
+    let armed = false;
+    /* buffer the loop over the boot clip's last second and a half */
+    video.addEventListener('timeupdate', () => {
+      if (armed || !video.duration || video.duration - video.currentTime >= 1.5) return;
+      armed = true;
+      /* preload=none would swallow the buffer request */
+      ambient.preload = 'auto';
+      ambient.load();
+    });
+    video.addEventListener('ended', handoff);
+    const started = video.play();
+    if (started) started.catch(() => { video.hidden = true; handoff(); });
+  })();
+
+  /* ---------- install terminal ---------- */
+  /* the ISO's gum wizard, screen by screen: every string is one the real
+     installer prints */
+  (() => {
+    const screen = document.getElementById('install-screen');
+    if (!screen) return;
+
+    const TIPS = [
+      'Super + Space opens the Omarchy menu for apps, settings, and more',
+      'Super + K shows all the key bindings',
+      'Switch themes from Style &gt; Theme in the Omarchy menu',
+      'Super + Ctrl + V opens the clipboard manager',
+    ];
+    const CELLS = 34, INSTALL_MS = 3000, TIP_MS = 750;
+    const SCREENS = [
+      ['<p class="term__brand">OMARCHY</p>'
+        + '<p>Beautiful, Fun &amp; Agentic Linux by DHH</p>'
+        + '<p class="term__dim">Press Return to Start Install</p>', 1100],
+      ['<p class="term__step">Let\'s setup your machine...</p>'
+        + '<p>Select keyboard layout</p>'
+        + '<p class="term__pick">English (US)</p>', 1100],
+      ['<p class="term__step">Let\'s setup your user account...</p>'
+        + '<p>Username&gt; <em>dhh</em></p>'
+        + '<p>Password&gt; <em>••••••••</em></p>'
+        + '<p>Hostname&gt; <em>omarchy</em></p>'
+        + '<p>Does this look right?</p>'
+        + '<p class="term__pick">Yes</p>', 1500],
+      ['<p class="term__step">Let\'s select where to install Omarchy...</p>'
+        + '<p>Select install disk</p>'
+        + '<p class="term__pick">/dev/nvme0n1</p>', 1000],
+      ['<p class="term__warn">Everything will be overwritten. There is no recovery possible.</p>'
+        + '<p class="term__pick">Yes, install</p>', 1100],
+    ];
+    const FINAL = '<p class="term__brand">OMARCHY</p>'
+      + '<p class="term__ok">Installed Omarchy</p>'
+      + '<p><span class="term__reboot">Reboot Now</span></p>';
+
+    function progress(p, tip) {
+      const on = Math.round(p * CELLS);
+      return '<p class="term__step">Installing Omarchy</p>'
+        + '<p class="term__bar">' + '█'.repeat(on) + '░'.repeat(CELLS - on) + '</p>'
+        + '<p class="term__tip"><b>Tip:</b> ' + TIPS[tip] + '</p>';
+    }
+
+    let timer = 0, ticker = 0;
+    function stop() { clearTimeout(timer); clearInterval(ticker); timer = ticker = 0; }
+    function finish() { stop(); screen.innerHTML = FINAL; }
+
+    function play() {
+      stop();
+      let i = 0;
+      const next = () => {
+        if (i < SCREENS.length) {
+          screen.innerHTML = SCREENS[i][0];
+          timer = setTimeout(next, SCREENS[i][1]);
+          i++;
+          return;
+        }
+        let t = 0;
+        screen.innerHTML = progress(0, 0);
+        ticker = setInterval(() => {
+          t += 60;
+          screen.innerHTML = progress(Math.min(t / INSTALL_MS, 1),
+            Math.min(Math.floor(t / TIP_MS), TIPS.length - 1));
+          if (t >= INSTALL_MS) finish();
+        }, 60);
+      };
+      next();
+    }
+
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) finish();
+    else new IntersectionObserver((entries, io) => {
+      if (!entries.some(e => e.isIntersecting)) return;
+      io.disconnect();
+      play();
+    }, { threshold: 0.3 }).observe(document.getElementById('install'));
+
+    document.getElementById('install-replay').addEventListener('click', () => (reduced ? finish() : play()));
+  })();
+
+  /* ---------- the tiling wall ---------- */
+  /* hyprland's movefocus and swapwindow on five slots: arrows (or hjkl) walk
+     the focus by geometry, shift swaps the two windows, the pointer drags one
+     onto another. the wide and tall spans stay with the slot. */
+  (() => {
+    const wall = document.querySelector('.shots');
+    if (!wall) return;
+    const tiles = [...wall.children];
+    if (tiles.length < 2) return;
+
+    const WIDE = 0, TALL = 1;
+    const SWAP_MS = 180, BEAT_MS = 2500, IDLE_MS = 6000, PAUSE_MS = 10000;
+    const EASE = getComputedStyle(root).getPropertyValue('--ease-out').trim() || 'ease-out';
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const DIRS = {
+      ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1],
+      h: [-1, 0], l: [1, 0], k: [0, -1], j: [0, 1],
+    };
+    /* slots[i] is the window currently living in slot i */
+    const slots = tiles.slice();
+    const undo = [];
+    let active = tiles[0], drag = null;
+    let visible = false, resumeAt = 0, nextBeat = 0, beat = 0;
+
+    /* a single column has nowhere to swap to — focus still walks it */
+    const canSwap = () => innerWidth >= 560;
+
+    tiles.forEach(t => { t.tabIndex = 0; t.style.transformOrigin = 'top left'; });
+
+    function markActive() {
+      tiles.forEach(t => t.classList.toggle('is-active', t === active));
+    }
+    function place() {
+      slots.forEach((t, i) => {
+        t.style.order = i;
+        t.classList.toggle('shot--wide', i === WIDE);
+        t.classList.toggle('shot--tall', i === TALL);
+      });
+      markActive();
+    }
+
+    /* FLIP: measure, re-slot, then animate the delta back to nothing */
+    function relayout() {
+      if (reduced.matches) { place(); return; }
+      const before = tiles.map(t => t.getBoundingClientRect());
+      place();
+      tiles.forEach((t, i) => {
+        const a = before[i], b = t.getBoundingClientRect();
+        const dx = a.left - b.left, dy = a.top - b.top;
+        const sx = b.width ? a.width / b.width : 1, sy = b.height ? a.height / b.height : 1;
+        if (!dx && !dy && Math.abs(sx - 1) < 0.01 && Math.abs(sy - 1) < 0.01) return;
+        t.animate([
+          { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + sx + ', ' + sy + ')' },
+          { transform: 'none' },
+        ], { duration: SWAP_MS, easing: EASE });
+      });
+    }
+
+    /* nearest window in that direction, measured centre to centre — the
+       sideways offset counts double so a straight neighbour always wins */
+    function neighbour(from, dir) {
+      const a = from.getBoundingClientRect();
+      const ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+      let best = null, score = Infinity;
+      for (const t of tiles) {
+        if (t === from) continue;
+        const b = t.getBoundingClientRect();
+        const dx = b.left + b.width / 2 - ax, dy = b.top + b.height / 2 - ay;
+        const along = dx * dir[0] + dy * dir[1];
+        if (along <= 4) continue;
+        const off = Math.abs(dx * dir[1] + dy * dir[0]);
+        const s = along + off * 2;
+        if (s < score) { score = s; best = t; }
+      }
+      return best;
+    }
+
+    function swap(a, b) {
+      const i = slots.indexOf(a), j = slots.indexOf(b);
+      if (i < 0 || j < 0) return;
+      slots[i] = b; slots[j] = a;
+      relayout();
+    }
+    function focusTile(t) { active = t; markActive(); t.focus({ preventScroll: true }); }
+
+    /* any input parks the demo loop; the autopilot's own moves must not */
+    function nudge() { resumeAt = performance.now() + PAUSE_MS; }
+    /* a swap by hand makes the autopilot's pending undo stack meaningless */
+    function userSwap(a, b) { undo.length = 0; swap(a, b); }
+
+    /* ---- keyboard ---- */
+    function ownsKeys() {
+      if (document.querySelector('dialog[open]')) return false;
+      const el = document.activeElement;
+      if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return false;
+      return visible || wall.contains(el);
+    }
+    addEventListener('keydown', e => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      nudge();
+      const dir = DIRS[e.key] || DIRS[e.key.toLowerCase()];
+      if (!dir || !ownsKeys()) return;
+      e.preventDefault();
+      const n = neighbour(active, dir);
+      if (!n) return;
+      if (e.shiftKey) { if (canSwap()) userSwap(active, n); }
+      else focusTile(n);
+    });
+
+    wall.addEventListener('focusin', e => {
+      const t = e.target.closest('.shot');
+      if (t) { active = t; markActive(); }
+    });
+
+    /* ---- pointer: drag one window onto another ---- */
+    function tileAt(x, y) {
+      for (const t of tiles) {
+        if (drag && t === drag.tile) continue;
+        const r = t.getBoundingClientRect();
+        if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return t;
+      }
+      return null;
+    }
+    wall.addEventListener('pointerdown', e => {
+      const tile = e.target.closest('.shot');
+      if (!tile) return;
+      nudge();
+      focusTile(tile);
+      /* a mouse grabs the whole window like super+drag; touch keeps the
+         title bar so the page still scrolls */
+      const handle = e.pointerType === 'touch' ? e.target.closest('.win__bar') : tile;
+      if (e.button !== 0 || !canSwap() || !handle || e.target.closest('a, button')) return;
+      /* the spawn keyframes fill forever and would outrank the lift's own
+         transform and opacity — the window has long since spawned */
+      tile.getAnimations().forEach(a => a.cancel());
+      drag = { tile, bar: handle, id: e.pointerId, x: e.clientX, y: e.clientY, live: false };
+      /* a pointer that is already gone cannot be captured — the drag still
+         works off the bubbling move events */
+      try { drag.bar.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    wall.addEventListener('pointermove', e => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (!drag.live) {
+        if (Math.abs(dx) + Math.abs(dy) < 5) return;
+        drag.live = true;
+        drag.tile.classList.add('is-dragging');
+      }
+      e.preventDefault();
+      drag.tile.style.transform = 'translate(' + dx + 'px, ' + dy + 'px) scale(1.02)';
+      const over = tileAt(e.clientX, e.clientY);
+      tiles.forEach(t => t.classList.toggle('is-drop', t === over));
+    });
+    function endDrag(e) {
+      if (!drag || e.pointerId !== drag.id) return;
+      const tile = drag.tile;
+      const over = drag.live ? tileAt(e.clientX, e.clientY) : null;
+      drag = null;
+      tile.classList.remove('is-dragging');
+      tile.style.transform = '';
+      tiles.forEach(t => t.classList.remove('is-drop'));
+      nudge();
+      if (over && over !== tile) userSwap(tile, over);
+    }
+    for (const ev of ['pointerup', 'pointercancel']) wall.addEventListener(ev, endDrag);
+
+    /* ---- autopilot ---- */
+    /* every second beat swaps; three swaps out, three back, so the wall
+       always finds its way home */
+    const TOUR = [DIRS.ArrowRight, DIRS.ArrowDown, DIRS.ArrowLeft, DIRS.ArrowUp];
+    /* the tour direction, or the next one that has a window in it — an edge
+       must not cost the demo a beat */
+    function tourStep(from, i) {
+      for (let k = 0; k < TOUR.length; k++) {
+        const n = neighbour(from, TOUR[(i + k) % TOUR.length]);
+        if (n) return n;
+      }
+      return null;
+    }
+    function autoBeat() {
+      const n = tourStep(active, beat >> 1);
+      if (beat % 2 === 0) {
+        if (n) { active = n; markActive(); }
+      } else if (undo.length >= 3) {
+        const pair = undo.pop();
+        swap(pair[0], pair[1]);
+      } else if (n) {
+        undo.push([active, n]);
+        swap(active, n);
+      }
+      beat = (beat + 1) % (TOUR.length * 2);
+    }
+    setInterval(() => {
+      if (!visible || reduced.matches || !canSwap() || drag) return;
+      const now = performance.now();
+      if (now < resumeAt || now < nextBeat) return;
+      nextBeat = now + BEAT_MS;
+      autoBeat();
+    }, 250);
+
+    new IntersectionObserver(entries => {
+      for (const e of entries) {
+        visible = e.intersectionRatio >= 0.4;
+        if (visible) resumeAt = Math.max(resumeAt, performance.now() + IDLE_MS);
+      }
+    }, { threshold: [0.4] }).observe(wall);
+
+    place();
+  })();
+
   /* ---------- decrypting ASCII wordmarks ---------- */
   const logos = [];
   (() => {
@@ -1070,24 +1710,15 @@
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
       let cells = [], cw = 0, ch = 0, asc = 0, fs = 0, raf = 0, start = 0, started = false, radius = 48;
-      let colMain = '#888888', colAlt = '#555555', rowColors = null;
+      let colMain = '#888888', colAlt = '#555555';
       const pointer = { x: -1e4, y: -1e4 };
 
       function readColors() {
-        const cs = getComputedStyle(root);
+        /* read off the box, not the root: the hero overrides the palette
+           tokens locally so the wordmark sits in the wallpaper's colours */
+        const cs = getComputedStyle(box);
         colMain = cs.getPropertyValue(opts.mainVar).trim();
         colAlt = cs.getPropertyValue(opts.altVar).trim();
-        if (opts.gradient) {
-          /* row gradient like the original OG art, re-derived from the theme tokens */
-          const hex = h => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
-          const stops = ['--hover', '--accent', '--mag'].map(v => hex(cs.getPropertyValue(v).trim()));
-          rowColors = [];
-          for (let r = 0; r < ROWS; r++) {
-            const t = ROWS > 1 ? r / (ROWS - 1) : 0;
-            const [a, b, f] = t < 0.5 ? [stops[0], stops[1], t * 2] : [stops[1], stops[2], (t - 0.5) * 2];
-            rowColors.push('rgb(' + a.map((v, i) => Math.round(v + (b[i] - v) * f)).join(',') + ')');
-          }
-        }
       }
 
       function layout() {
@@ -1144,7 +1775,7 @@
             ctx.fillStyle = colAlt;
             ctx.fillText(POOL[(frame * 7 + i * 13) % POOL.length], cell.x, cell.y + asc);
           } else {
-            ctx.fillStyle = rowColors ? rowColors[cell.r] : colMain;
+            ctx.fillStyle = colMain;
             ctx.fillText(cell.gl, cell.x, cell.y + asc);
           }
         }
@@ -1191,9 +1822,9 @@
       logos.push({ recolor() { readColors(); wake(); } });
     }
 
+    /* the hero mark runs the laseretch playback below; the pre stays put
+       because it sizes the hero box and is the fallback */
     function init() {
-      fallback.hidden = true;
-      decryptLogo(document.getElementById('logo-box'), { cap: 15, mainVar: '--accent', altVar: '--muted', duration: 1500, threshold: 0, gradient: true });
       decryptLogo(document.getElementById('logo-foot'), { cap: 24, mainVar: '--muted', altVar: '--accent', duration: 2600, threshold: 0.35 });
     }
 
@@ -1202,14 +1833,137 @@
     } else init();
   })();
 
+  /* ---------- hero wordmark: web text effects laseretch ---------- */
+  /* the same wasm playback omarchy.org runs. the <pre> stays as the layout
+     size and as the fallback; the canvas is scaled onto its box and holds
+     the last frame instead of looping. any failed step shows the pre. */
+  (() => {
+    const WASM_URL = '/assets/js/wte/laseretch.wasm';
+    const CANVAS_URL = '/assets/js/wte/wte-canvas.js';
+    const COLS = 81, ROWS = 10, CELL_ASPECT = 2;
+
+    const box = document.getElementById('logo-box');
+    const pre = document.getElementById('logo-fallback');
+    if (!box || !pre) return;
+
+    const stat = () => { box.classList.remove('hero__logo--live'); box.classList.add('hero__logo--static'); };
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const art = pre.textContent.replace(/^\n/, '').replace(/\n+$/, '');
+    if (!art.trim()) { stat(); return; }
+
+    let bytes = null;
+    async function loadWasm() {
+      const res = await fetch(WASM_URL);
+      if (!res.ok) throw new Error('laseretch wasm ' + res.status);
+      bytes = await res.arrayBuffer();
+    }
+
+    /* the playback module is content-hashed; wte-canvas.js names it, and the
+       playback class is the only export with restart() and stop() */
+    async function loadPlayback() {
+      const res = await fetch(CANVAS_URL);
+      if (!res.ok) throw new Error('wte-canvas ' + res.status);
+      const src = await res.text();
+      const spec = src.match(/from["'](\.\/assets\/playback-[A-Za-z0-9_-]+\.js)["']/);
+      if (!spec) throw new Error('wte playback module not found');
+      const mod = await import(new URL(spec[1], res.url).href);
+      for (const v of Object.values(mod)) {
+        if (typeof v === 'function' && v.prototype
+          && typeof v.prototype.restart === 'function'
+          && typeof v.prototype.stop === 'function') return v;
+      }
+      throw new Error('CanvasPlayback not found');
+    }
+
+    function afterFonts() {
+      if (!document.fonts || !document.fonts.ready) return Promise.resolve();
+      return Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1000))]);
+    }
+
+    function start(CanvasPlayback) {
+      const rect = pre.getBoundingClientRect();
+      if (rect.width < 8 || rect.height < 8) { stat(); return; }
+
+      /* native grid: whole pixels per cell, two pixel rows per art row */
+      const cell = Math.max(1, Math.floor(Math.min(rect.width / COLS, rect.height / (ROWS * CELL_ASPECT))));
+      const nw = cell * COLS, nh = cell * ROWS * CELL_ASPECT;
+
+      const holder = document.createElement('span');
+      holder.className = 'hero__wte';
+      const canvas = document.createElement('canvas');
+      canvas.setAttribute('aria-hidden', 'true');
+      canvas.style.width = nw + 'px';
+      canvas.style.height = nh + 'px';
+
+      function scale() {
+        const r = pre.getBoundingClientRect();
+        if (r.width < 1 || r.height < 1) return;
+        canvas.style.transform = 'scale(' + (r.width / nw) + ',' + (r.height / nh) + ')';
+      }
+      scale();
+
+      const playback = new CanvasPlayback({
+        canvas,
+        width: () => nw,
+        height: () => nh,
+        connected: () => canvas.isConnected,
+        input: () => art,
+        effect: () => 'laseretch',
+        wasmUrl: () => { if (!bytes) throw new Error('laseretch wasm is not loaded'); return bytes; },
+        /* empty: the playback holds the last frame instead of looping */
+        onFinished() {},
+        frameRate: () => 240,
+      });
+
+      let raf = 0;
+      const ro = new ResizeObserver(() => {
+        if (raf) return;
+        raf = requestAnimationFrame(() => { raf = 0; scale(); });
+      });
+      ro.observe(pre);
+
+      const fail = () => {
+        removeEventListener('error', onError);
+        if (raf) cancelAnimationFrame(raf);
+        ro.disconnect();
+        playback.stop();
+        holder.remove();
+        stat();
+      };
+      /* a wasm trap surfaces as a window error, not a rejected promise */
+      const onError = e => {
+        const msg = String(e.message || e.error || '');
+        if (!/memory access out of bounds|RuntimeError|CompileError|WebAssembly/i.test(msg)) return;
+        fail();
+      };
+      addEventListener('error', onError);
+
+      holder.append(canvas);
+      box.append(holder);
+      /* cancels the css fallback reveal now that a canvas is really up */
+      box.classList.add('hero__logo--live');
+      playback.restart().catch(fail);
+    }
+
+    afterFonts().then(loadWasm).then(loadPlayback).then(start).catch(stat);
+  })();
+
   /* ---------- console greeting ---------- */
   console.log('%c❖ omarchy, but malleable', 'color:#7aa2f7;font-weight:700;font-size:14px');
   console.log('Redesign proposal by Daniel Schmier · https://captainscor.ch · press t to cycle the themes.');
 
-  /* restore persisted theme (after logo exists) */
+  /* theme on load (after the logo exists): ?theme= wins over the stored
+     choice and becomes the stored one; anything unknown falls through */
   try {
+    /* light/dark are shorthands for the two headline themes */
+    const ALIAS = { light: 'flexoki-light', dark: 'tokyo-night' };
+    const param = new URLSearchParams(location.search).get('theme');
+    const wanted = ALIAS[param] || param;
     const saved = localStorage.getItem(STORE_KEY);
-    if (saved && THEMES.includes(saved)) applyTheme(saved);
-    else applyTheme('tokyo-night');
-  } catch (e) { applyTheme('tokyo-night'); }
+    if (THEMES.includes(wanted)) applyTheme(wanted);
+    /* nothing chosen yet: follow the OS, dark systems land on tokyo-night */
+    else if (saved && THEMES.includes(saved)) applyTheme(saved);
+    else applyTheme(matchMedia('(prefers-color-scheme: dark)').matches ? ALIAS.dark : DEFAULT_THEME);
+  } catch (e) { applyTheme(DEFAULT_THEME); }
 </script>

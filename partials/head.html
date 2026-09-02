@@ -9,7 +9,7 @@
 <meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://omarchy.captainscor.ch__PATH__">
 <link rel="icon" type="image/png" href="data:image/png;base64,__FAVICON_B64__">
-<meta name="theme-color" content="#13141c" id="theme-color">
+<meta name="theme-color" content="#f2efe4" id="theme-color">
 <meta property="og:site_name" content="Omarchy">
 <meta property="og:title" content="__TITLE__">
 <meta property="og:description" content="__DESC__">
@@ -23,6 +23,7 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Medium.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Bold.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/JetBrainsMono-ExtraBold.woff2) format('woff2')}
+__MENU_FONT__
 </style>
 <style>
 __THEME_TOKENS__
@@ -54,12 +55,15 @@ __THEME_TOKENS__
   .bar__logo { display: flex; align-items: center; color: var(--accent); text-decoration: none; transition: color 0.15s; }
   .bar__logo svg { width: 20px; height: 20px; stroke-dasharray: 1; }
   .bar__logo:hover { color: var(--accent-2); }
-  /* hovering redraws the mark stroke by stroke, outer frame first */
-  .bar__logo:hover svg path { animation: logo-draw 0.45s ease both; }
-  .bar__logo:hover svg path:nth-child(2) { animation-delay: 0.3s; }
-  .bar__logo:hover svg path:nth-child(3) { animation-delay: 0.55s; }
-  .bar__logo:hover svg path:nth-child(4) { animation-delay: 0.62s; }
+  /* hovering redraws the mark stroke by stroke — each stroke branches off the
+     pen passing its junction, so the two stubs run backwards */
+  .bar__logo:hover svg path { animation: logo-draw 0.65s cubic-bezier(0.45, 0, 0.25, 1) both; }
+  .bar__logo:hover svg path:nth-child(2) { animation-timing-function: ease-out; animation-duration: 0.11s; animation-delay: 0.25s; }
+  .bar__logo:hover svg path:nth-child(3) { animation-duration: 0.47s; animation-delay: 0.36s; }
+  .bar__logo:hover svg path:nth-child(4) { animation-name: logo-draw-rev; animation-duration: 0.07s; animation-delay: 0.54s; }
+  .bar__logo:hover svg path:nth-child(5) { animation-name: logo-draw-rev; animation-duration: 0.07s; animation-delay: 0.60s; }
   @keyframes logo-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+  @keyframes logo-draw-rev { from { stroke-dashoffset: -1; } to { stroke-dashoffset: 0; } }
   .bar__title { flex: 1; text-align: center; color: var(--muted); overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
   .bar__title strong { color: var(--fg); font-weight: 500; }
   .bar__left { display: flex; align-items: center; gap: 16px; }
@@ -97,15 +101,26 @@ __THEME_TOKENS__
   @media (pointer: coarse) { .bar__theme kbd { display: none; } }
 
   .desktop {
-    max-width: 1200px; margin: 0 auto;
-    padding: clamp(8px, 1.2vw, 14px);
+    max-width: 1280px; margin: 0 auto;
+    padding: var(--space-3xl) clamp(8px, 1.2vw, 14px);
     display: grid; gap: clamp(8px, 1.2vw, 14px);
   }
-  h1 {
-    margin: 16px 4px 4px;
-    font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em;
+  /* page header — same eyebrow, title and lead as the homepage sections */
+  .page-head { margin: 0 0 var(--space-xl); }
+  .eyebrow {
+    display: flex; gap: 1ch; margin: 0 0 var(--space-md);
+    font-size: 0.8125rem; color: var(--muted);
   }
-  .lede { margin: -4px 4px 4px; color: var(--muted); max-width: 68ch; }
+  .eyebrow::before { content: "❯"; color: var(--ok); font-weight: 700; }
+  h1 {
+    margin: 0; max-width: 22ch;
+    font-size: var(--text-2xl); font-weight: 800;
+    letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance;
+  }
+  .lede {
+    max-width: 58ch; margin: var(--space-lg) 0 0;
+    color: var(--muted); font-size: var(--text-lg); line-height: 1.5; text-wrap: pretty;
+  }
   .lede a { color: var(--fg); text-underline-offset: 3px; }
   .lede a:hover { color: var(--accent-2); }
   .row { display: grid; gap: clamp(8px, 1.2vw, 14px); grid-template-columns: 1fr 1fr; }
@@ -116,7 +131,8 @@ __THEME_TOKENS__
   .win {
     background: var(--win);
     border: 1.5px solid var(--border);
-    border-radius: 6px;
+    /* hyprland ships rounding 0 — windows are sharp everywhere */
+    border-radius: 0;
     padding: 24px;
     transition: border-color 0.2s ease, background 0.25s ease;
     min-width: 0;
@@ -138,6 +154,8 @@ __THEME_TOKENS__
   /* link arrow, same glyph as the homepage listings */
   a.arrow::after { content: " ↗"; color: var(--accent-2); font-weight: 700; }
   .win__more::after { content: " →"; color: var(--accent-2); font-weight: 700; }
+  /* article and chapter titles sit inside their window, a notch below page scale */
+  .win h1 { max-width: 30ch; margin: 0 0 var(--space-lg); font-size: var(--text-xl); }
   .win h2 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: -0.01em; }
   .win p { margin: 0 0 12px; color: var(--fg); max-width: 68ch; }
   .win p:last-child { margin-bottom: 0; }
@@ -177,7 +195,7 @@ __THEME_TOKENS__
   .btn {
     display: inline-flex; align-items: center; gap: 1ch;
     padding: 10px 18px;
-    border-radius: 5px;
+    border-radius: 4px;
     font-weight: 700; font-size: 0.8125rem;
     letter-spacing: 0.04em; text-transform: uppercase;
     text-decoration: none;
@@ -223,9 +241,9 @@ __THEME_TOKENS__
   .prose h3::before { content: "### "; color: var(--muted); font-weight: 300; }
   .prose .manual__heading-link { color: var(--muted); text-decoration: none; font-weight: 300; margin-left: 1ch; opacity: 0; }
   .prose h2:hover .manual__heading-link, .prose h3:hover .manual__heading-link { opacity: 1; }
-  .prose p { margin: 0 0 14px; max-width: 76ch; }
+  .prose p { margin: 0 0 14px; max-width: 68ch; }
   .prose ul, .prose ol { margin: 0 0 14px; padding-left: 3ch; }
-  .prose li { margin-bottom: 6px; max-width: 72ch; }
+  .prose li { margin-bottom: 6px; max-width: 66ch; }
   .prose li::marker { color: var(--muted); }
   .prose a { color: var(--accent); text-underline-offset: 3px; }
   .prose a:hover { color: var(--accent-2); }
@@ -234,12 +252,12 @@ __THEME_TOKENS__
     background: var(--surface); border: 1px solid var(--border); border-radius: 3px;
     padding: 1px 5px;
   }
-  .prose pre { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 12px 14px; overflow-x: auto; margin: 0 0 14px; }
+  .prose pre { background: var(--surface); border: 1px solid var(--border); border-radius: 0; padding: 12px 14px; overflow-x: auto; margin: 0 0 14px; }
   .prose pre code { background: none; border: none; padding: 0; }
-  .prose img { max-width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--border); margin: 4px 0 14px; }
+  .prose img { max-width: 100%; height: auto; border-radius: 0; border: 1px solid var(--border); margin: 4px 0 14px; }
   /* transparent avatar rows need no frame */
-  .prose img.graphic { border: none; border-radius: 0; }
-  .prose blockquote { margin: 0 0 14px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); }
+  .prose img.graphic { border: none; }
+  .prose blockquote { margin: 0 0 14px; padding: 8px 16px; border: 1px solid var(--border); border-radius: 0; color: var(--muted); }
   .prose table { border-collapse: collapse; margin: 0 0 16px; display: block; overflow-x: auto; font-size: 0.8125rem; }
   .prose th, .prose td { border: 1px solid var(--border); padding: 6px 12px; text-align: left; }
   .prose th { color: var(--accent); font-weight: 700; background: color-mix(in oklab, var(--surface) 60%, transparent); }
@@ -251,7 +269,7 @@ __THEME_TOKENS__
 
   /* image lightbox */
   .zoomable { cursor: zoom-in; }
-  .imgbox { background: var(--win); color: var(--fg); border: 1.5px solid var(--accent); border-radius: 6px; padding: 0; max-width: min(1140px, 94vw); }
+  .imgbox { background: var(--win); color: var(--fg); border: 1.5px solid var(--accent); border-radius: 0; padding: 0; max-width: min(1140px, 94vw); }
   .imgbox:focus { outline: none; }
   .imgbox::backdrop { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(4px); }
   .imgbox__inner { padding: 12px 14px 14px; }
@@ -264,7 +282,7 @@ __THEME_TOKENS__
     transition: color 0.15s, border-color 0.15s;
   }
   .imgbox__close:hover { color: var(--err); border-color: var(--err); }
-  .imgbox__inner > img { display: block; max-width: 100%; max-height: 78vh; width: auto; height: auto; border-radius: 4px; }
+  .imgbox__inner > img { display: block; max-width: 100%; max-height: 78vh; width: auto; height: auto; border-radius: 0; }
 
   /* manual: sticky chapter toc + content — sticky offset keeps the same
      gap to the bar the layout has before scrolling */
@@ -356,15 +374,15 @@ __PAGE_CSS__
 
 <nav class="bar" aria-label="Site">
   <div class="bar__left">
-    <a class="bar__logo" href="/" aria-label="Back to the Omarchy homepage" title="Back to the desktop"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M880 200H1000V1000H200V200H600V40"/><path pathLength="1" d="M40 600H200"/><path pathLength="1" d="M600 1160V1040"/></svg></a>
+    <a class="bar__logo" href="/" aria-label="Back to the Omarchy homepage" title="Back to the desktop"><svg viewBox="0 0 1200 1200" fill="none" stroke="currentColor" stroke-width="80" aria-hidden="true"><path pathLength="1" d="M640 1160H40V40H1160V1160H720"/><path pathLength="1" d="M600 40V200"/><path pathLength="1" d="M560 200H1000V1000H200V200H600"/><path pathLength="1" d="M600 1160V1040"/><path pathLength="1" d="M40 600H200"/></svg></a>
   </div>
-  <p class="bar__title"><strong>omarchy</strong> 4.0.1 — __BAR_TITLE__</p>
+  <p class="bar__title"><strong>omarchy</strong> 4.0.2 — __BAR_TITLE__</p>
   <div class="bar__right">
-    <button class="bar__search" type="button" data-search-open aria-label="Search and navigate">
-      <span class="bar__search-burger" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3.5h14M1 8h14M1 12.5h14"/></svg></span><span class="bar__search-label">search</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
+    <button class="bar__search" type="button" data-search-open aria-label="Open the menu">
+      <span class="bar__search-burger" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 3.5h14M1 8h14M1 12.5h14"/></svg></span><span class="bar__search-label">menu</span><kbd data-kbd-search aria-hidden="true">⌘K</kbd>
     </button>
     <button class="bar__theme" id="theme-btn" type="button" aria-label="Cycle theme">
-      <span class="dot" aria-hidden="true"></span><span id="theme-name">tokyo-night</span><kbd aria-hidden="true">t</kbd>
+      <span class="dot" aria-hidden="true"></span><span id="theme-name">flexoki-light</span><kbd aria-hidden="true">t</kbd>
     </button>
     <span class="bar__clock" id="clock">--:--</span>
   </div>

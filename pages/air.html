@@ -1,52 +1,60 @@
 <!--css
-  .resident { display: flex; gap: 16px; align-items: flex-start; }
-  .resident img { width: 72px; height: 72px; border-radius: 50%; border: 1.5px solid var(--border); flex-shrink: 0; }
-  .resident h2 { margin-top: 4px; }
+  /* three residents side by side, two up, then stacked */
+  .residents { display: grid; gap: clamp(8px, 1.2vw, 14px); grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 999px) {
+    .residents { grid-template-columns: 1fr 1fr; }
+    .residents > :last-child { grid-column: 1 / -1; }
+  }
+  @media (max-width: 639px) {
+    .residents { grid-template-columns: 1fr; }
+    .residents > :last-child { grid-column: auto; }
+  }
+  /* avatar and name on one line, the copy across the full card */
+  .resident { display: grid; grid-template-columns: auto 1fr; gap: 0 16px; align-items: center; }
+  .resident img { width: 64px; height: 64px; border-radius: 50%; border: 1.5px solid var(--border); }
+  .resident h2 { margin: 0; }
   .resident h2 a { color: var(--fg); text-decoration: none; }
   .resident h2 a:hover { color: var(--accent-2); }
-  .resident p { font-size: 0.8125rem; color: var(--muted); }
+  .resident p { grid-column: 1 / -1; max-width: none; margin: 16px 0 0; font-size: 0.8125rem; color: var(--muted); }
 -->
 <div class="desktop">
-  <h1>Artists in Residence</h1>
-  <p class="lede">A six-month residency for artists who make Omarchy beautiful. Themes, plugins, and whatever else. The point is to let creativity flow with the support of the Omacom Foundation. Up to five seats at any one time.</p>
+  <header class="page-head">
+    <p class="eyebrow">artists in residence</p>
+    <h1>Artists in Residence</h1>
+    <p class="lede">A six-month residency for artists who make Omarchy beautiful. Themes, plugins, and whatever else. The point is to let creativity flow with the support of the Omacom Foundation. Up to five seats at any one time.</p>
+  </header>
 
-  <section class="win" aria-label="HANCORE">
-    <p class="win__title">cat air/hancore.md</p>
-    <div class="resident">
-      <img src="../assets/img/air/hancore.webp" alt="" width="240" height="240" loading="lazy">
-      <div>
+  <div class="residents">
+    <section class="win" aria-label="HANCORE">
+      <p class="win__title">Artist in residence</p>
+      <div class="resident">
+        <img src="../assets/img/air/hancore.webp" alt="" width="240" height="240" loading="lazy">
         <h2><a href="https://github.com/HANCORE-linux" target="_blank" rel="noopener">HANCORE</a></h2>
         <p>Solitude and Last Horizon both ship with Omarchy, and another twenty of his themes sit on the extras page — more than anyone else has contributed: Batou, Oxo Carbon, Velvet Night, Rose of Dune, Shades of Jade, and on it goes. He&rsquo;s a mechanical engineer who became one of the defining aesthetic forces in this community, sits on <a href="/teams/">Omarchy Core</a>, and helps steward <a href="https://omarchyplugins.com/" target="_blank" rel="noopener">the plugin ecosystem</a>.</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <div class="row">
     <section class="win" aria-label="OldJobobo">
-      <p class="win__title">cat air/oldjobobo.md</p>
+      <p class="win__title">Artist in residence</p>
       <div class="resident">
         <img src="../assets/img/air/oldjobobo.webp" alt="" width="240" height="240" loading="lazy">
-        <div>
-          <h2><a href="https://github.com/OldJobobo" target="_blank" rel="noopener">OldJobobo</a></h2>
-          <p>Three of the themes that ship with Omarchy are his — Lumon, Miasma, and Retro 82 — and another ten sit on the extras page, from Batman to City-783 to Sakura Mochi. He works in whole palettes rather than one-off colour schemes, which is why his themes hold together across the terminal, Neovim, btop, and the shell instead of just looking good in a screenshot.</p>
-        </div>
+        <h2><a href="https://github.com/OldJobobo" target="_blank" rel="noopener">OldJobobo</a></h2>
+        <p>Three of the themes that ship with Omarchy are his — Lumon, Miasma, and Retro 82 — and another ten sit on the extras page, from Batman to City-783 to Sakura Mochi. He works in whole palettes rather than one-off colour schemes, which is why his themes hold together across the terminal, Neovim, btop, and the shell instead of just looking good in a screenshot.</p>
       </div>
     </section>
 
     <section class="win" aria-label="Taha">
-      <p class="win__title">cat air/taha.md</p>
+      <p class="win__title">Artist in residence</p>
       <div class="resident">
         <img src="../assets/img/air/taha.webp" alt="" width="240" height="240" loading="lazy">
-        <div>
-          <h2><a href="https://github.com/tahayvr" target="_blank" rel="noopener">Taha</a></h2>
-          <p>He drew the Omarchy logo, which is reason enough, and he built <a href="https://github.com/tahayvr/omarchist" target="_blank" rel="noopener">Omarchist</a>, the GUI for making your own themes without touching a config file. Matte Black is his and ships with Omarchy, along with Gold Rush, Sunset Drive, and VHS 80 on the extras page.</p>
-        </div>
+        <h2><a href="https://github.com/tahayvr" target="_blank" rel="noopener">Taha</a></h2>
+        <p>He drew the Omarchy logo, which is reason enough, and he built <a href="https://github.com/tahayvr/omarchist" target="_blank" rel="noopener">Omarchist</a>, the GUI for making your own themes without touching a config file. Matte Black is his and ships with Omarchy, along with Gold Rush, Sunset Drive, and VHS 80 on the extras page.</p>
       </div>
     </section>
   </div>
 
   <section class="win" aria-label="What it comes with">
-    <div class="win__head"><p class="win__title">cat air/README.md</p><span>Remaining seats by invitation</span></div>
+    <div class="win__head"><p class="win__title">The residency</p><span>Remaining seats by invitation</span></div>
     <h2>What it comes with</h2>
     <ul>
       <li>$2,500/month for the full six months.</li>
