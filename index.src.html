@@ -46,6 +46,8 @@ __THEME_BOOT__
     --mag: #ce5d97;
 
     --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* reading copy, everything terminal stays mono */
+    --font-text: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --text-xs: 0.6875rem;
     --text-sm: 0.8125rem;
     --text-base: 0.9375rem;
@@ -64,6 +66,8 @@ __THEME_BOOT__
     --space-3xl: clamp(72px, 9vw, 132px);
 
     --gap: clamp(8px, 1.2vw, 14px);
+    /* page edge: the window gap stays tight, the text never sits on the bezel */
+    --edge: max(var(--gap), 16px);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     /* hyprland ships decoration:rounding 0 in omarchy 4 — window chrome is
@@ -319,7 +323,7 @@ __THEME_BOOT__
 
   /* ================= sections ================= */
   .sec { padding-block: var(--space-3xl); transition: background 0.25s ease; }
-  .sec__in { max-width: 1280px; margin: 0 auto; padding-inline: var(--gap); }
+  .sec__in { max-width: 1280px; margin: 0 auto; padding-inline: var(--edge); }
   .sec--band { background: var(--surface); border-block: 1.5px solid var(--border); }
   .sec__eyebrow { display: flex; gap: 1ch; margin: 0 0 var(--space-md); font-size: var(--text-sm); color: var(--muted); }
   .sec__eyebrow::before { content: "❯"; color: var(--ok); font-weight: 700; }
@@ -451,7 +455,7 @@ __THEME_BOOT__
     position: relative; isolation: isolate; overflow: hidden;
     min-height: calc(100svh - var(--bar-h, 44px));
     display: flex; align-items: center;
-    padding: var(--space-2xl) var(--gap);
+    padding: var(--space-2xl) var(--edge);
     background: #2c1d38 url("/assets/media/sunrise-last.jpg") center / cover no-repeat;
   }
   .hero video {
@@ -719,6 +723,16 @@ __THEME_BOOT__
   }
   /* ================= install terminal ================= */
   /* one gum screen at a time, the way the ISO's TUI replaces its own frame */
+  /* the wizard replay beside the checklist, stacked below 1150 */
+  @media (min-width: 1150px) { .row--install { grid-template-columns: 1.15fr 1fr; } }
+  .steps { margin: 0; padding: 0; list-style: none; counter-reset: step; display: grid; gap: var(--space-md); }
+  .steps li { display: grid; grid-template-columns: 2ch 1fr; column-gap: 1ch; font-size: var(--text-sm); }
+  .steps li::before { counter-increment: step; content: counter(step, decimal-leading-zero); color: var(--accent); font-weight: 700; }
+  .steps b { display: block; margin-bottom: 2px; color: var(--fg); }
+  .steps span { grid-column: 2; color: var(--muted); line-height: 1.55; text-wrap: pretty; }
+  .steps a, .steps__foot a { color: var(--fg); text-underline-offset: 3px; }
+  .steps a:hover, .steps__foot a:hover { color: var(--accent-2); }
+  .steps__foot { margin: var(--space-lg) 0 0; font-size: var(--text-xs); color: var(--muted); }
   .term__body { padding: var(--space-lg) var(--space-md); font-size: var(--text-sm); line-height: 1.6; }
   /* the account screen is the tallest at six lines — every screen reserves it
      so the window never resizes mid-replay */
@@ -785,30 +799,41 @@ __THEME_BOOT__
   /* the accent ring is the focus indicator; the autopilot moves it on its own */
   .shot:focus-visible { outline: none; }
   .shot { cursor: grab; }
+  .shot img { -webkit-user-drag: none; user-select: none; }
   .shot .win__bar { touch-action: none; }
   .shot a, .shot button { cursor: pointer; }
   .shot.is-dragging { position: relative; z-index: 5; opacity: 0.92; }
   .shot.is-dragging { cursor: grabbing; }
   .shot.is-drop { border-color: var(--accent-2); box-shadow: inset 0 0 0 1px var(--accent-2); }
+  /* two columns below 900: the wide slot spans both, the others pair up */
   @media (max-width: 900px) {
-    .shots { grid-template-columns: 1fr; --slot: 100cqw; }
-    .shot, .shot--wide { grid-column: auto; }
+    .shots { grid-template-columns: repeat(2, 1fr); --slot: calc((100cqw - var(--gap)) / 2); }
+    .shot { grid-column: auto; }
+    .shot--wide { grid-column: span 2; }
     .shot--tall .shot__view { aspect-ratio: 16 / 10; }
-    .shot__view, .shot .fetch, .shot--wide .shot__view, .shot--wide .fetch { min-height: calc(var(--slot) * 9 / 16); }
+    .shot__view, .shot .fetch { min-height: calc(var(--slot) * 9 / 16); }
+    .shot--wide .shot__view, .shot--wide .fetch { min-height: calc((2 * var(--slot) + var(--gap)) * 9 / 16); }
     .shot--tall .shot__view, .shot--tall .fetch { min-height: calc(var(--slot) * 10 / 16); }
   }
-  /* one column and no room to swap — the title bar goes back to scrolling and
-     the info window back to its own height */
+  /* phones: the info window keeps the slot height and clips instead of growing */
   @media (max-width: 560px) {
-    .shot, .shot .win__bar { cursor: default; touch-action: auto; }
-    .shot .fetch, .shot--wide .fetch, .shot--tall .fetch { min-height: 0; }
+    .shot .fetch { padding: var(--space-xs) var(--space-sm); font-size: 0.6875rem; justify-content: start; overflow: hidden; }
+    .shot .fetch dl { row-gap: 1px; column-gap: 6px; }
+    .shot .fetch dd { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .shot .fetch { height: calc(var(--slot) * 9 / 16); min-height: 0; }
+    .shot--wide .fetch { height: calc((2 * var(--slot) + var(--gap)) * 9 / 16); }
+    .shot--tall .fetch { height: calc(var(--slot) * 10 / 16); }
+    /* a block, not a flex row: the ellipsis needs a single text container */
+    .shot .win__bar { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .shot .win__bar-r { display: none; }
   }
   .sec__hint { margin: var(--space-md) 0 0; font-size: var(--text-xs); color: var(--muted); }
   .sec__hint kbd + kbd { margin-left: 3px; }
-  .sec__hint--touch { display: none; }
+  .sec__hint--touch, .sec__lead--coarse { display: none; }
   @media (pointer: coarse) {
     .sec__hint { display: none; }
-    .sec__hint--touch { display: block; }
+    .sec__hint--touch, .sec__lead--coarse { display: block; }
+    .sec__lead--fine { display: none; }
   }
   .facts {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
@@ -911,14 +936,14 @@ __THEME_BOOT__
   .foot {
     display: flex; flex-direction: column; align-items: center;
     gap: var(--space-sm);
-    padding: var(--space-md) var(--gap) calc(var(--space-xl) + env(safe-area-inset-bottom));
+    padding: var(--space-md) var(--edge) calc(var(--space-xl) + env(safe-area-inset-bottom));
     font-size: var(--text-sm); color: var(--muted); text-align: center;
   }
   .foot p { margin: 0; }
   .foot a { color: var(--fg); text-decoration: none; }
   .foot a:hover { color: var(--accent-2); }
   /* only the bar gets air to the screen edge; windows stay near-borderless */
-  @media (max-width: 640px) { .bar { padding-inline: 14px; } }
+  @media (max-width: 640px) { .bar { padding-inline: var(--edge); } }
   .foot svg { height: 1.05em; width: auto; fill: currentColor; vertical-align: -0.14em; }
   @media (max-width: 640px) {
     .foot__makers { display: block; margin-top: var(--space-2xs); }
@@ -926,6 +951,15 @@ __THEME_BOOT__
   .foot .cf-mark svg { height: 1.2em; vertical-align: -0.28em; }
   .foot__legal { font-size: var(--text-xs); }
   .foot__legal a { color: var(--muted); }
+
+  /* ================= reading copy ================= */
+  .hero__sub, .hero__quip, .sec__lead, .facts p, .quote__text, .steps span, .steps__foot,
+  .newsrow__card p, .stat__sub, .stat__num span { font-family: var(--font-text); }
+  .facts p, .quote__text, .steps span, .newsrow__card p { font-size: 0.9375rem; }
+  .stat__sub, .steps__foot { font-size: 0.875rem; }
+  .quote__text { line-height: 1.5; }
+  .hero__sub { font-size: 1.0625rem; }
+  .hero__quip { font-size: 0.9375rem; }
 </style>
 
 <!-- waybar -->
@@ -1003,7 +1037,7 @@ __THEME_BOOT__
     <p class="sec__eyebrow">omarchy-install-dashboard</p>
     <h2 class="sec__title">Boot the ISO. Answer a few questions.</h2>
     <p class="sec__lead">Keyboard, account, disk, encryption — the installer takes it from there and teaches you the hotkeys while it works.</p>
-    <div class="sec__body">
+    <div class="sec__body row row--install">
       <div class="win win--app term" id="install">
         <div class="win__bar">
           <b>omarchy-iso</b>
@@ -1015,6 +1049,16 @@ __THEME_BOOT__
           <div class="term__screen" id="install-screen" aria-hidden="true"></div>
         </div>
       </div>
+      <section class="win" style="--i: 1" aria-label="Before you boot">
+        <div class="win__head"><p class="win__title">before you boot</p><a class="win__more" href="/manual/getting-started/">the chapter</a></div>
+        <ol class="steps">
+          <li><b>Get the ISO</b><span><a href="https://iso.omarchy.org/omarchy-4.0.2.iso">Download 4.0.2</a> and put it on a USB stick with balenaEtcher (Mac, Windows) or caligula (Linux).</span></li>
+          <li><b>Turn off Secure Boot and TPM</b><span>In your BIOS. The installer needs both off.</span></li>
+          <li><b>Choose where it goes</b><span>The whole drive, or the free space next to Windows for a dual boot.</span></li>
+          <li><b>Back up first</b><span>Everything is encrypted by default, and a full-disk install wipes the drive.</span></li>
+        </ol>
+        <p class="steps__foot"><a href="/manual/dual-boot-install/">Dual boot</a> and <a href="/manual/unattended-installs/">unattended installs</a> have their own chapters.</p>
+      </section>
     </div>
   </div>
 </section>
@@ -1024,7 +1068,8 @@ __THEME_BOOT__
   <div class="sec__in">
     <p class="sec__eyebrow">hyprctl clients</p>
     <h2 class="sec__title">The desktop does the tiling</h2>
-    <p class="sec__lead">Windows place themselves — on the desktop <kbd>Super</kbd> and one key splits, stacks and throws them across workspaces. Try it here: arrows move focus, <kbd>Shift</kbd> + arrows swap windows — or drag one onto another.</p>
+    <p class="sec__lead sec__lead--fine">Windows place themselves — on the desktop <kbd>Super</kbd> and one key splits, stacks and throws them across workspaces. Try it here: arrows move focus, <kbd>Shift</kbd> + arrows swap windows — or drag one onto another.</p>
+    <p class="sec__lead sec__lead--coarse">Windows place themselves — on the desktop <kbd>Super</kbd> and one key splits, stacks and throws them across workspaces. Try it here: hold a title bar and drag the window onto another.</p>
     <div class="sec__body">
       <div class="shots">
         <figure class="win win--app shot shot--wide is-active" style="--i: 0" aria-label="Hyprland four-way tiling">
@@ -1059,7 +1104,7 @@ __THEME_BOOT__
         </figure>
       </div>
       <p class="sec__hint"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> focus · <kbd>Shift</kbd> + arrows swap · drag to swap</p>
-      <p class="sec__hint sec__hint--touch">drag a window onto another</p>
+      <p class="sec__hint sec__hint--touch">hold the title bar to drag a window onto another</p>
       <div class="facts">
         <div>
           <h3>Keyboard-first</h3>
@@ -1623,8 +1668,6 @@ __THEME_BOOT__
     let active = tiles[0], drag = null;
     let visible = false, resumeAt = 0, nextBeat = 0, beat = 0;
 
-    /* a single column has nowhere to swap to — focus still walks it */
-    const canSwap = () => innerWidth >= 560;
 
     tiles.forEach(t => { t.tabIndex = 0; t.style.transformOrigin = 'top left'; });
 
@@ -1704,7 +1747,7 @@ __THEME_BOOT__
       e.preventDefault();
       const n = neighbour(active, dir);
       if (!n) return;
-      if (e.shiftKey) { if (canSwap()) userSwap(active, n); }
+      if (e.shiftKey) userSwap(active, n);
       else focusTile(n);
     });
 
@@ -1730,7 +1773,9 @@ __THEME_BOOT__
       /* a mouse grabs the whole window like super+drag; touch keeps the
          title bar so the page still scrolls */
       const handle = e.pointerType === 'touch' ? e.target.closest('.win__bar') : tile;
-      if (e.button !== 0 || !canSwap() || !handle || e.target.closest('a, button')) return;
+      if (e.button !== 0 || !handle || e.target.closest('a, button')) return;
+      /* the screenshots would start a native image drag and swallow the moves */
+      if (e.pointerType !== 'touch') e.preventDefault();
       /* the spawn keyframes fill forever and would outrank the lift's own
          transform and opacity — the window has long since spawned */
       tile.getAnimations().forEach(a => a.cancel());
@@ -1792,7 +1837,7 @@ __THEME_BOOT__
       beat = (beat + 1) % (TOUR.length * 2);
     }
     setInterval(() => {
-      if (!visible || reduced.matches || !canSwap() || drag) return;
+      if (!visible || reduced.matches || drag) return;
       const now = performance.now();
       if (now < resumeAt || now < nextBeat) return;
       nextBeat = now + BEAT_MS;

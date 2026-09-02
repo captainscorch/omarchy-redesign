@@ -23,6 +23,8 @@
     --mag: #ce5d97;
 
     --font: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    /* reading copy, everything terminal stays mono */
+    --font-text: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     --text-xs: 0.6875rem;
     --text-sm: 0.8125rem;
     --text-base: 0.9375rem;
@@ -41,6 +43,8 @@
     --space-3xl: clamp(72px, 9vw, 132px);
 
     --gap: clamp(8px, 1.2vw, 14px);
+    /* page edge: the window gap stays tight, the text never sits on the bezel */
+    --edge: max(var(--gap), 16px);
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
     /* hyprland ships decoration:rounding 0 in omarchy 4 — window chrome is

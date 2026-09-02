@@ -160,6 +160,15 @@ menu_font = (
     + base64.b64encode(open("fonts/SymbolsNerdFontMono-Menu.woff2", "rb").read()).decode()
     + ") format('woff2');}"
 )
+# IBM Plex Sans (OFL, fonts/IBMPlexSans-LICENSE.txt): the reading face, one
+# variable file for 400-700 plus the regular italic
+for file, style, weight in [("Variable", "normal", "400 700"), ("Italic", "italic", "400")]:
+    b64 = base64.b64encode(open(f"fonts/IBMPlexSans-{file}.woff2", "rb").read()).decode()
+    faces.append(
+        f"@font-face{{font-family:'IBM Plex Sans';font-style:{style};"
+        f"font-weight:{weight};font-display:swap;"
+        f"src:url(data:font/woff2;base64,{b64}) format('woff2');}}"
+    )
 src = src.replace("__FONT_FACES__", "".join(faces) + menu_font)
 
 page = src
@@ -402,4 +411,6 @@ shutil.copytree("assets/wte", "public/assets/js/wte", dirs_exist_ok=True)
 os.makedirs("public/assets/fonts", exist_ok=True)
 for name in ("Light", "Regular", "Medium", "Bold", "ExtraBold"):
     shutil.copyfile(f"fonts/JetBrainsMono-{name}.woff2", f"public/assets/fonts/JetBrainsMono-{name}.woff2")
+for file in ["Variable", "Italic"]:
+    shutil.copyfile(f"fonts/IBMPlexSans-{file}.woff2", f"public/assets/fonts/IBMPlexSans-{file}.woff2")
 EOF

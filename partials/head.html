@@ -24,6 +24,8 @@ __THEME_BOOT__
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Medium.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/JetBrainsMono-Bold.woff2) format('woff2')}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:800;font-display:swap;src:url(/assets/fonts/JetBrainsMono-ExtraBold.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:400 700;font-display:swap;src:url(/assets/fonts/IBMPlexSans-Variable.woff2) format('woff2')}
+@font-face{font-family:'IBM Plex Sans';font-style:italic;font-weight:400;font-display:swap;src:url(/assets/fonts/IBMPlexSans-Italic.woff2) format('woff2')}
 __MENU_FONT__
 </style>
 <style>
@@ -35,6 +37,7 @@ __THEME_TOKENS__
     margin: 0; min-height: 100vh;
     background: var(--desktop); color: var(--fg);
     font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --font-text: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
     font-size: 0.9375rem; line-height: 1.55;
     transition: background 0.25s ease;
   }
@@ -103,7 +106,7 @@ __THEME_TOKENS__
 
   .desktop {
     max-width: 1280px; margin: 0 auto;
-    padding: var(--space-3xl) clamp(8px, 1.2vw, 14px);
+    padding: var(--space-3xl) max(clamp(8px, 1.2vw, 14px), 16px);
     display: grid; gap: clamp(8px, 1.2vw, 14px);
   }
   /* page header — same eyebrow, title and lead as the homepage sections */
@@ -119,6 +122,7 @@ __THEME_TOKENS__
     letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance;
   }
   .lede {
+    font-family: var(--font-text);
     max-width: 58ch; margin: var(--space-lg) 0 0;
     color: var(--muted); font-size: var(--text-lg); line-height: 1.5; text-wrap: pretty;
   }
@@ -233,7 +237,8 @@ __THEME_TOKENS__
   .people--static .people__track { animation: none; flex-wrap: wrap; }
 
   /* long-form content pulled from the originals */
-  .prose { font-size: 0.875rem; }
+  .prose { font-family: var(--font-text); font-size: 1rem; line-height: 1.6; }
+  .prose h2, .prose h3, .prose code, .prose kbd, .prose pre, .prose table { font-family: var(--font); }
   .prose > *:first-child { margin-top: 0; }
   .prose h2, .prose h3 { margin: 28px 0 10px; font-weight: 700; letter-spacing: -0.01em; }
   .prose h2 { font-size: 1.0625rem; }
@@ -249,7 +254,7 @@ __THEME_TOKENS__
   .prose a { color: var(--accent); text-underline-offset: 3px; }
   .prose a:hover { color: var(--accent-2); }
   .prose code, .prose kbd {
-    font-family: inherit; font-size: 0.8125rem;
+    font-family: var(--font); font-size: 0.8125rem;
     background: var(--surface); border: 1px solid var(--border); border-radius: 3px;
     padding: 1px 5px;
   }
@@ -360,7 +365,7 @@ __THEME_TOKENS__
   .foot a { color: var(--fg); text-decoration: none; }
   .foot a:hover { color: var(--accent-2); }
   /* only the bar gets air to the screen edge; windows stay near-borderless */
-  @media (max-width: 640px) { .bar { padding-inline: 14px; } }
+  @media (max-width: 640px) { .bar { padding-inline: 16px; } }
   .foot svg { height: 1.05em; width: auto; fill: currentColor; vertical-align: -0.14em; }
   .foot .cf-mark svg { height: 1.2em; vertical-align: -0.28em; }
   .foot__legal { font-size: 0.6875rem; }
