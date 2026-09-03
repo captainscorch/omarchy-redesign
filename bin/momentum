@@ -9,7 +9,13 @@ last_page() { gh api -i "$1" | grep -i '^link:' | sed -n 's/.*page=\([0-9]*\)>; 
 stars=$(gh api "repos/$repo" --jq .stargazers_count)
 forks=$(gh api "repos/$repo" --jq .forks_count)
 contributors=$(last_page "repos/$repo/contributors?per_page=1")
-weeks=$(gh api "repos/$repo/stats/commit_activity" --jq '[.[].total] | tostring')
+# github computes the weekly stats on first request and answers empty until done
+for try in 1 2 3 4 5; do
+  weeks=$(gh api "repos/$repo/stats/commit_activity" --jq '[.[].total] | tostring')
+  [ "$weeks" != "[]" ] && [ -n "$weeks" ] && break
+  sleep 3
+done
+[ "$weeks" = "[]" ] || [ -z "$weeks" ] && { echo "no commit stats yet, kept the old data" >&2; exit 1; }
 python3 - "$stars" "$forks" "$contributors" "$weeks" <<'PY'
 import json, sys, datetime
 stars, forks, contributors, weeks = sys.argv[1:]
@@ -22,15 +28,15 @@ data = {
         "commits_52w": sum(weeks), "weeks": weeks,
     },
     "foundation": {
-        "total": 12.6,
+        "total": 13,
         "steps": [
             ["Aug 21", 8, "2026/08/omacom-foundation-launches-with-8-million"],
             ["Aug 24", 10, "2026/08/omacom-foundation-funding-hits-10m"],
-            ["Aug 31", 12, "2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai"],
             ["Aug 31", 12.6, "2026/08/1password-and-37signals-become-distinguished-corporate-patrons"],
+            ["Sep 2", 13, "2026/09/omacom-foundation-reaches-13-million"],
         ],
     },
-    "installs": {"week_one": 100000, "source": "2026/08/100000-downloads-in-a-week"},
+    "downloads": {"total": 200000, "days": 19, "source": "2026/09/quattro-crosses-200000-iso-downloads"},
 }
 json.dump(data, open("data/momentum.json", "w"), indent=2)
 open("data/momentum.json", "a").write("\n")

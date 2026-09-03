@@ -1,0 +1,40 @@
+#!/bin/sh
+# Refreshes data/plugins.json from the marketplace catalog: the total count
+# plus a hand-picked handful, so the homepage shows real names, stars and
+# install commands.
+set -e
+cd "$(dirname "$0")/.."
+curl -sfL https://plugins.omarchy.org/catalog.json -o /tmp/omarchy-catalog.json
+python3 - <<'PY'
+import json, datetime
+d = json.load(open("/tmp/omarchy-catalog.json"))
+picks = [
+    "https://github.com/jankeesvw/omarchy-tesla",
+    "https://github.com/huacnlee/omamail",
+    "https://github.com/jankeesvw/omarchy-time-machine",
+    "https://github.com/SirJul1337/omarchy-lock-explorer",
+    "https://github.com/robzolkos/omarchy-github",
+    "https://github.com/crmne/omarchy-hyprmoncfg",
+]
+by_repo = {p["repo"].rstrip("/").lower(): p for p in d["plugins"]}
+keep = ["name", "author", "description", "category", "stars", "repo", "installCommand"]
+import subprocess, os
+def card(p):
+    row = {k: p[k] for k in keep}
+    # the marketplace card image, kept locally so the page has no runtime dependency
+    if p.get("previewThumbnail"):
+        slug = p["repo"].rstrip("/").split("/")[-1].lower()
+        path = f"assets/media/plugins/{slug}.webp"
+        subprocess.run(["curl", "-sfL", "https://plugins.omarchy.org/" + p["previewThumbnail"], "-o", path], check=True)
+        row["image"] = "/" + path
+    return row
+out = {
+    "checked": datetime.date.today().isoformat(),
+    "total": len(d["plugins"]),
+    "community": sum(1 for p in d["plugins"] if p.get("sourceType") == "community"),
+    "picks": [card(by_repo[r.lower()]) for r in picks],
+}
+json.dump(out, open("data/plugins.json", "w"), indent=2, ensure_ascii=False)
+open("data/plugins.json", "a").write("\n")
+print(out["total"], out["community"], [p["name"] for p in out["picks"]])
+PY

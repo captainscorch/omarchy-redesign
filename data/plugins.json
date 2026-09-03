@@ -1,0 +1,67 @@
+{
+  "checked": "2026-09-03",
+  "total": 2186,
+  "community": 2150,
+  "picks": [
+    {
+      "name": "Tesla",
+      "author": "Jankees van Woezik",
+      "description": "Your Tesla in the bar: where it is, how full it is, and how far that gets you",
+      "category": "Widgets",
+      "stars": 72,
+      "repo": "https://github.com/jankeesvw/omarchy-tesla",
+      "installCommand": "omarchy plugin add https://github.com/jankeesvw/omarchy-tesla.git --enable",
+      "image": "/assets/media/plugins/omarchy-tesla.webp"
+    },
+    {
+      "name": "Omamail",
+      "author": "huacnlee",
+      "description": "Email client for Omarchy: read, triage, and reply to Gmail, HEY and any IMAP mailbox in a native window. Fastmail, iCloud, Outlook, Zoho, Proton Bridge, or your own server — several accounts at once, each with its own inbox and unread count. Keyboard-first, three columns when there is room and one when there is not, and it follows your theme. Meeting invitations are drawn as meetings you can answer, newsletters unsubscribe in one click, and remote images stay blocked until you ask.",
+      "category": "Productivity",
+      "stars": 135,
+      "repo": "https://github.com/huacnlee/omamail",
+      "installCommand": "omarchy plugin add https://github.com/huacnlee/omamail.git --enable",
+      "image": "/assets/media/plugins/omamail.webp"
+    },
+    {
+      "name": "Time Machine",
+      "author": "Jankees",
+      "description": "Scheduled restic backups with a destination picker and a snapshot browser",
+      "category": "System",
+      "stars": 91,
+      "repo": "https://github.com/jankeesvw/omarchy-time-machine",
+      "installCommand": "omarchy plugin add https://github.com/jankeesvw/omarchy-time-machine.git --enable",
+      "image": "/assets/media/plugins/omarchy-time-machine.webp"
+    },
+    {
+      "name": "Lock Screen Explorer",
+      "author": "SirJul1337",
+      "description": "Lock screen designs for Omarchy with a picker to preview and switch between them",
+      "category": "Appearance",
+      "stars": 104,
+      "repo": "https://github.com/SirJul1337/omarchy-lock-explorer",
+      "installCommand": "omarchy plugin add https://github.com/SirJul1337/omarchy-lock-explorer.git --enable",
+      "image": "/assets/media/plugins/omarchy-lock-explorer.webp"
+    },
+    {
+      "name": "GitHub",
+      "author": "Rob Zolkos",
+      "description": "A keyboard-friendly GitHub inbox for notifications, reviews, your own pull requests, assigned issues, Actions, and repositories.",
+      "category": "Developer Tools",
+      "stars": 46,
+      "repo": "https://github.com/robzolkos/omarchy-github",
+      "installCommand": "omarchy plugin add https://github.com/robzolkos/omarchy-github.git --enable",
+      "image": "/assets/media/plugins/omarchy-github.webp"
+    },
+    {
+      "name": "hyprmoncfg: Multi-Monitor Manager for Omarchy",
+      "author": "Carmine Paolino",
+      "description": "Plug your monitors in and the right layout comes back. Save a profile per setup and hyprmoncfg applies it automatically on hotplug, on lid open and close, and after suspend. Layout editor with per-display brightness, snapping, per-output scale and sharpness checking, HDR, wide gamut and ICC colour management, mirroring, rotation, and a workspace planner. Profiles match monitors by make, model and serial rather than the port they are plugged into, so moving a cable does not break your layout.",
+      "category": "Hardware",
+      "stars": 68,
+      "repo": "https://github.com/crmne/omarchy-hyprmoncfg",
+      "installCommand": "omarchy plugin add https://github.com/crmne/omarchy-hyprmoncfg.git --enable",
+      "image": "/assets/media/plugins/omarchy-hyprmoncfg.webp"
+    }
+  ]
+}

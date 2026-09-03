@@ -1,10 +1,10 @@
 {
-  "checked": "2026-09-02",
+  "checked": "2026-09-03",
   "github": {
-    "stars": 37036,
-    "forks": 3862,
+    "stars": 37519,
+    "forks": 3938,
     "contributors": 444,
-    "commits_52w": 3934,
+    "commits_52w": 3941,
     "weeks": [
       77,
       98,
@@ -57,11 +57,11 @@
       178,
       38,
       135,
-      30
+      37
     ]
   },
   "foundation": {
-    "total": 12.6,
+    "total": 13,
     "steps": [
       [
         "Aug 21",
@@ -75,18 +75,19 @@
       ],
       [
         "Aug 31",
-        12,
-        "2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai"
-      ],
-      [
-        "Aug 31",
         12.6,
         "2026/08/1password-and-37signals-become-distinguished-corporate-patrons"
+      ],
+      [
+        "Sep 2",
+        13,
+        "2026/09/omacom-foundation-reaches-13-million"
       ]
     ]
   },
-  "installs": {
-    "week_one": 100000,
-    "source": "2026/08/100000-downloads-in-a-week"
+  "downloads": {
+    "total": 200000,
+    "days": 19,
+    "source": "2026/09/quattro-crosses-200000-iso-downloads"
   }
 }

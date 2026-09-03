@@ -38,6 +38,16 @@ src = src.replace("__FAVICON_B64__", favicon)
 
 # --- news: one list drives the /news/ pages and the homepage ticker ---
 NEWS = [
+    ("2026/09/omacom-patronage-is-open-to-everyone", "Omarchy Patronage is now open to everyone", "September 3, 2026",
+     "Patronage of the Omacom Foundation is now open to everyone in four tiers, each with its own badge, and there's more spending on the way."),
+    ("2026/09/omacom-foundation-hires-krzysztof-wilczynski", "Omacom Foundation hires kernel developer Krzysztof Wilczyński", "September 3, 2026",
+     "The foundation's first full-time employee will lead the Omarchy Kernel work on performance, compatibility, and security."),
+    ("2026/09/omacom-foundation-accelerates-spending-goals", "Omacom Foundation accelerates spending goals", "September 3, 2026",
+     "Everything raised this year will be spent over the next three. That means yearly budgets in excess of $4 million for 2027, 2028, and 2029."),
+    ("2026/09/quattro-crosses-200000-iso-downloads", "Omarchy Quattro crosses 200,000 ISO downloads", "September 2, 2026",
+     "Two hundred thousand Quattro ISOs in under 19 days, downloads from 215 countries and territories, and a date for the first million."),
+    ("2026/09/omacom-foundation-reaches-13-million", "Omacom Foundation reaches $13M with four Distinguished Patrons", "September 2, 2026",
+     "Ryan R. Hughes, Ed Huang, Adrien Treccani, and Max Schoening each pledge $100,000, and the foundation hits $13 million."),
     ("2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai", "Omacom Foundation welcomes Brian Armstrong and Yunjie Dai", "August 31, 2026",
      "Two more Founding Patrons join the mission with $1 million each, and the foundation hits $12 million."),
     ("2026/08/1password-and-37signals-become-distinguished-corporate-patrons", "1Password and 37signals become Distinguished Corporate Patrons", "August 31, 2026",
@@ -60,7 +70,7 @@ NEWS = [
      "Drew Houston and Peter Steinberger join the Omacom Foundation as Founding Patrons, taking total funding to $10 million."),
     ("2026/08/omacom-foundation-to-be-exclusive-hyprland-sponsor", "Omacom Foundation to be exclusive Hyprland sponsor", "August 21, 2026",
      "What better way to start spending some of the treasure we just raised for the Omacom Foundation than on the most cracked Linux kid in Poland: Vaxry!"),
-    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $12.6 million", "August 21, 2026",
+    ("2026/08/omacom-foundation-launches-with-8-million", "Omacom Foundation launches with $13 million", "August 21, 2026",
      "It's time to dream big. Omarchy Quattro has given people a chance to experience what the malleable computer of the future looks like, and they like it (a lot!)."),
     ("2026/09/the-omarchy-core-team", "The Omarchy Core Team", "August 19, 2026",
      "Omarchy's explosive growth demands structured teams in response, starting with The Omarchy Core Team."),
@@ -103,6 +113,39 @@ def quote_card(i, q):
 quote_cards = "\n".join(quote_card(i, q) for i, q in enumerate(quotes))
 src = src.replace("<!--QUOTE_CARDS-->", quote_cards)
 
+# --- plugins: data/plugins.json (bin/plugins refreshes it from the marketplace) ---
+pl = json.load(open("data/plugins.json"))
+plug_cards = "\n".join(
+    f'<section class="win plug" style="--i: {i}">'
+    + (f'<img class="plug__shot" src="{p["image"]}" alt="" loading="lazy" decoding="async">' if p.get("image") else "")
+    + f'<div class="plug__head"><b><a href="{p["repo"]}" target="_blank" rel="noopener">{H.escape(p["name"])}</a></b>'
+    f'<span class="plug__stars">{p["stars"]:,}</span></div>'
+    f'<p class="plug__by">{H.escape(p["author"])} · {H.escape(p["category"])}</p>'
+    f'<p class="plug__desc">{H.escape(p["description"])}</p>'
+    f'<p class="plug__cmd"><code>{H.escape(p["installCommand"])}</code><button class="plug__copy" type="button">copy</button></p>'
+    f'</section>'
+    for i, p in enumerate(pl["picks"])
+)
+src = (src.replace("<!--PLUGIN_CARDS-->", plug_cards)
+    .replace("__PLUG_COMMUNITY__", f"{pl['community']:,}").replace("__PLUG_TOTAL__", f"{pl['total']:,}")
+    .replace("__PLUG_CHECKED__", short_date(pl["checked"])))
+
+# --- team: the faces come from pages/teams.html, each person once ---
+teams_src = open("pages/teams.html").read()
+seen, groups = set(), []
+for label, block in re.findall(r'aria-label="Omarchy (\w+)">(.*?)</section>', teams_src, re.S):
+    sub = re.search(r'<p class="muted">([^<]+)', block).group(1)
+    faces = []
+    for href, img, name, where in re.findall(r'<a class="person" href="([^"]+)"[^>]*><img src="\.\./([^"]+)"[^>]*><span class="name">([^<]+)</span><span class="sub">([^<]+)</span>', block):
+        if img in seen: continue
+        seen.add(img)
+        faces.append(f'<a class="face" href="{href}" target="_blank" rel="noopener"><img src="/{img}" width="120" height="120" alt="" loading="lazy" decoding="async"><b>{name}</b><span>{where}</span></a>')
+    groups.append(
+        f'<div class="team__group"><p class="team__label"><b>{label}</b>{sub}</p>'
+        f'<div class="faces">{"".join(faces)}</div></div>'
+    )
+src = src.replace("<!--TEAM_GROUPS-->", "\n".join(groups))
+
 # --- momentum: data/momentum.json (bin/momentum refreshes it from GitHub) ---
 m = json.load(open("data/momentum.json"))
 g = m["github"]
@@ -114,7 +157,7 @@ steps = "\n".join(
 )
 # commits per week as eight rows of eighth-blocks, oldest week left
 weeks, ROWS = g["weeks"], 8
-top = max(weeks) or 1
+top = max(weeks, default=1) or 1
 EIGHTHS = " ▁▂▃▄▅▆▇"
 def cell(v, row):
     e = round(v / top * ROWS * 8) - (ROWS - 1 - row) * 8
@@ -252,6 +295,8 @@ sindex.append({"t": "Home — the desktop", "c": "page", "p": "/"})
 sindex.append({"t": "Theme gallery", "c": "home", "p": "/#ws3"})
 sindex.append({"t": "Heard on the timeline", "c": "home", "p": "/#voices"})
 sindex.append({"t": "Real money, real commits", "c": "home", "p": "/#momentum"})
+sindex.append({"t": "Plugins on the homepage", "c": "home", "p": "/#plugins"})
+sindex.append({"t": "The people behind it", "c": "home", "p": "/#team"})
 for slug, (title, desc, bar_title, partner) in PAGES.items():
     sindex.append({"t": title.split(" — ")[0], "c": "page", "p": f"/{slug}/"})
 for slug, (title, desc, bar_title, partner) in PAGES.items():

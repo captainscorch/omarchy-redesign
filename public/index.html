@@ -382,7 +382,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .sec__body { margin-top: var(--space-2xl); }
   /* --bar-h follows the real bar height (safe-area insets make it taller on
      phones); the 1px tucks the band's top border under the bar */
-  #ws1, #ws2, #ws3, #ws4, #voices, #momentum { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
+  #ws1, #ws2, #ws3, #ws4, #plugins, #voices, #momentum, #team { scroll-margin-top: calc(var(--bar-h, 44px) - 1px); }
   .row { display: grid; gap: var(--gap); }
   .row--links { grid-template-columns: repeat(3, 1fr); }
   @media (max-width: 900px) { .row--links { grid-template-columns: 1fr; } }
@@ -678,8 +678,72 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   }
 
   /* ================= link listings ================= */
+  /* ================= plugins: real entries from the marketplace ================= */
+  .row--plugs { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 1150px) { .row--plugs { grid-template-columns: 1fr 1fr; } }
+  .plug { display: flex; flex-direction: column; gap: var(--space-sm); }
+  /* the marketplace card image, portrait ones show their top */
+  .plug__shot { display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top; margin-bottom: var(--space-xs); background: var(--surface); border: 1px solid var(--border); }
+  /* phones: one row to swipe through, like the news cards */
+  @media (max-width: 640px) {
+    .row--plugs {
+      display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: min(320px, 82vw);
+      gap: var(--space-sm); align-items: stretch; overflow-x: auto; scroll-snap-type: x proximity;
+      padding-bottom: 6px; scrollbar-width: thin;
+      -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+      mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+    }
+    .plug { scroll-snap-align: start; }
+  }
+  .plug__head { display: flex; justify-content: space-between; align-items: baseline; gap: 1ch; }
+  .plug__head b { font-size: var(--text-lg); letter-spacing: -0.01em; }
+  .plug__head a { color: var(--fg); text-decoration: none; }
+  .plug__head a:hover { color: var(--accent); }
+  .plug__stars { color: var(--muted-text); font-size: var(--text-sm); white-space: nowrap; }
+  .plug__stars::before { content: "★ "; color: var(--warn); }
+  .plug__by { margin: -4px 0 0; color: var(--muted); font-size: var(--text-sm); }
+  .plug__desc { margin: 0; font-family: var(--font-text); font-size: 0.9375rem; color: var(--muted-text); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
+  .plug__cmd {
+    display: flex; align-items: center; gap: 1ch; margin: var(--space-xs) 0 0; padding: 6px 8px 6px 10px;
+    background: var(--surface); border: 1px solid var(--border); font-size: var(--text-xs);
+  }
+  .plug__cmd code { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--fg); }
+  .plug__cmd code::before { content: "$ "; color: var(--ok); font-weight: 700; }
+  .plug__copy {
+    flex-shrink: 0; padding: 2px 8px; border: 1px solid var(--border); background: var(--win);
+    color: var(--muted); font: inherit; font-size: var(--text-xs); cursor: pointer; transition: color 0.15s, border-color 0.15s;
+  }
+  .plug__copy:hover { color: var(--fg); border-color: var(--accent); }
+  .plug__copy.is-done { color: var(--ok); border-color: var(--ok); }
+  .sec__note a { color: var(--muted); }
+  .sec__note a:hover { color: var(--fg); }
+
+  /* ================= team: faces from the teams page ================= */
+  .team { display: grid; gap: var(--space-lg); }
+  .team__group { display: grid; grid-template-columns: 15ch 1fr; gap: var(--space-md); align-items: start; }
+  .team__label { margin: 0; padding-top: 4px; color: var(--muted); font-size: var(--text-sm); }
+  .team__label b { display: block; color: var(--fg); font-weight: 700; }
+  @media (max-width: 640px) { .team__group { grid-template-columns: 1fr; gap: var(--space-sm); } }
+  .faces { display: flex; flex-wrap: wrap; gap: var(--space-md) var(--space-xl); }
+  /* portraits, not windows: these stay round like the ones on the teams page */
+  .face { --face: 120px; display: flex; flex-direction: column; gap: 8px; width: var(--face); text-decoration: none; color: var(--fg); }
+  .face img { display: block; width: var(--face); height: var(--face); border-radius: 50%; object-fit: cover; background: var(--surface); filter: saturate(0.9); transition: filter 0.15s, transform 0.2s var(--ease-out); }
+  .face:hover img { filter: none; transform: translateY(-2px); }
+  .face b { font-size: var(--text-sm); font-weight: 700; line-height: 1.3; }
+  .face span { font-size: var(--text-xs); color: var(--muted); }
+  /* phones: each team is a row to swipe, the edge fades like the other sliders */
+  @media (max-width: 640px) {
+    .face { --face: 92px; flex-shrink: 0; }
+    .faces {
+      flex-wrap: nowrap; gap: var(--space-md); overflow-x: auto; scroll-snap-type: x proximity;
+      padding-bottom: 6px; scrollbar-width: thin;
+      -webkit-mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+      mask-image: linear-gradient(90deg, #000, #000 calc(100% - var(--fade-r, 0px)), transparent);
+    }
+    .face { scroll-snap-align: start; }
+  }
+
   /* ================= voices: posts quoted as written ================= */
-  #voices { padding-top: calc(var(--space-3xl) / 2); }
   /* columns are the no-script layout; the script re-stacks the cards shortest column first */
   .quotes { --cols: 3; columns: var(--cols); column-gap: var(--gap); }
   @media (max-width: 1150px) { .quotes { --cols: 2; } }
@@ -1056,7 +1120,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
                                        ███   █▀</pre>
     </div>
     <h1>Beautiful, Fun &amp; Agentic Linux by <a href="https://dhh.dk" target="_blank" rel="noopener">DHH</a></h1>
-    <p class="hero__sub">The malleable OS for the age of agents.<br class="br-wide">Where you can vibe your way through every alteration, tweak, and desire.<br class="br-wide"><a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
+    <p class="hero__sub">The malleable OS for the age of agents. <br class="br-wide">Where you can vibe your way through every alteration, tweak, and desire. <br class="br-wide"><a href="https://omarchs.fyi" target="_blank" rel="noopener">Be the Omarch</a> and command your agent!</p>
     <div class="hero__actions">
       <a class="btn btn--primary" href="https://iso.omarchy.org/omarchy-4.0.2.iso">
         <svg viewBox="0 0 32 32" aria-hidden="true"><path d="m9.47363 4.01687c.77167.00015 1.39727.62585 1.39747 1.39747 0 .7718-.6257 1.39829-1.39747 1.39843h-4.625c-.66518.00006-1.17367.17068-1.52539.5127-.34225.34225-.51364.86071-.51367 1.55469v14.24194c0 .694.17139 1.2124.51367 1.5547.35173.3517.86001.5282 1.52539.5283h22.28807c.6561 0 1.1599-.1766 1.5117-.5283.3613-.3423.542-.8607.542-1.5547v-14.24194c0-.69398-.1807-1.21244-.542-1.55469-.3517-.34214-.8558-.5127-1.5117-.5127h-4.624c-.7719 0-1.3984-.62654-1.3984-1.39843.0002-.77171.6266-1.39747 1.3984-1.39747h4.8096c1.5402.00002 2.705.3903 3.4941 1.16993.789.77963 1.1836 1.93518 1.1836 3.46582v14.71258c0 1.5305-.3947 2.6853-1.1836 3.4649-.7891.7796-1.9539 1.1699-3.4941 1.1699h-22.64457c-1.54021 0-2.70501-.3903-3.49414-1.1699-.788897-.7796-1.18354196-1.9344-1.18359-3.4649v-14.71258c0-1.53064.394563-2.68619 1.18359-3.46582.78913-.77963 1.95393-1.16991 3.49414-1.16993z"/><path d="m16.0078 0c.3832.00005683.7111.136008.9834.408203.2825.27241.4238.590889.4238.954097v14.2481l-.1211 2.2548.8018-.9687 2.1494-2.2998c.2522-.2825.5652-.4238.9385-.4238.3429 0 .6358.1156.8779.3476.2522.2321.378.5203.378.8633-.0001.3328-.1314.6359-.3936.9082l-4.9785 4.7969c-.1816.1715-.3588.2926-.5303.3632-.1714.0706-.3478.1065-.5293.1065-.1816 0-.3587-.0358-.5303-.1065-.1714-.0706-.3533-.1918-.5449-.3632l-4.96385-4.7969c-.27233-.2723-.40812-.5754-.4082-.9082 0-.343.12114-.6312.36328-.8633.24207-.2319.53497-.3476.87797-.3476.3933 0 .711.1413.9531.4238l2.164 2.2998.8028.9687-.1211-2.2548v-14.2481c0-.363208.1358-.681687.4082-.954097.2824-.27226.6157-.408203.999-.408203z" fill="currentColor"/></svg>
@@ -1071,7 +1135,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
         <span>GitHub</span>
       </a>
     </div>
-    <p class="hero__quip">We can <s>fix some things</s> fix everything —<br class="br-wide">every missing app, every incompatibility, every paper cut.</p>
+    <p class="hero__quip">We can <s>fix some things</s> fix everything — <br class="br-wide">every missing app, every incompatibility, every paper cut.</p>
     <p class="hero__hint"><kbd>1</kbd>–<kbd>4</kbd> switch workspaces · <kbd>t</kbd> cycles the theme</p>
   </div>
 </section>
@@ -1081,7 +1145,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">omarchy-install-dashboard</p>
     <h2 class="sec__title">Boot the ISO. Answer a few questions.</h2>
-    <p class="sec__lead">Keyboard, account, disk, encryption —<br class="br-wide">the installer takes it from there and teaches you the hotkeys while it works.</p>
+    <p class="sec__lead">Keyboard, account, disk, encryption — <br class="br-wide">the installer takes it from there and teaches you the hotkeys while it works.</p>
     <div class="sec__body row row--install">
       <div class="win win--app term" id="install">
         <div class="win__bar">
@@ -1181,7 +1245,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">omarchy menu summon style.theme</p>
     <h2 class="sec__title">Light by default. Yours by choice.</h2>
-    <p class="sec__lead">One keystroke restyles terminal, editor, bar, menu, lock screen and wallpaper.<br class="br-wide">This page follows along. Every palette below ships in the repo.</p>
+    <p class="sec__lead">One keystroke restyles terminal, editor, bar, menu, lock screen and wallpaper. <br class="br-wide">This page follows along. Every palette below ships in the repo.</p>
     <div class="sec__body themebox">
       <figure class="win win--app wallpaper" id="wallpaper">
         <div class="win__bar"><b id="wall-name">flexoki-light</b><span class="win__bar-r">background</span></div>
@@ -1219,7 +1283,23 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
 </section>
 
 <!-- ws4 · what people are saying -->
-<section id="ws4" class="sec">
+<!-- plugins -->
+<section id="plugins" class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">omarchy plugin add</p>
+    <h2 class="sec__title">Two thousand plugins, one command each</h2>
+    <p class="sec__lead">2,150 community plugins for the Quattro shell, each one command away. <br class="br-wide">Six of them, install line included.</p>
+    <div class="sec__body row row--plugs"><section class="win plug" style="--i: 0"><img class="plug__shot" src="/assets/media/plugins/omarchy-tesla.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/jankeesvw/omarchy-tesla" target="_blank" rel="noopener">Tesla</a></b><span class="plug__stars">72</span></div><p class="plug__by">Jankees van Woezik · Widgets</p><p class="plug__desc">Your Tesla in the bar: where it is, how full it is, and how far that gets you</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/jankeesvw/omarchy-tesla.git --enable</code><button class="plug__copy" type="button">copy</button></p></section>
+<section class="win plug" style="--i: 1"><img class="plug__shot" src="/assets/media/plugins/omamail.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/huacnlee/omamail" target="_blank" rel="noopener">Omamail</a></b><span class="plug__stars">135</span></div><p class="plug__by">huacnlee · Productivity</p><p class="plug__desc">Email client for Omarchy: read, triage, and reply to Gmail, HEY and any IMAP mailbox in a native window. Fastmail, iCloud, Outlook, Zoho, Proton Bridge, or your own server — several accounts at once, each with its own inbox and unread count. Keyboard-first, three columns when there is room and one when there is not, and it follows your theme. Meeting invitations are drawn as meetings you can answer, newsletters unsubscribe in one click, and remote images stay blocked until you ask.</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/huacnlee/omamail.git --enable</code><button class="plug__copy" type="button">copy</button></p></section>
+<section class="win plug" style="--i: 2"><img class="plug__shot" src="/assets/media/plugins/omarchy-time-machine.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/jankeesvw/omarchy-time-machine" target="_blank" rel="noopener">Time Machine</a></b><span class="plug__stars">91</span></div><p class="plug__by">Jankees · System</p><p class="plug__desc">Scheduled restic backups with a destination picker and a snapshot browser</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/jankeesvw/omarchy-time-machine.git --enable</code><button class="plug__copy" type="button">copy</button></p></section>
+<section class="win plug" style="--i: 3"><img class="plug__shot" src="/assets/media/plugins/omarchy-lock-explorer.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/SirJul1337/omarchy-lock-explorer" target="_blank" rel="noopener">Lock Screen Explorer</a></b><span class="plug__stars">104</span></div><p class="plug__by">SirJul1337 · Appearance</p><p class="plug__desc">Lock screen designs for Omarchy with a picker to preview and switch between them</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/SirJul1337/omarchy-lock-explorer.git --enable</code><button class="plug__copy" type="button">copy</button></p></section>
+<section class="win plug" style="--i: 4"><img class="plug__shot" src="/assets/media/plugins/omarchy-github.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/robzolkos/omarchy-github" target="_blank" rel="noopener">GitHub</a></b><span class="plug__stars">46</span></div><p class="plug__by">Rob Zolkos · Developer Tools</p><p class="plug__desc">A keyboard-friendly GitHub inbox for notifications, reviews, your own pull requests, assigned issues, Actions, and repositories.</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/robzolkos/omarchy-github.git --enable</code><button class="plug__copy" type="button">copy</button></p></section>
+<section class="win plug" style="--i: 5"><img class="plug__shot" src="/assets/media/plugins/omarchy-hyprmoncfg.webp" alt="" loading="lazy" decoding="async"><div class="plug__head"><b><a href="https://github.com/crmne/omarchy-hyprmoncfg" target="_blank" rel="noopener">hyprmoncfg: Multi-Monitor Manager for Omarchy</a></b><span class="plug__stars">68</span></div><p class="plug__by">Carmine Paolino · Hardware</p><p class="plug__desc">Plug your monitors in and the right layout comes back. Save a profile per setup and hyprmoncfg applies it automatically on hotplug, on lid open and close, and after suspend. Layout editor with per-display brightness, snapping, per-output scale and sharpness checking, HDR, wide gamut and ICC colour management, mirroring, rotation, and a workspace planner. Profiles match monitors by make, model and serial rather than the port they are plugged into, so moving a cable does not break your layout.</p><p class="plug__cmd"><code>omarchy plugin add https://github.com/crmne/omarchy-hyprmoncfg.git --enable</code><button class="plug__copy" type="button">copy</button></p></section></div>
+    <p class="sec__note">catalog checked Sep 3 · <a href="https://plugins.omarchy.org/" target="_blank" rel="noopener">browse all 2,186</a></p>
+  </div>
+</section>
+
+<section id="ws4" class="sec sec--band">
   <div class="sec__in">
     <p class="sec__eyebrow">mpv playlist.m3u</p>
     <h2 class="sec__title">Watch somebody else use it</h2>
@@ -1279,7 +1359,7 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   <div class="sec__in">
     <p class="sec__eyebrow">grep -ri omarchy x.com</p>
     <h2 class="sec__title">Heard on the timeline</h2>
-    <p class="sec__lead">A hundred thousand people installed it in a week.<br class="br-wide">Eight of them, in their own words.</p>
+    <p class="sec__lead">A hundred thousand people installed it in a week. <br class="br-wide">Eight of them, in their own words.</p>
     <div class="sec__body quotes"><article class="win quote" style="--i: 0"><p class="quote__text">On Omarchy for the last few days.
 
 Wanted a dock, so I built it with an agent.
@@ -1344,29 +1424,29 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
   <div class="sec__in">
     <p class="sec__eyebrow">btop</p>
     <h2 class="sec__title">Real money, real commits</h2>
-    <p class="sec__lead">Eleven days of funding, the first week of installs and a year of commits,<br class="br-wide">pulled straight from the news and the repo.</p>
+    <p class="sec__lead">Twelve days of funding, nineteen days of downloads and a year of commits, <br class="br-wide">pulled straight from the news and the repo.</p>
     <div class="sec__body row row--stats">
       <section class="win stat" style="--i: 0" aria-label="Omacom Foundation funding">
         <div class="win__head"><p class="win__title">foundation</p><a class="win__more" href="/patrons/">the patrons</a></div>
-        <p class="stat__num"><b data-count="12.6" data-prefix="$" data-suffix="M" data-decimals="1">$12.6M</b><span>raised in eleven days</span></p>
+        <p class="stat__num"><b data-count="13" data-prefix="$" data-suffix="M">$13M</b><span>raised in twelve days</span></p>
         <pre class="stat__chart stat__chart--steps" aria-hidden="true"><i>Aug 21</i>  ██████████████  $8M
 <i>Aug 24</i>  █████████████████  $10M
-<i>Aug 31</i>  █████████████████████  $12M
-<i>Aug 31</i>  ██████████████████████  $12.6M</pre>
+<i>Aug 31</i>  █████████████████████  $12.6M
+<i>Sep 2</i>  ██████████████████████  $13M</pre>
       </section>
-      <section class="win stat" style="--i: 1" aria-label="Installs in the first week">
-        <div class="win__head"><p class="win__title">installs</p><a class="win__more" href="/news/2026/08/100000-downloads-in-a-week/">the week</a></div>
-        <p class="stat__num"><b data-count="100000">100,000</b><span>in the first week</span></p>
-        <p class="stat__sub">nearly a <b>petabyte</b> of ISO moved in seven days</p>
+      <section class="win stat" style="--i: 1" aria-label="ISO downloads">
+        <div class="win__head"><p class="win__title">downloads</p><a class="win__more" href="/news/2026/09/quattro-crosses-200000-iso-downloads/">the numbers</a></div>
+        <p class="stat__num"><b data-count="200000">200,000</b><span>ISOs in nineteen days</span></p>
+        <p class="stat__sub">from <b>215</b> countries and territories</p>
       </section>
       <section class="win stat" style="--i: 2" aria-label="GitHub stars">
         <div class="win__head"><p class="win__title">github</p><a class="win__more" href="https://github.com/omacom/omarchy" target="_blank" rel="noopener">the repo</a></div>
-        <p class="stat__num"><b data-count="37036">37,036</b><span>stars</span></p>
-        <p class="stat__sub"><b>3,862</b> forks · <b>444</b> contributors</p>
+        <p class="stat__num"><b data-count="37519">37,519</b><span>stars</span></p>
+        <p class="stat__sub"><b>3,938</b> forks · <b>444</b> contributors</p>
       </section>
       <section class="win stat" style="--i: 3" aria-label="Commits over the last year">
         <div class="win__head"><p class="win__title">commits</p><span>52 weeks</span></div>
-        <p class="stat__num"><b data-count="3934">3,934</b><span>in the last year</span></p>
+        <p class="stat__num"><b data-count="3941">3,941</b><span>in the last year</span></p>
         <pre class="stat__chart" aria-hidden="true">                                    █               
                                     █               
                                     █               
@@ -1374,10 +1454,27 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
                        ▅          ▅██        █  ▂   
      ▂                 █         ▂███▅       █▂ █ ▄ 
 ▃▆  ▂█▅   ▆      █     █▄       ▃█████      ▃██▂█ █ 
-██▃▂███▇▆▇█▅▁▃▅▃▅█▂▂▅▇▃██▄▆▄▇▃▃▆██████▆▄▂▅█▁█████▆█▄</pre>
+██▃▂███▇▆▇█▅▁▃▅▃▅█▂▂▅▇▃██▄▆▄▇▃▃▆██████▆▄▂▅█▁█████▆█▅</pre>
       </section>
     </div>
-    <p class="sec__note">figures checked Sep 2</p>
+    <p class="sec__note">figures checked Sep 3</p>
+  </div>
+</section>
+
+<!-- team -->
+<section id="team" class="sec">
+  <div class="sec__in">
+    <p class="sec__eyebrow">who</p>
+    <h2 class="sec__title">The people behind it</h2>
+    <p class="sec__lead">Core sets the direction, Security keeps your system safe, <br class="br-wide">and the Rangers help newcomers find their way.</p>
+    <div class="sec__body">
+      <section class="win" aria-label="The teams">
+        <div class="win__head"><p class="win__title">the teams</p><a class="win__more" href="/teams/">all three</a></div>
+        <div class="team"><div class="team__group"><p class="team__label"><b>Core</b>Setting the direction</p><div class="faces"><a class="face" href="https://dhh.dk" target="_blank" rel="noopener"><img src="/assets/img/team/dhh.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>DHH</b><span>USA/Denmark</span></a><a class="face" href="https://x.com/ryanrhughes" target="_blank" rel="noopener"><img src="/assets/img/team/ryan-hughes.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Ryan Hughes</b><span>USA</span></a><a class="face" href="https://x.com/tobi" target="_blank" rel="noopener"><img src="/assets/img/team/tobi-lutke.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Tobi Lütke</b><span>Canada</span></a><a class="face" href="https://x.com/iamdothash" target="_blank" rel="noopener"><img src="/assets/img/team/bjarne-overli.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Bjarne Øverli</b><span>Norway</span></a><a class="face" href="https://github.com/HANCORE-linux" target="_blank" rel="noopener"><img src="/assets/img/team/hancore.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>HANCORE</b><span>Germany</span></a><a class="face" href="https://x.com/SpencerGBull" target="_blank" rel="noopener"><img src="/assets/img/team/spencer-bull.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Spencer Bull</b><span>USA</span></a></div></div>
+<div class="team__group"><p class="team__label"><b>Security</b>Keeping your system safe</p><div class="faces"><a class="face" href="https://x.com/acrogenesis" target="_blank" rel="noopener"><img src="/assets/img/team/adrian-rangel.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Adrian Rangel</b><span>Mexico</span></a><a class="face" href="https://x.com/mdisec" target="_blank" rel="noopener"><img src="/assets/img/team/mehmet-ince.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Mehmet İnce</b><span>UK</span></a><a class="face" href="https://x.com/meltonaerik" target="_blank" rel="noopener"><img src="/assets/img/team/erik-melton.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Erik Melton</b><span>Norway</span></a><a class="face" href="https://x.com/Sayem314" target="_blank" rel="noopener"><img src="/assets/img/team/sayem-chowdhury.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Sayem Chowdhury</b><span>Bangladesh</span></a><a class="face" href="https://x.com/bastidotnet" target="_blank" rel="noopener"><img src="/assets/img/team/sebastian-stange.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Sebastian Stange</b><span>Germany</span></a></div></div>
+<div class="team__group"><p class="team__label"><b>Rangers</b>Helping others find their way</p><div class="faces"><a class="face" href="https://x.com/SandorhaziM" target="_blank" rel="noopener"><img src="/assets/img/team/mihai.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Mihai</b><span>Romania</span></a><a class="face" href="https://x.com/Mateo_VX" target="_blank" rel="noopener"><img src="/assets/img/team/mateo-vaz.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Mateo Vaz</b><span>Uruguay</span></a><a class="face" href="https://x.com/niraletter" target="_blank" rel="noopener"><img src="/assets/img/team/nira.webp" width="120" height="120" alt="" loading="lazy" decoding="async"><b>Nira</b><span>Nepal</span></a></div></div></div>
+      </section>
+    </div>
   </div>
 </section>
 
@@ -1387,34 +1484,34 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
     <p class="sec__eyebrow">tail -f news.log</p>
     <h2 class="sec__title">Something ships almost every day</h2>
     <div class="sec__body row">
-      <a class="news" href="/news/2026/08/omacom-foundation-launches-with-8-million/" aria-label="News: Omacom Foundation launches with 12.6 million dollars">
+      <a class="news" href="/news/2026/09/omacom-patronage-is-open-to-everyone/" aria-label="News: Omarchy Patronage is now open to everyone">
        <div class="news__viewport" aria-hidden="true">
         <div class="news__track">
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
         </div>
         <div class="news__track">
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
-          <span class="news__item"><b>news</b> Omacom Foundation launches with $12.6 million <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
+          <span class="news__item"><b>news</b> Omarchy Patronage is now open to everyone <i>→</i></span>
         </div>
        </div>
       </a>
       <section class="win" aria-label="Latest news">
         <div class="win__head"><p class="win__title">ls news/</p><a class="win__more" href="/news/">all news</a></div>
-        <div class="newsrow"><a class="newsrow__card" href="/news/2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai/"><time>August 31, 2026</time><span class="newsrow__title">Omacom Foundation welcomes Brian Armstrong and Yunjie Dai</span><p>Two more Founding Patrons join the mission with $1 million each, and the foundation hits $12 million.</p></a>
-<a class="newsrow__card" href="/news/2026/08/1password-and-37signals-become-distinguished-corporate-patrons/"><time>August 31, 2026</time><span class="newsrow__title">1Password and 37signals become Distinguished Corporate Patrons</span><p>The first two Distinguished Corporate Patrons each pledge $100,000 a year for three years, taking the Omacom Foundation to $12.6 million.</p></a>
-<a class="newsrow__card" href="/news/2026/08/the-first-plugin-competition-winners/"><time>August 28, 2026</time><span class="newsrow__title">The first plugin competition winners</span><p>Radio Atlas, Omagotchi, and AirPods take the podium in the first Omarchy plugin competition.</p></a>
-<a class="newsrow__card" href="/news/2026/08/introducing-omarchy-air/"><time>August 28, 2026</time><span class="newsrow__title">Introducing Omarchy AIR</span><p>A six-month, funded residency for the artists who make Omarchy beautiful. The first two are HANCORE and OldJobobo.</p></a>
-<a class="newsrow__card" href="/news/2026/08/100000-downloads-in-a-week/"><time>August 28, 2026</time><span class="newsrow__title">Omarchy tops 100,000 downloads in a week</span><p>A hundred thousand people installed Omarchy in seven days, and we moved nearly a petabyte doing it.</p></a>
-<a class="newsrow__card" href="/news/2026/08/introducing-the-omarchy-rangers/"><time>August 27, 2026</time><span class="newsrow__title">Introducing Omarchy Rangers</span><p>The first Omarchy Rangers are here to help people find their way, and applications are open.</p></a></div>
+        <div class="newsrow"><a class="newsrow__card" href="/news/2026/09/omacom-patronage-is-open-to-everyone/"><time>September 3, 2026</time><span class="newsrow__title">Omarchy Patronage is now open to everyone</span><p>Patronage of the Omacom Foundation is now open to everyone in four tiers, each with its own badge, and there's more spending on the way.</p></a>
+<a class="newsrow__card" href="/news/2026/09/omacom-foundation-hires-krzysztof-wilczynski/"><time>September 3, 2026</time><span class="newsrow__title">Omacom Foundation hires kernel developer Krzysztof Wilczyński</span><p>The foundation's first full-time employee will lead the Omarchy Kernel work on performance, compatibility, and security.</p></a>
+<a class="newsrow__card" href="/news/2026/09/omacom-foundation-accelerates-spending-goals/"><time>September 3, 2026</time><span class="newsrow__title">Omacom Foundation accelerates spending goals</span><p>Everything raised this year will be spent over the next three. That means yearly budgets in excess of $4 million for 2027, 2028, and 2029.</p></a>
+<a class="newsrow__card" href="/news/2026/09/quattro-crosses-200000-iso-downloads/"><time>September 2, 2026</time><span class="newsrow__title">Omarchy Quattro crosses 200,000 ISO downloads</span><p>Two hundred thousand Quattro ISOs in under 19 days, downloads from 215 countries and territories, and a date for the first million.</p></a>
+<a class="newsrow__card" href="/news/2026/09/omacom-foundation-reaches-13-million/"><time>September 2, 2026</time><span class="newsrow__title">Omacom Foundation reaches $13M with four Distinguished Patrons</span><p>Ryan R. Hughes, Ed Huang, Adrien Treccani, and Max Schoening each pledge $100,000, and the foundation hits $13 million.</p></a>
+<a class="newsrow__card" href="/news/2026/08/omacom-foundation-welcomes-brian-armstrong-and-yunjie-dai/"><time>August 31, 2026</time><span class="newsrow__title">Omacom Foundation welcomes Brian Armstrong and Yunjie Dai</span><p>Two more Founding Patrons join the mission with $1 million each, and the foundation hits $12 million.</p></a></div>
       </section>
     </div>
   </div>
@@ -1424,8 +1521,8 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
 <section class="sec">
   <div class="sec__in">
     <p class="sec__eyebrow">wecanfixeverything.com</p>
-    <h2 class="sec__title">We can <s>fix some things</s><br class="br-wide">fix everything</h2>
-    <p class="sec__lead">Every missing app, every incompatibility, every paper cut.<br class="br-wide">Here is where it happens — <a href="https://wecanfixeverything.com" target="_blank" rel="noopener">we mean it</a>.</p>
+    <h2 class="sec__title">We can <s>fix some things</s> <br class="br-wide">fix everything</h2>
+    <p class="sec__lead">Every missing app, every incompatibility, every paper cut. <br class="br-wide">Here is where it happens — <a href="https://wecanfixeverything.com" target="_blank" rel="noopener">we mean it</a>.</p>
     <div class="sec__body row row--links">
       <section class="win" style="--i: 0" aria-label="Project">
         <p class="win__title">Project</p>
@@ -1562,7 +1659,7 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
   tick(); setInterval(tick, 15000);
 
   /* horizontal scrollers fade the edge that still hides content */
-  for (const el of document.querySelectorAll('.newsrow, .quotes')) {
+  for (const el of document.querySelectorAll('.newsrow, .quotes, .faces, .row--plugs')) {
     const fade = () => {
       el.style.setProperty('--fade-r', el.scrollWidth - el.scrollLeft - el.clientWidth > 4 ? '28px' : '0px');
     };
@@ -2237,6 +2334,16 @@ This definitely has that &quot;Where Do You Want To Go, Today?&quot; feel to it.
     else if (saved && THEMES.includes(saved)) applyTheme(saved);
     else applyTheme(matchMedia('(prefers-color-scheme: dark)').matches ? ALIAS.dark : DEFAULT_THEME);
   } catch (e) { applyTheme(DEFAULT_THEME); }
+  /* plugins: the install line copies itself */
+  document.querySelectorAll('.plug__copy').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const cmd = btn.parentElement.querySelector('code').textContent;
+      try { await navigator.clipboard.writeText(cmd); } catch (err) { return; }
+      btn.textContent = 'copied'; btn.classList.add('is-done');
+      setTimeout(() => { btn.textContent = 'copy'; btn.classList.remove('is-done'); }, 1400);
+    });
+  });
+
   /* voices: each card goes into the shortest column, so the last one fills the gap */
   (() => {
     const wall = document.querySelector('.quotes');
