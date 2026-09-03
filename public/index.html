@@ -731,6 +731,8 @@ Designed & developed by Daniel Schmier (https://captainscor.ch)
   .face:hover img { filter: none; transform: translateY(-2px); }
   .face b { font-size: var(--text-sm); font-weight: 700; line-height: 1.3; }
   .face span { font-size: var(--text-xs); color: var(--muted); }
+  /* tablets: label above the row, smaller portraits so a team stays on one line */
+  @media (max-width: 1150px) { .team__group { grid-template-columns: 1fr; gap: var(--space-sm); } .face { --face: 100px; } .faces { gap: var(--space-md); } }
   /* phones: each team is a row to swipe, the edge fades like the other sliders */
   @media (max-width: 640px) {
     .face { --face: 92px; flex-shrink: 0; }
