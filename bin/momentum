@@ -36,7 +36,7 @@ data = {
             ["Sep 2", 13, "2026/09/omacom-foundation-reaches-13-million"],
         ],
     },
-    "downloads": {"total": 200000, "days": 19, "source": "2026/09/quattro-crosses-200000-iso-downloads"},
+    "downloads": {"total": 200000, "days": 18, "source": "2026/09/quattro-crosses-200000-iso-downloads"},
 }
 json.dump(data, open("data/momentum.json", "w"), indent=2)
 open("data/momentum.json", "a").write("\n")
